@@ -31,16 +31,6 @@ export default async function ProductRail({
 
   return (
     <>
-    <div>
-      <h1 className="text-center font-bold text-2xl">All Time Bestseller</h1>
-
-      <div className="flex justify-center item-center gap-3">
-      <Button variant="">Classic   </Button>
-       <Button className="bg-[#008EBB]  hover:bg-blue-500">Novels  </Button>
-       <Button className="bg-[#008EBB]  hover:bg-blue-500">Biography </Button>
-      </div>
-
-    </div>
     <div className="content-container py-12 small:py-24">
       <div className="flex justify-between ">
         <Heading level={"h2"} className="font-bold text-[#008EBB]  text-2xl ">{collection.title}</Heading>
