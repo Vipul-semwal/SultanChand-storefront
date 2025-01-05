@@ -8,7 +8,7 @@ interface Props {
 const NewsAnnouncements : React.FC<Props> = ({ title }) => {
   return (
     <div className='mt-5 flex justify-center'>
-      <Heading level='h2' >News & Announcement</Heading>
+      <Heading level='h2'>News & Announcement</Heading>
     </div>
   );
 };

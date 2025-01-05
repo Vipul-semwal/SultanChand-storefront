@@ -4,7 +4,7 @@ import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
 import { listCollections } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
-import NewsAnnouncements from "@modules/home/components/News&Announcements "
+import NewsAnnouncements from "@modules/home/components/NewsAndAnnouncement/index"
 import InfoBanner from "@modules/home/components/infoBanner"
 import Author from "@modules/home/components/Authors"
 
