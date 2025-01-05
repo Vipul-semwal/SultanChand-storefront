@@ -1,6 +1,6 @@
 import { listProducts } from "@lib/data/products"
 import { HttpTypes } from "@medusajs/types"
-import { Text,Heading,Button } from "@medusajs/ui"
+import { Text, Heading, Button } from "@medusajs/ui"
 import Divider from "@modules/common/components/divider"
 import { ArrowUpRightMini } from "@medusajs/icons"
 // fonts
@@ -31,28 +31,34 @@ export default async function ProductRail({
 
   return (
     <>
-    <div className="content-container py-12 small:py-24">
-      <div className="flex justify-between ">
-        <Heading level={"h2"} className="font-bold text-[#008EBB]  text-2xl ">{collection.title}</Heading>
+      <div className="content-container py-9 small:py-20">
+        <div className="flex justify-between mb-4 ">
+          <Heading level={"h2"} className="font-bold text-[#3e81fe]  text-2xl ">{collection.title}</Heading>
+
+          <InteractiveLink href={`/collections/${collection.handle}`}>
+            <button className="bg-[#3e81fe] text-white px-3 py-2 rounded-lg flex items-center text-[15px] justify-center gap-2 hover:bg-blue-400 transition-all duration-300 border-none outline-none">
+              View More
+              <ArrowUpRightMini
+                className="group-hover:rotate-45 ease-in-out duration-150"
+                color="white"
+              />
+            </button>
+
+
+          </InteractiveLink>
+        </div>
         
-        <InteractiveLink href={`/collections/${collection.handle}`}>
-        <Button className="bg-[#008EBB]  hover:bg-blue-500">View More   <ArrowUpRightMini
-        className="group-hover:rotate-45 ease-in-out duration-150"
-        color="white"
-      /></Button>
-        </InteractiveLink>
+        <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-20 md:gap-y-27">
+  {pricedProducts &&
+    pricedProducts.map((product) => (
+      <li key={product.id}>
+        <ProductPreview product={product} region={region} isFeatured />
+      </li>
+    ))}
+</ul>
+
       </div>
-        <Divider className="mb-5 border-2 border-[#008EBB] "/>
-      <ul className="grid grid-cols-2  small:grid-cols-6 gap-x-6 gap-y-24 small:gap-y-36">
-        {pricedProducts &&
-          pricedProducts.map((product) => (
-            <li key={product.id}>
-              <ProductPreview product={product} region={region} isFeatured />
-            </li>
-          ))}
-      </ul>
-    </div>
     </>
-    
+
   )
 }
