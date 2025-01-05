@@ -6,9 +6,9 @@ import { listCollections } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
 
 export const metadata: Metadata = {
-  title: "Medusa Next.js Starter Template",
+  title: "SultanChand storeFront",
   description:
-    "A performant frontend ecommerce starter template with Next.js 14 and Medusa.",
+    "A performant frontend ecommerce ",
 }
 
 export default async function Home(props: {
@@ -22,7 +22,8 @@ export default async function Home(props: {
 
   const { collections } = await listCollections({
     fields: "id, handle, title",
-  })
+  });
+
 
   if (!collections || !region) {
     return null

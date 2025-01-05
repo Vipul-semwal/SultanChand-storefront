@@ -1,36 +1,54 @@
-import { Github } from "@medusajs/icons"
-import { Button, Heading } from "@medusajs/ui"
+"use client"
+
+import { Swiper, SwiperSlide  } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Navigation, Pagination,Autoplay,Parallax } from 'swiper/modules';
+import Image from 'next/image';
+import { Heading, Button } from '@medusajs/ui';
+
 
 const Hero = () => {
+  
+  const data = [{url:"/Aap-Safal-Ho-Sakte-Hai.jpg"},{url:"/The-Bachchans-Banner.jpg"},{url:"/Krishna-Circus-Banner.jpg"}]
   return (
-    <div className="h-[75vh] w-full border-b border-ui-border-base relative bg-ui-bg-subtle">
-      <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center small:p-32 gap-6">
-        <span>
-          <Heading
-            level="h1"
-            className="text-3xl leading-10 text-ui-fg-base font-normal"
-          >
-            Ecommerce Starter Template
-          </Heading>
-          <Heading
-            level="h2"
-            className="text-3xl leading-10 text-ui-fg-subtle font-normal"
-          >
-            Powered by Medusa and Next.js
-          </Heading>
-        </span>
-        <a
-          href="https://github.com/medusajs/nextjs-starter-medusa"
-          target="_blank"
-        >
-          <Button variant="secondary">
-            View on GitHub
-            <Github />
-          </Button>
-        </a>
-      </div>
-    </div>
-  )
+   
+   
+   <div>
+    <Swiper 
+  modules={[Navigation, Pagination, Autoplay, Parallax]}
+  spaceBetween={20}
+  slidesPerView={1}
+  loop={true}
+  pagination={{ clickable: true }}
+  scrollbar={{ draggable: true }}
+  autoplay={{
+    delay: 2000, // Delay between slides
+    disableOnInteraction: false, // Keep autoplay running after interaction
+  }}
+  speed={2000} 
+  className="max-w-10xl mx-auto"
+>
+      {data.map((i,key) => (
+          <SwiperSlide key={key} className="flex items-center justify-center">
+            <div className="w-full flex flex-col items-center text-center space-y-4">
+              <Image
+                src={i.url}
+                alt={`Slide ${key+1}`}  
+                width={1200}
+                height={600}
+                className="w-full rounded-lg object-cover "
+              />
+             
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+   </div>
+     
+    
+  );
 }
 
 export default Hero

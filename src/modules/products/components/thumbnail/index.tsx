@@ -1,6 +1,7 @@
-import { Container, clx } from "@medusajs/ui"
+import { Container, clx,Text } from "@medusajs/ui"
 import Image from "next/image"
 import React from "react"
+import { EyeIcon } from 'lucide-react';
 
 import PlaceholderImage from "@modules/common/icons/placeholder-image"
 
@@ -26,23 +27,37 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
 
   return (
     <Container
+    className={clx(
+      "relative w-full overflow-hidden p-4 bg-ui-bg-subtle shadow-elevation-card-rest rounded-large group-hover:shadow-elevation-card-hover transition-shadow ease-in-out duration-150",
+      className,
+      {
+        "aspect-[11/14]": isFeatured,
+        "aspect-[9/16]": !isFeatured && size !== "square",
+        "aspect-[1/1]": size === "square",
+        "w-[180px]": size === "small",
+        "w-[290px]": size === "medium",
+        "w-[440px]": size === "large",
+        "w-full": size === "full",
+      }
+    )}
+    data-testid={dataTestid}
+  >
+    <ImageOrPlaceholder image={initialImage} size={size} />
+    <div
       className={clx(
-        "relative w-full overflow-hidden p-4 bg-ui-bg-subtle shadow-elevation-card-rest rounded-large group-hover:shadow-elevation-card-hover transition-shadow ease-in-out duration-150",
-        className,
-        {
-          "aspect-[11/14]": isFeatured,
-          "aspect-[9/16]": !isFeatured && size !== "square",
-          "aspect-[1/1]": size === "square",
-          "w-[180px]": size === "small",
-          "w-[290px]": size === "medium",
-          "w-[440px]": size === "large",
-          "w-full": size === "full",
-        }
+        "eye absolute bg-cover h-full w-full bg-blue-400 opacity-0 flex items-center justify-center flex-col translate-y-full group-hover:translate-y-0 group-hover:opacity-80 transition-all duration-500 ease-in-out right-0 top-0"
       )}
-      data-testid={dataTestid}
     >
-      <ImageOrPlaceholder image={initialImage} size={size} />
-    </Container>
+      <EyeIcon size={50} color="white" className="center" />
+      <Text className="text-white font-semibold text-center text-lg">
+        Quick View
+      </Text>
+    </div>
+  </Container>
+  
+  
+  
+  
   )
 }
 
