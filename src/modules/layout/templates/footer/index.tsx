@@ -1,156 +1,176 @@
-import { listCategories } from "@lib/data/categories"
-import { listCollections } from "@lib/data/collections"
-import { Text, clx } from "@medusajs/ui"
-
-import LocalizedClientLink from "@modules/common/components/localized-client-link"
-import MedusaCTA from "@modules/layout/components/medusa-cta"
+import { listCategories } from "@lib/data/categories";
+import { listCollections } from "@lib/data/collections";
+import { Text, clx } from "@medusajs/ui";
+import LocalizedClientLink from "@modules/common/components/localized-client-link";
 
 export default async function Footer() {
   const { collections } = await listCollections({
     fields: "*products",
-  })
-  const productCategories = await listCategories()
+  });
+  const productCategories = await listCategories();
 
   return (
-    <footer className="border-t border-ui-border-base w-full">
-      <div className="content-container flex flex-col w-full">
-        <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between py-40">
+    <>
+    
+     <section className="py-10 bg-gray-50 sm:pt-16 lg:pt-24 border-t-4 border-red-600">
+      <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
+        <div className="grid grid-cols-2 md:col-span-3 lg:grid-cols-6 gap-y-16 gap-x-12">
+          <div className="col-span-2 md:col-span-3 lg:col-span-2 lg:pr-8">
+            <img
+              className="w-auto h-12"
+              src="/logo.png"
+              alt="Sultan Chand Logo"
+            />
+            <p className="text-base leading-relaxed text-gray-600 mt-7">
+              Amet minim mollit non deserunt ullamco est sit aliqua dolor do
+              amet sint. Velit officia consequat duis enim velit mollit.
+            </p>
+            <ul className="flex items-center space-x-3 mt-9">
+              {/* Add social media icons */}
+              <li>
+                <a
+                  href="#"
+                  title="Twitter"
+                  className="flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-red-600 focus:bg-red-600"
+                >
+                  <svg
+                    className="w-4 h-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    {/* Twitter Icon Path */}
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  title="Facebook"
+                  className="flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-red-600 focus:bg-red-600"
+                >
+                  <svg
+                    className="w-4 h-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    {/* Facebook Icon Path */}
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  title="Instagram"
+                  className="flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-red-600 focus:bg-red-600"
+                >
+                  <svg
+                    className="w-4 h-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    {/* Instagram Icon Path */}
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+
           <div>
-            <LocalizedClientLink
-              href="/"
-              className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
-            >
-              Sultan Chand
-            </LocalizedClientLink>
-          </div>
-          <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-3">
-            {productCategories && productCategories?.length > 0 && (
-              <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
-                  Categories
-                </span>
-                <ul
-                  className="grid grid-cols-1 gap-2"
-                  data-testid="footer-categories"
-                >
-                  {productCategories?.slice(0, 6).map((c) => {
-                    if (c.parent_category) {
-                      return
-                    }
+            <p className="text-sm font-semibold tracking-widest text-gray-400 uppercase">Categories</p>
+            <ul className="mt-6 space-y-4">
+              {productCategories && productCategories.length > 0 && (
+                productCategories?.slice(0, 6).map((category) => {
+                  if (category.parent_category) return null;
 
-                    const children =
-                      c.category_children?.map((child) => ({
-                        name: child.name,
-                        handle: child.handle,
-                        id: child.id,
-                      })) || null
+                  const children = category.category_children?.map((child) => ({
+                    name: child.name,
+                    handle: child.handle,
+                    id: child.id,
+                  })) || null;
 
-                    return (
-                      <li
-                        className="flex flex-col gap-2 text-ui-fg-subtle txt-small"
-                        key={c.id}
-                      >
-                        <LocalizedClientLink
-                          className={clx(
-                            "hover:text-ui-fg-base",
-                            children && "txt-small-plus"
-                          )}
-                          href={`/categories/${c.handle}`}
-                          data-testid="category-link"
-                        >
-                          {c.name}
-                        </LocalizedClientLink>
-                        {children && (
-                          <ul className="grid grid-cols-1 ml-3 gap-2">
-                            {children &&
-                              children.map((child) => (
-                                <li key={child.id}>
-                                  <LocalizedClientLink
-                                    className="hover:text-ui-fg-base"
-                                    href={`/categories/${child.handle}`}
-                                    data-testid="category-link"
-                                  >
-                                    {child.name}
-                                  </LocalizedClientLink>
-                                </li>
-                              ))}
-                          </ul>
-                        )}
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
-            )}
-            {collections && collections.length > 0 && (
-              <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
-                  Collections
-                </span>
-                <ul
-                  className={clx(
-                    "grid grid-cols-1 gap-2 text-ui-fg-subtle txt-small",
-                    {
-                      "grid-cols-2": (collections?.length || 0) > 3,
-                    }
-                  )}
-                >
-                  {collections?.slice(0, 6).map((c) => (
-                    <li key={c.id}>
+                  return (
+                    <li key={category.id}>
                       <LocalizedClientLink
-                        className="hover:text-ui-fg-base"
-                        href={`/collections/${c.handle}`}
+                        className="flex text-base text-black transition-all duration-200 hover:text-red-600 focus:text-red-600"
+                        href={`/categories/${category.handle}`}
                       >
-                        {c.title}
+                        {category.name}
                       </LocalizedClientLink>
+                      {children && (
+                        <ul className="ml-3 mt-2 space-y-2">
+                          {children.map((child) => (
+                            <li key={child.id}>
+                              <LocalizedClientLink
+                                className="flex text-base text-black transition-all duration-200 hover:text-red-600 focus:text-red-600"
+                                href={`/categories/${child.handle}`}
+                              >
+                                {child.name}
+                              </LocalizedClientLink>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                     </li>
-                  ))}
-                </ul>
+                  );
+                })
+              )}
+            </ul>
+          </div>
+
+          <div>
+            <p className="text-sm font-semibold tracking-widest text-gray-400 uppercase">Collections</p>
+            <ul className="mt-6 space-y-4">
+              {collections && collections.length > 0 && (
+                collections?.slice(0, 6).map((collection) => (
+                  <li key={collection.id}>
+                    <LocalizedClientLink
+                      className="flex text-base text-black transition-all duration-200 hover:text-red-600 focus:text-red-600"
+                      href={`/collections/${collection.handle}`}
+                    >
+                      {collection.title}
+                    </LocalizedClientLink>
+                  </li>
+                ))
+              )}
+            </ul>
+          </div>
+
+          <div className="col-span-2 md:col-span-1 lg:col-span-2 lg:pl-8">
+            <p className="text-sm font-semibold tracking-widest text-gray-400 uppercase">Subscribe to newsletter</p>
+            <form action="#" method="POST" className="mt-6">
+              <div>
+                <label htmlFor="email" className="sr-only">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Enter your email"
+                  className="block w-full p-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-red-600 caret-red-600"
+                />
               </div>
-            )}
-            <div className="flex flex-col gap-y-2">
-              <span className="txt-small-plus txt-ui-fg-base">Sultan Chand</span>
-              <ul className="grid grid-cols-1 gap-y-2 text-ui-fg-subtle txt-small">
-                <li>
-                  <a
-                    href=""
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-ui-fg-base"
-                  >
-                    GitHub
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href=""
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-ui-fg-base"
-                  >
-                    Documentation
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href=""
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-ui-fg-base"
-                  >
-                    youtube
-                  </a>
-                </li>
-              </ul>
-            </div>
+              <button
+                type="submit"
+                className="inline-flex items-center justify-center px-6 py-4 mt-3 font-semibold text-white transition-all duration-200 bg-red-600 rounded-md hover:bg-red-700 focus:bg-red-700"
+              >
+                Subscribe
+              </button>
+            </form>
           </div>
         </div>
-        <div className="flex w-full mb-16 justify-between text-ui-fg-muted">
-          <Text className="txt-compact-small">
-            © {new Date().getFullYear()} SultanChand Store. All rights reserved.
-          </Text>
-        </div>
+
+        <hr className="mt-16 mb-10 border-gray-200" />
+
+        <p className="text-sm text-center text-gray-600">
+          © {new Date().getFullYear()}, All Rights Reserved by Sultan Chand
+        </p>
       </div>
-    </footer>
-  )
+    </section>
+    </>
+   
+  );
 }

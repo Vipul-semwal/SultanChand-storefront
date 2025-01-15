@@ -42,7 +42,7 @@ export const getCacheOptions = async (
     return {}
   }
 
-  return { tags: [`${cacheTag}`] }
+  return { tags: [`${cacheTag}`], revalidate: 86400, }
 }
 
 export const setAuthToken = async (token: string) => {

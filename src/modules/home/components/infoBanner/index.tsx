@@ -5,8 +5,8 @@ interface Props {}
 
 const InfoBanner: React.FC<Props> = () => {
   return (
-    <div className="mt-5 flex justify-center bg-blue-400 bg-[url('/Banner-patti-obi-scaled.jpg')] bg-cover bg-center relative">
-      <div className="absolute top-0 left-0 w-full h-full bg-[#3e81fe] opacity-75 z-10"></div>
+    <div className="my-5 flex justify-center bg-[#EC0000] bg-[url('/Banner-patti-obi-scaled.jpg')] bg-cover bg-center relative">
+      <div className="absolute top-0 left-0 w-full h-full bg-[#D14B48] opacity-75 z-10"></div>
 
       <div className="container py-8 flex justify-center flex-col items-center relative z-20">
         <div className="center">
@@ -22,7 +22,7 @@ const InfoBanner: React.FC<Props> = () => {
         </div>
 
         <div className="published-link">
-          <button className="get-published p-[10px] px-[25px] bg-white text-[#3e81fe] mt-2 font-bold text-[16px] rounded-[20px] hover:bg-gray-200 transition-all duration-500 ease-in-out">
+          <button className="get-published p-[10px] px-[25px] bg-white text-[#EC0000] mt-2 font-bold text-[16px] rounded-[20px] hover:bg-gray-200 transition-all duration-500 ease-in-out">
             Get Published
           </button>
         </div>

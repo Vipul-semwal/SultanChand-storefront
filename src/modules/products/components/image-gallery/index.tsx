@@ -1,41 +1,46 @@
+"use client"
 import { HttpTypes } from "@medusajs/types"
 import { Container } from "@medusajs/ui"
 import Image from "next/image"
+import { useState } from "react"
 
 type ImageGalleryProps = {
   images: HttpTypes.StoreProductImage[]
 }
 
 const ImageGallery = ({ images }: ImageGalleryProps) => {
+  // State to manage the current main image
+  const [mainImage, setMainImage] = useState(images[0]?.url);
+
   return (
-    <div className="flex items-start relative">
-      <div className="flex flex-col flex-1 small:mx-16 gap-y-4">
-        {images.map((image, index) => {
-          return (
-            <Container
-              key={image.id}
-              className="relative aspect-[29/34] w-full overflow-hidden bg-ui-bg-subtle"
-              id={image.id}
-            >
-              {!!image.url && (
-                <Image
-                  src={image.url}
-                  priority={index <= 2 ? true : false}
-                  className="absolute inset-0 rounded-rounded"
-                  alt={`Product image ${index + 1}`}
-                  fill
-                  sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
-                  style={{
-                    objectFit: "cover",
-                  }}
-                />
-              )}
-            </Container>
-          )
-        })}
-      </div>
+    <div className="flex flex-col items-center w-full">
+    {/* Main Image */}
+    <div className="relative w-full max-w-[600px] h-[500px] mb-4 bg-ui-bg-subtle p-4 rounded-lg shadow-lg">
+      <img
+        src={mainImage}
+        alt="Main product image"
+        className="w-full h-full object-contain rounded-lg transition-all duration-300 ease-in-out"
+      />
     </div>
-  )
-}
+
+    {/* Thumbnail Images */}
+    <div className="flex gap-x-4 overflow-x-hidden py-2">
+      {images.map((image, index) => (
+        <div
+          key={image.id}
+          className="relative w-[80px] h-[80px] cursor-pointer transition-all duration-300 ease-in-out hover:scale-110"
+          onMouseEnter={() => setMainImage(image.url)}
+        >
+          <img
+            src={image.url}
+            alt={`Product thumbnail ${index + 1}`}
+            className="w-full h-full object-contain rounded-lg shadow-lg transition-all duration-300 ease-in-out"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+  );
+};
 
 export default ImageGallery

@@ -7,6 +7,7 @@ import { getRegion } from "@lib/data/regions"
 import NewsAnnouncements from "@modules/home/components/NewsAndAnnouncement/index"
 import InfoBanner from "@modules/home/components/infoBanner"
 import Author from "@modules/home/components/Authors"
+import Blog from "@modules/home/components/Blog"
 
 export const metadata: Metadata = {
   title: "SultanChand storeFront",
@@ -43,6 +44,7 @@ export default async function Home(props: {
       </div>
       <InfoBanner/>
       <Author/>
+      <Blog/>
     </>
   )
 }

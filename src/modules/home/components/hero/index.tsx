@@ -11,7 +11,7 @@ import { Heading, Button } from '@medusajs/ui';
 
 const Hero = () => {
   
-  const data = [{url:"/Aap-Safal-Ho-Sakte-Hai.jpg"},{url:"/bachan.jpg"},{url:"/krishna.jpg"}]
+  const data = [{url:"/krishna.jpg"},{url:"/bachan.jpg"},{url:"/krishna.jpg"}]
   return (
    
    

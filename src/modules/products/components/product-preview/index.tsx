@@ -28,24 +28,35 @@ export default async function ProductPreview({
     product,
   })
 
+  const handleChildClick = (event:React.MouseEvent<HTMLDivElement>) => {  
+    event.stopPropagation(); // Stop the event from bubbling up to the parent
+    console.log("Child clicked!");
+  };
+
   return (
-    <LocalizedClientLink href={`/products/${product.handle}`} className="group">
-      <div data-testid="product-wrapper">
+    <LocalizedClientLink href={`/products/${product.handle}`} className="group outline-none">
+      <div data-testid="product-wrapper " className="outline-none text-center flex flex-col items-center">
         <Thumbnail
           thumbnail={product.thumbnail}
           images={product.images}
           size="full"
           isFeatured={isFeatured}
         />
-        <div className="flex txt-compact-medium mt-4 justify-between">
-          <Text className="text-ui-fg-subtle font-bold" data-testid="product-title">
+        <div className="flex txt-compact-medium mt-4 justify-between items-center text-center">
+          <Text className="text-ui-fg-subtle font-bold text-center" data-testid="product-title">
             {product.title}
           </Text>
-          <div className="flex items-center gap-x-2">
-            {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
-          </div>
+
         </div>
+        <div className="flex items-center gap-x-2">
+          {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
+        </div>
+        <button  className="text-[#CF4747] mt-2 border border-[#CF4747] py-1.5 px-4 text-[12px] sm:text-base leading-5 font-semibold tracking-wider rounded-full bg-transparent transition-all duration-400 hover:bg-[#CF4747] hover:text-white">
+  Add To Cart
+</button>
+
       </div>
+
     </LocalizedClientLink>
   )
 }

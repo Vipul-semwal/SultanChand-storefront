@@ -32,33 +32,33 @@ export default async function ProductRail({
   return (
     <>
       <div className="content-container py-9 small:py-20">
-        <div className="flex justify-between mb-4 ">
-          <Heading level={"h2"} className="font-bold text-[#3e81fe]  text-2xl ">{collection.title}</Heading>
+        <div className="flex justify-between mb-4">
+          {/* Responsive Heading */}
+          <Heading
+            level={"h2"}
+            className="font-bold text-[#EC0000] border-b-2 border-red-500 text-lg sm:text-xl md:text-2xl lg:text-3xl"
+          >
+            {collection.title}
+          </Heading>
 
+          {/* Responsive Button */}
           <InteractiveLink href={`/collections/${collection.handle}`}>
-            <button className="bg-[#3e81fe] text-white px-3 py-2 rounded-lg flex items-center text-[15px] justify-center gap-2 hover:bg-blue-400 transition-all duration-300 border-none outline-none">
+            <button className="bg-[#EC0000] text-white px-2 py-2 rounded-md flex items-center text-sm sm:text-base md:text-lg lg:text-lg justify-center gap-1 hover:bg-[#EC0000] transition-all duration-300 border-none outline-none">
               View More
-              <ArrowUpRightMini
-                className="group-hover:rotate-45 ease-in-out duration-150"
-                color="white"
-              />
+              <ArrowUpRightMini className="group-hover:rotate-45 ease-in-out duration-150" color="white" />
             </button>
-
-
           </InteractiveLink>
         </div>
-        
-        <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-20 md:gap-y-27">
-  {pricedProducts &&
-    pricedProducts.map((product) => (
-      <li key={product.id}>
-        <ProductPreview product={product} region={region} isFeatured />
-      </li>
-    ))}
-</ul>
 
+        <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-20 md:gap-y-27">
+          {pricedProducts &&
+            pricedProducts.map((product) => (
+              <li key={product.id}>
+                <ProductPreview product={product} region={region} isFeatured />
+              </li>
+            ))}
+        </ul>
       </div>
     </>
-
   )
 }

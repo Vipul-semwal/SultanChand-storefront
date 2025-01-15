@@ -28,7 +28,7 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
   return (
     <Container
     className={clx(
-      "relative w-full overflow-hidden  p-4 bg-ui-bg-subtle shadow-elevation-card-rest rounded-large group-hover:shadow-elevation-card-hover transition-shadow ease-in-out duration-150",
+      "relative w-full overflow-hidden   p-2 bg-ui-bg-subtle shadow-elevation-card-rest outline-none  group-hover:shadow-elevation-card-hover transition-shadow ease-in-out duration-150",
       className,
       {
         "aspect-[11/14]": isFeatured,
@@ -45,11 +45,11 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
     <ImageOrPlaceholder image={initialImage} size={size} />
     <div
       className={clx(
-        "eye absolute bg-cover h-full w-full bg-blue-400 opacity-0 flex items-center justify-center flex-col translate-y-full group-hover:translate-y-0 group-hover:opacity-80 transition-all duration-500 ease-in-out right-0 top-0"
+        "eye absolute bg-cover h-full w-full bg-[#EC0000] opacity-0 flex items-center justify-center flex-col translate-y-full group-hover:translate-y-0 group-hover:opacity-80 transition-all duration-500 ease-in-out right-0 top-0 "
       )}
     >
       <EyeIcon size={50} color="white" className="center" />
-      <Text className="text-white font-semibold text-center text-lg">
+      <Text className="text-white font-semibold text-center text-lg ">
         Quick View
       </Text>
     </div>
@@ -67,16 +67,17 @@ const ImageOrPlaceholder = ({
 }: Pick<ThumbnailProps, "size"> & { image?: string }) => {
   return image ? (
     <Image
-      src={image}
-      alt="Thumbnail"
-      className="absolute inset-0 object-cover object-center"
-      draggable={false}
-      quality={50}
-      sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
-      fill
-    />
+  src={image}
+  alt="Thumbnail"
+  className="absolute inset-0 object-cover  object-center mx-auto my-auto"
+  draggable={false}
+  quality={50}
+  sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
+  fill
+/>
+
   ) : (
-    <div className="w-full h-full absolute inset-0 flex items-center justify-center">
+    <div className="w-full h-full absolute inset-0 outline-none  flex items-center justify-center">
       <PlaceholderImage size={size === "small" ? 16 : 24} />
     </div>
   )
