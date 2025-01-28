@@ -3,6 +3,7 @@ import { Metadata } from "next"
 import "styles/globals.css"
 import { Poppins } from 'next/font/google'
 import ReactQueryProvider from '../provider/index'
+import {Toaster} from "@medusajs/ui"
 
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
@@ -21,6 +22,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
     <html lang="en" data-mode="light" className={`${poppins.className} bg-white`}>
       <body>
         <main className="relative"><ReactQueryProvider>
+        <Toaster />
         {props.children}
           </ReactQueryProvider></main>
       </body>

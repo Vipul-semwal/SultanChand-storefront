@@ -26,7 +26,7 @@ function ErrorFallback({ message }: { message: string }) {
       <h1 className="text-2xl font-bold text-gray-800">😢 Something went wrong</h1>
       <p className="text-gray-600 mt-2">{message}</p>
       <button
-        className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+        className="mt-4 bg-blue-800 text-white px-4 py-2 rounded hover:bg-blue-800"
         onClick={() => window.location.reload()}
       >
         Retry
@@ -86,7 +86,7 @@ function AuthorInfo({ id }: { id: string }) {
           {/* Author Info - Right Side */}
           <div className="w-full md:w-2/3">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">
-            <span className="text-red-500">{firstName}</span> {lastName}
+            <span className="text-blue-800">{firstName}</span> {lastName}
             </h2>
             <h4 className="text-xl sm:text-3xl md:text-xl font-bold text-gray-800 mb-4">
               {subText}
@@ -100,7 +100,7 @@ function AuthorInfo({ id }: { id: string }) {
       <section className="contain-content mt-6">
         <div>
           <h2 className="text-4xl font-semibold text-center">
-            His <span className="text-red-500">Best</span> Work
+            His <span className="text-blue-800">Best</span> Work
           </h2>
         </div>
         {/* Add content dynamically here */}

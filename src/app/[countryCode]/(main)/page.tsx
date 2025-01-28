@@ -8,6 +8,7 @@ import NewsAnnouncements from "@modules/home/components/NewsAndAnnouncement/inde
 import InfoBanner from "@modules/home/components/infoBanner"
 import Author from "@modules/home/components/Authors"
 import Blog from "@modules/home/components/Blog"
+import Testimonial from "@modules/home/components/Testimonial"
 
 export const metadata: Metadata = {
   title: "SultanChand storeFront",
@@ -36,7 +37,7 @@ export default async function Home(props: {
   return (
     <>
       <Hero />
-      <NewsAnnouncements title="nothing"/>
+      <NewsAnnouncements />
       <div className="py-12">
         <ul className="flex flex-col gap-x-6">
           <FeaturedProducts collections={collections} region={region} />
@@ -44,7 +45,8 @@ export default async function Home(props: {
       </div>
       <InfoBanner/>
       <Author/>
-      <Blog/>
+       <Testimonial/>
+      <Blog />
     </>
   )
 }

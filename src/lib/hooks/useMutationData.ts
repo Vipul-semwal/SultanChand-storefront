@@ -10,7 +10,7 @@ import {
 export const useMutationData = (
     mutationKey: MutationKey,
     mutationFn: MutationFunction<any, any>,
-    queryKey?: string,
+    queryKey?: string | string[],
     onSuccess?: () => void
   ) => {
     const client = useQueryClient()
@@ -20,19 +20,25 @@ export const useMutationData = (
       onSuccess(data) {
         if (onSuccess) onSuccess()
   
-        return toast(
-          data?.status === 200 || data?.status === 201 ? 'Success' : 'Error',
-          {
-            description: data?.data,
-          }
-        )
+         else{
+          toast.success("Info", {
+            description: "Review added successfully",
+          })
+         }
+
       },
       onSettled: async () => {
+        const isString = typeof queryKey === "string"
         return await client.invalidateQueries({
-          queryKey: [queryKey],
+          queryKey: isString ? [queryKey] : queryKey ? [...queryKey] : [],
           exact: true,
         })
       },
+      onError:async ()=>{
+        toast.error("Info", {
+          description: "something went wrong while adding Review",
+        })
+      }
     })
   
     return { mutate, isPending }

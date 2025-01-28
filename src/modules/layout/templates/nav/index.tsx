@@ -31,7 +31,7 @@ export default async function Nav() {
                 data-testid="nav-store-link"
               >
                 <img
-                  className="max-w-[50px] md:max-w-[60px] lg:max-w-[70px] w-auto h-auto"
+                  className="max-w-[50px] md:max-w-[60px] lg:max-w-[50px] w-auto h-auto"
                   src="/logo.png"
                   alt="Logo"
                 />
@@ -59,7 +59,7 @@ export default async function Nav() {
                   >
                     <div className="relative">
                       <ShoppingCart className="w-4 h-4" /> {/* ShoppingCart icon */}
-                      <span className="absolute top-0 right-0 block w-4 h-4 text-xs text-white bg-red-600 rounded-full text-center">0</span>
+                      <span className="absolute top-0 right-0 block w-4 h-4 text-xs text-white bg-blue-800 rounded-full text-center">0</span>
                     </div>
                     Cart (0)
                   </LocalizedClientLink>

@@ -43,16 +43,7 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
     data-testid={dataTestid}
   >
     <ImageOrPlaceholder image={initialImage} size={size} />
-    <div
-      className={clx(
-        "eye absolute bg-cover h-full w-full bg-[#EC0000] opacity-0 flex items-center justify-center flex-col translate-y-full group-hover:translate-y-0 group-hover:opacity-80 transition-all duration-500 ease-in-out right-0 top-0 "
-      )}
-    >
-      <EyeIcon size={50} color="white" className="center" />
-      <Text className="text-white font-semibold text-center text-lg ">
-        Quick View
-      </Text>
-    </div>
+   
   </Container>
   
   

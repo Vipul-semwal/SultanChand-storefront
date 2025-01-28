@@ -18,6 +18,10 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
       component: <ProductInfoTab product={product} />,
     },
     {
+      label: "Meta Data",
+      component: <MetadataInfoTab product={product} />,
+    },
+    {
       label: "Shipping & Returns",
       component: <ShippingInfoTab />,
     },
@@ -42,6 +46,8 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
 }
 
 const ProductInfoTab = ({ product }: ProductTabsProps) => {
+  console.log('prrrrrr',product)
+  console.log('prrrfsfd')
   return (
     <div className="text-small-regular py-8">
       <div className="grid grid-cols-2 gap-x-8">
@@ -116,6 +122,28 @@ const ShippingInfoTab = () => {
       </div>
     </div>
   )
-}
+};
+
+const MetadataInfoTab = ({ product }: ProductTabsProps) => {
+  const { metadata } = product;
+
+  return (
+    <div className="text-small-regular py-8">
+      <div className="grid grid-cols-2 gap-x-8">
+        <div className="flex flex-col gap-y-4">
+          {metadata &&
+            Object.entries(metadata).map(([key, value], index) => (
+              <div key={index}>
+                <span className="font-semibold capitalize">
+                  {key.replace(/([A-Z])/g, " $1").trim()} {/* Format key */}
+                </span>
+                <p>{value ? String(value) : "-"}</p>
+              </div>
+            ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default ProductTabs

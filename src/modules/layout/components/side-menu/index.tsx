@@ -33,7 +33,7 @@ const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
                   data-testid="nav-menu-button"
                   className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-ui-fg-base"
                 >
-                  <BarsThree className="text-2xl sm:text-3xl md:text-4xl" />
+                  <BarsThree className="text-lg sm:text-xl md:text-2xl" />
                 </Popover.Button>
               </div>
 
@@ -47,23 +47,23 @@ const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
                 leaveFrom="opacity-100 backdrop-blur-2xl"
                 leaveTo="opacity-0"
               >
-                <PopoverPanel className="flex flex-col absolute w-full pr-4 sm:pr-0 sm:w-1/3 2xl:w-1/4 sm:min-w-min h-[calc(100vh-1rem)] z-30 inset-x-0 text-sm text-ui-fg-on-color m-2 backdrop-blur-2xl">
+                <PopoverPanel className="flex flex-col absolute w-full pr-4 sm:pr-0 sm:w-1/3 2xl:w-1/4 sm:min-w-min h-[calc(100vh-1rem)] z-30 inset-x-0 text-xs sm:text-sm m-2 backdrop-blur-2xl">
                   <div
                     data-testid="nav-menu-popup"
-                    className="flex flex-col h-full bg-[rgba(3,7,18,0.5)] rounded-rounded justify-between p-6"
+                    className="flex flex-col h-full bg-[rgba(163,173,201,0.5)] rounded-lg justify-between p-4 sm:p-6"
                   >
                     <div className="flex justify-end" id="xmark">
                       <button data-testid="close-menu-button" onClick={close}>
-                        <XMark className="text-xl sm:text-2xl md:text-3xl" />
+                        <XMark className="text-base sm:text-lg md:text-xl" />
                       </button>
                     </div>
-                    <ul className="flex flex-col gap-6 items-start justify-start">
+                    <ul className="flex flex-col gap-4 items-start">
                       {Object.entries(SideMenuItems).map(([name, href]) => {
                         return (
                           <li key={name}>
                             <LocalizedClientLink
                               href={href}
-                              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-tight sm:leading-snug hover:text-ui-fg-disabled"
+                              className="text-base sm:text-lg md:text-xl lg:text-2xl hover:text-ui-fg-disabled"
                               onClick={close}
                               data-testid={`${name.toLowerCase()}-link`}
                             >
@@ -73,7 +73,7 @@ const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
                         );
                       })}
                     </ul>
-                    <div className="flex flex-col gap-y-6">
+                    <div className="flex flex-col gap-y-4">
                       <div
                         className="flex justify-between"
                         onMouseEnter={toggleState.open}
@@ -87,12 +87,12 @@ const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
                         )}
                         <ArrowRightMini
                           className={clx(
-                            "transition-transform duration-150 text-base sm:text-lg md:text-xl",
+                            "transition-transform duration-150 text-sm sm:text-base md:text-lg",
                             toggleState.state ? "-rotate-90" : ""
                           )}
                         />
                       </div>
-                      <Text className="flex justify-between txt-compact-small text-xs sm:text-sm md:text-base lg:text-lg">
+                      <Text className="text-[10px] sm:text-xs md:text-sm lg:text-base text-center">
                         © {new Date().getFullYear()} SultanChand. All rights
                         reserved.
                       </Text>

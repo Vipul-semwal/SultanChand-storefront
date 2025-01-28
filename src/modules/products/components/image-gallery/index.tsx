@@ -24,21 +24,22 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
     </div>
 
     {/* Thumbnail Images */}
-    <div className="flex gap-x-4 overflow-x-hidden py-2">
-      {images.map((image, index) => (
-        <div
-          key={image.id}
-          className="relative w-[80px] h-[80px] cursor-pointer transition-all duration-300 ease-in-out hover:scale-110"
-          onMouseEnter={() => setMainImage(image.url)}
-        >
-          <img
-            src={image.url}
-            alt={`Product thumbnail ${index + 1}`}
-            className="w-full h-full object-contain rounded-lg shadow-lg transition-all duration-300 ease-in-out"
-          />
-        </div>
-      ))}
+    <div className="flex gap-x-4 py-2 flex-wrap ">
+  {images.map((image, index) => (
+    <div
+      key={image.id}
+      className="relative min-w-[80px] w-[80px] h-[80px] cursor-pointer transition-all duration-300 ease-in-out hover:scale-110"
+      onMouseEnter={() => setMainImage(image.url)}
+    >
+      <img
+        src={image.url}
+        alt={`Product thumbnail ${index + 1}`}
+        className="w-full h-full object-contain rounded-lg shadow-lg transition-all duration-300 ease-in-out"
+      />
     </div>
+  ))}
+</div>
+
   </div>
   );
 };

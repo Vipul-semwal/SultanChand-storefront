@@ -1,26 +1,28 @@
-import { Dialog, Transition } from "@headlessui/react"
-import { clx } from "@medusajs/ui"
-import React, { Fragment } from "react"
+import { Dialog, Transition } from "@headlessui/react";
+import { clx } from "@medusajs/ui";
+import React, { Fragment } from "react";
 
-import { ModalProvider, useModal } from "@lib/context/modal-context"
-import X from "@modules/common/icons/x"
+import { ModalProvider, useModal } from "@lib/context/modal-context";
+import X from "@modules/common/icons/x";
 
 type ModalProps = {
-  isOpen: boolean
-  close: () => void
-  size?: "small" | "medium" | "large"
-  search?: boolean
-  children: React.ReactNode
-  'data-testid'?: string
-}
+  isOpen: boolean;
+  close: () => void;
+  size?: "small" | "medium" | "large";
+  search?: boolean;
+  takeFull?: boolean; // New prop to enable full-screen mode
+  children: React.ReactNode;
+  "data-testid"?: string;
+};
 
 const Modal = ({
   isOpen,
   close,
   size = "medium",
   search = false,
+  takeFull = false, // Default is false
   children,
-  'data-testid': dataTestId
+  "data-testid": dataTestId,
 }: ModalProps) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -34,13 +36,13 @@ const Modal = ({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-opacity-75 backdrop-blur-md  h-screen" />
+          <div className="fixed inset-0 bg-opacity-75 backdrop-blur-md h-screen" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-hidden">
           <div
             className={clx(
-              "flex min-h-full h-full justify-center p-4 text-center",
+              "flex min-h-full h-full justify-center p-1 text-center",
               {
                 "items-center": !search,
                 "items-start": search,
@@ -59,11 +61,13 @@ const Modal = ({
               <Dialog.Panel
                 data-testid={dataTestId}
                 className={clx(
-                  "flex flex-col justify-start w-full transform p-5 text-left align-middle transition-all max-h-[75vh] h-fit",
+                  "flex flex-col justify-start w-full transform p-5 text-left align-middle transition-all overflow-y-auto",
                   {
-                    "max-w-md": size === "small",
-                    "max-w-xl": size === "medium",
-                    "max-w-3xl": size === "large",
+                    "h-screen w-screen max-w-none": takeFull, // Full-screen styles
+                    "max-h-[75vh] h-fit": !takeFull,
+                    "max-w-md": size === "small" && !takeFull,
+                    "max-w-xl": size === "medium" && !takeFull,
+                    "max-w-3xl": size === "large" && !takeFull,
                     "bg-transparent shadow-none": search,
                     "bg-white shadow-xl border rounded-rounded": !search,
                   }
@@ -76,11 +80,11 @@ const Modal = ({
         </div>
       </Dialog>
     </Transition>
-  )
-}
+  );
+};
 
 const Title: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { close } = useModal()
+  const { close } = useModal();
 
   return (
     <Dialog.Title className="flex items-center justify-between">
@@ -91,28 +95,28 @@ const Title: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         </button>
       </div>
     </Dialog.Title>
-  )
-}
+  );
+};
 
 const Description: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <Dialog.Description className="flex text-small-regular text-ui-fg-base items-center justify-center pt-2 pb-4 h-full">
       {children}
     </Dialog.Description>
-  )
-}
+  );
+};
 
 const Body: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <div className="flex justify-center">{children}</div>
-}
+  return <div className="flex justify-center">{children}</div>;
+};
 
 const Footer: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <div className="flex items-center justify-end gap-x-4">{children}</div>
-}
+  return <div className="flex items-center justify-end gap-x-4">{children}</div>;
+};
 
-Modal.Title = Title
-Modal.Description = Description
-Modal.Body = Body
-Modal.Footer = Footer
+Modal.Title = Title;
+Modal.Description = Description;
+Modal.Body = Body;
+Modal.Footer = Footer;
 
-export default Modal
+export default Modal;

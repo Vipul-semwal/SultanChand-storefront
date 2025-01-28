@@ -1,62 +1,87 @@
-import { Text } from "@medusajs/ui"
-import { listProducts } from "@lib/data/products"
-import { getProductPrice } from "@lib/util/get-product-price"
-import { HttpTypes } from "@medusajs/types"
-import LocalizedClientLink from "@modules/common/components/localized-client-link"
-import Thumbnail from "../thumbnail"
-import PreviewPrice from "./price"
+"use client";
+import { FiEye } from "react-icons/fi";
+import { Text } from "@medusajs/ui";
+import { getProductPrice } from "@lib/util/get-product-price";
+import { HttpTypes } from "@medusajs/types";
+import LocalizedClientLink from "@modules/common/components/localized-client-link";
+import Thumbnail from "../thumbnail";
+import PreviewPrice from "./price";
+import QuickView from "../quick-view";
+import Modal from "@modules/common/components/modal";
+import useToggleState from "@lib/hooks/use-toggle-state";
+import ProductRating from "../reviews/ProductRating"; // Updated ProductRating
 
-export default async function ProductPreview({
+export default function ProductPreview({
   product,
   isFeatured,
   region,
 }: {
-  product: HttpTypes.StoreProduct
-  isFeatured?: boolean
-  region: HttpTypes.StoreRegion
+  product: HttpTypes.StoreProduct;
+  isFeatured?: boolean;
+  region: HttpTypes.StoreRegion;
 }) {
-  // const pricedProduct = await listProducts({
-  //   regionId: region.id,
-  //   queryParams: { id: [product.id!] },
-  // }).then(({ response }) => response.products[0])
-
-  // if (!pricedProduct) {
-  //   return null
-  // }
-
   const { cheapestPrice } = getProductPrice({
     product,
-  })
+  });
 
-  const handleChildClick = (event:React.MouseEvent<HTMLDivElement>) => {  
-    event.stopPropagation(); // Stop the event from bubbling up to the parent
-    console.log("Child clicked!");
-  };
+  const [isQuickViewOpen, openQuickView, closeQuickView] = useToggleState();
 
   return (
-    <LocalizedClientLink href={`/products/${product.handle}`} className="group outline-none">
-      <div data-testid="product-wrapper " className="outline-none text-center flex flex-col items-center">
-        <Thumbnail
-          thumbnail={product.thumbnail}
-          images={product.images}
-          size="full"
-          isFeatured={isFeatured}
-        />
-        <div className="flex txt-compact-medium mt-4 justify-between items-center text-center">
-          <Text className="text-ui-fg-subtle font-bold text-center" data-testid="product-title">
-            {product.title}
-          </Text>
+    <div className="test">
+      <LocalizedClientLink
+        href={`/products/${product.handle}`}
+        className="group outline-none"
+      >
+        <div
+          data-testid="product-wrapper"
+          className="outline-none text-center flex flex-col items-center"
+        >
+          <Thumbnail
+            thumbnail={product.thumbnail}
+            images={product.images}
+            size="full"
+            isFeatured={isFeatured}
+          />
+          <div className="flex txt-compact-medium mt-4 justify-between items-center text-center">
+            <Text
+              className="text-ui-fg-subtle font-bold text-center"
+              data-testid="product-title"
+            >
+              {product.title}
+            </Text>
+          </div>
 
-        </div>
-        <div className="flex items-center gap-x-2">
-          {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
-        </div>
-        <button  className="text-[#CF4747] mt-2 border border-[#CF4747] py-1.5 px-4 text-[12px] sm:text-base leading-5 font-semibold tracking-wider rounded-full bg-transparent transition-all duration-400 hover:bg-[#CF4747] hover:text-white">
-  Add To Cart
-</button>
+          {/* Only Stars Rating Section */}
+          <div className="flex items-center justify-center mt-2">
+            <ProductRating
+              productId={product.id} // Pass the product ID to fetch reviews
+              fontSize="medium"
+              showDetails={false} // Hide average rating and total reviews
+            />
+          </div>
 
+          <div className="flex items-center gap-x-2">
+            {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
+          </div>
+        </div>
+      </LocalizedClientLink>
+      <div className="flex items-center justify-center w-full">
+        <button
+          onClick={openQuickView}
+          className="text-[#CF4747] mt-2 border border-[#CF4747] py-1.5 px-2 text-[12px] sm:text-base leading-5 font-semibold tracking-wider rounded-full bg-transparent transition-all duration-400 hover:bg-[#CF4747] hover:text-white flex items-center gap-2"
+        >
+          <FiEye className="text-base" />
+          Quick View
+        </button>
+        <Modal isOpen={isQuickViewOpen} close={closeQuickView} size="medium">
+          <Modal.Title>Quick view</Modal.Title>
+          <Modal.Body>
+            <div className="p-4">
+              <QuickView productInfo={product} />
+            </div>
+          </Modal.Body>
+        </Modal>
       </div>
-
-    </LocalizedClientLink>
-  )
+    </div>
+  );
 }

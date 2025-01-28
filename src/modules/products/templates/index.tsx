@@ -10,6 +10,9 @@ import SkeletonRelatedProducts from "@modules/skeletons/templates/skeleton-relat
 import { notFound } from "next/navigation"
 import ProductActionsWrapper from "./product-actions-wrapper"
 import { HttpTypes } from "@medusajs/types"
+import PdfAndLinks from '../components/pdfAndLinks'
+import Review from "./review"
+import ProductRating from "../components/reviews/ProductRating"
 
 type ProductTemplateProps = {
   product: HttpTypes.StoreProduct
@@ -52,7 +55,12 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
           >
             <ProductActionsWrapper id={product.id} region={region} />
           </Suspense>
+          <ProductRating productId={product.id} fontSize="large" />
+         <PdfAndLinks product_id={product.id}/>
         </div>
+      </div>
+      <div className="review">
+       <Review prouduct_id={product.id}/>
       </div>
       <div
         className="content-container my-16 small:my-32"
@@ -62,6 +70,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
           <RelatedProducts product={product} countryCode={countryCode} />
         </Suspense>
       </div>
+
     </>
   )
 }

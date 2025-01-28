@@ -17,7 +17,7 @@ const FAQs = () => {
   <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
     <div className="max-w-2xl mx-auto text-center">
       <h2 className="text-2xl font-bold leading-tight text-black sm:text-3xl lg:text-4xl">
-        Frequently Asked <span className="text-red-500">Questions</span>
+        Frequently Asked <span className="text-blue-800">Questions</span>
       </h2>
       <p className="max-w-xl mx-auto mt-4 text-sm leading-relaxed text-gray-600 sm:text-base lg:text-lg">
         Amet minim mollit non deserunt ullamco est sit aliqua dolor do
@@ -90,7 +90,7 @@ const FAQs = () => {
     </div>
 
     <p className="text-center text-sm text-gray-600 sm:text-base lg:text-lg mt-9">
-      Didn’t find the answer you are looking for? <span className="text-red-500">Contact our support</span>
+      Didn’t find the answer you are looking for? <span className="text-blue-800">Contact our support</span>
      
     </p>
   </div>

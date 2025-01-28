@@ -8,7 +8,7 @@ function PublishWithUsTemplates() {
     return (
         <div className="py-20 bg-gray-100">
             <div className="max-w-7xl mx-auto text-center">
-                <h2 className="text-3xl font-semibold text-gray-900">Publish <span className="text-red-500">With</span> Us</h2>
+                <h2 className="text-3xl font-semibold text-gray-900">Publish <span className="text-blue-800">With</span> Us</h2>
                 <p className="text-lg text-gray-600 mt-4">We're excited to hear your ideas and bring them to life. Share your details below!</p>
 
                 {/* Form Section */}
@@ -20,7 +20,7 @@ function PublishWithUsTemplates() {
                             name="authorName"
                             label="Author Name"
                             aria-placeholder="Enter author name"
-                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800"
                         />
 
                         {/* About Author */}
@@ -32,7 +32,7 @@ function PublishWithUsTemplates() {
                             name="instituteName"
                             label="Institute Name"
                             aria-placeholder="Enter institute name"
-                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800"
                         />
 
                         {/* Author Affiliation */}
@@ -41,7 +41,7 @@ function PublishWithUsTemplates() {
                             name="authorAffiliation"
                             label="Author Affiliation"
                             aria-placeholder="Enter author affiliation"
-                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800"
                         />
 
                         {/* Email */}
@@ -50,7 +50,7 @@ function PublishWithUsTemplates() {
                             name="email"
                             label="Email Address"
                             aria-placeholder="Enter email address"
-                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800"
                         />
 
                         {/* Address */}
@@ -59,7 +59,7 @@ function PublishWithUsTemplates() {
                             name="address"
                             label="Address"
                             aria-placeholder="Enter your address"
-                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800"
                         />
 
                         {/* City */}
@@ -68,7 +68,7 @@ function PublishWithUsTemplates() {
                             name="city"
                             label="City"
                             aria-placeholder="Enter city"
-                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800"
                         />
 
                         {/* State */}
@@ -77,7 +77,7 @@ function PublishWithUsTemplates() {
                             name="state"
                             label="State"
                             aria-placeholder="Enter state"
-                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800"
                         />
 
                         {/* Country */}
@@ -86,7 +86,7 @@ function PublishWithUsTemplates() {
                             name="country"
                             label="Country"
                             aria-placeholder="Enter country"
-                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800"
                         />
 
                         {/* Pin/Zip */}
@@ -95,7 +95,7 @@ function PublishWithUsTemplates() {
                             name="pinZip"
                             label="Pin/Zip Code"
                             aria-placeholder="Enter pin or zip code"
-                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800"
                         />
 
                         {/* Contact Number */}
@@ -104,7 +104,7 @@ function PublishWithUsTemplates() {
                             name="contactNumber"
                             label="Contact Number"
                             aria-placeholder="Enter contact number"
-                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800"
                         />
 
                         {/* Title of the Book */}
@@ -113,7 +113,7 @@ function PublishWithUsTemplates() {
                             name="bookTitle"
                             label="Title of the Book"
                             aria-placeholder="Enter book title"
-                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800"
                         />
 
                         {/* Discipline */}
@@ -122,7 +122,7 @@ function PublishWithUsTemplates() {
                             name="discipline"
                             label="Discipline"
                             aria-placeholder="Enter discipline"
-                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800"
                         />
 
                         {/* Subject */}
@@ -131,14 +131,14 @@ function PublishWithUsTemplates() {
                             name="subject"
                             label="Subject"
                             aria-placeholder="Enter subject"
-                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800"
                         />
                         <Input
                             type="text"
                             name="bookStatus"
                             label="Status of the Book"
                             aria-placeholder="Enter book status"
-                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800"
                         />
 
                         {/* Synopsis */}
@@ -147,7 +147,7 @@ function PublishWithUsTemplates() {
                                 name="synopsis"
                                 rows="5"
                                 placeholder="Enter book synopsis"
-                                className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                                className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800"
                             ></textarea>
                         </div>
 
@@ -157,7 +157,7 @@ function PublishWithUsTemplates() {
                         <div className="md:col-span-2">
                             <button
                                 type="submit"
-                                className="w-full max-w-[200px] py-3 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+                                className="w-full max-w-[200px] py-3 bg-blue-800 text-white font-semibold rounded-lg shadow-md hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-800"
                             >
                                 Submit
                             </button>

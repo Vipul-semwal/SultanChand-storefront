@@ -34,7 +34,7 @@ function ErrorFallback({ error, resetErrorBoundary }: { error: Error; resetError
       <h1 className="text-2xl font-bold mt-4">Something went wrong!</h1>
       <p className="mt-2">{error.message}</p>
       <button
-        className="mt-6 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+        className="mt-6 bg-blue-800 text-white px-4 py-2 rounded-md hover:bg-blue-800"
         onClick={resetErrorBoundary}
       >
         Try Again
@@ -103,7 +103,7 @@ function AuthorTemplate() {
                     <p className="text-gray-600 mb-6">{author.description}</p>
                     <LocalizedClientLink
                       href={`/authors/${author.id}`}
-                      className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+                      className="bg-blue-800 text-white px-4 py-2 rounded-md hover:bg-blue-800"
                     >
                       View Profile
                     </LocalizedClientLink>

@@ -1,12 +1,10 @@
 "use client";
 
-import React, { useState, useEffect, } from "react";
-import { useParams, useRouter } from "next/navigation"
+import React, { useState, useEffect } from "react";
+import { useParams, useRouter } from "next/navigation";
 import Modal from "@modules/common/components/modal";
 import Input from "@modules/common/components/input";
 import LocalizedClientLink from "@modules/common/components/localized-client-link";
-import { set } from "lodash";
-import Loading from "app/[countryCode]/(main)/account/loading";
 import { HttpTypes } from "@medusajs/types";
 import { useQueryData } from "@lib/hooks/useQueryData";
 
@@ -26,33 +24,26 @@ const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdowns, setOpenDropdowns] = useState<Record<number, boolean>>({});
   const [sticky, setSticky] = useState(false);
-  const router = useRouter()
-  const { countryCode } = useParams()
+  const router = useRouter();
+  const { countryCode } = useParams();
 
   const categories: Category[] = [
-    {
-      id: 1,
-      name: "Genres",
-      subcategories: [
-        { id: 11, name: "Fiction", subcategories: [{ id: 111, name: "Sci-Fi" }] },
-        { id: 12, name: "Non-Fiction" },
-      ],
-    },
-    { id: 2, name: "Authors", subcategories: [{ id: 21, name: "J.K. Rowling" }] },
-    { id: 3, name: "Academic" ,subcategories: [{ id: 31, name: "Osho Rajnesh" }] },
-    { id: 4, name: "Classic" ,subcategories: [{ id: 41, name: "J.K. Rowling" }] },
+    { id: 1, name: "Home" },
+    { id: 2, name: "Contact Us", subcategories: [{ id: 21, name: "J.K. Rowling" }] },
+    { id: 4, name: "Online Library", subcategories: [{ id: 41, name: "J.K. Rowling" }] },
+    { id: 5, name: "Publish With Us", subcategories: [{ id: 51, name: "J.K. Rowling" }] },
+    { id: 6, name: "Blog", subcategories: [{ id: 61, name: "J.K. Rowling" }] },
+    { id: 7, name: "About Us", subcategories: [{ id: 71, name: "J.K. Rowling" }] },
   ];
 
-  // fetching categories
   const { data, isFetching, isError } = useQueryData<HttpTypes.StoreProductCategory[]>(
-    ["categories"], 
-    () => fetch(`/api/categories`).then((res) => {
-      if (!res.ok) throw new Error("Failed to fetch categories");
-      return res.json();
-    }) 
+    ["categories"],
+    () =>
+      fetch(`/api/categories`).then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch categories");
+        return res.json();
+      })
   );
-
-  console.log()
 
   const toggleDropdown = (id: number) => {
     setOpenDropdowns((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -67,31 +58,30 @@ const Navbar: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Function to toggle the modal visibility
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-  // Handle search input change
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
 
-  // Handle search button click
   const handleSearch = () => {
-    const formattedQuery = searchQuery.trim().replace(/\s+/g, "%20")
-
-    // Navigate to /store?q=<encodedQuery>
+    const formattedQuery = searchQuery.trim().replace(/\s+/g, "%20");
     if (formattedQuery) {
-      router.push(`/${countryCode}/store?q=${formattedQuery}`)
-      setIsModalOpen(false)
-      setSearchQuery("")
+      router.push(`/${countryCode}/store?q=${formattedQuery}`);
+      setIsModalOpen(false);
+      setSearchQuery("");
     }
   };
+
+  const currentPath = router.pathname; // Get the current route
 
   const renderCategories = (categories: Category[] | SubCategory[]) => {
     return categories.map((category) => (
       <div key={category.id}>
         <button
-          className="w-full text-sm sm:text-base md:text-lg text-left px-4 py-2 hover:bg-gray-600 rounded-md flex justify-between items-center"
+          className={`w-full text-sm sm:text-base md:text-lg text-left px-4 py-2 hover:bg-gray-600 rounded-md flex justify-between items-center ${
+            category.name === "Home" && currentPath === "/" ? "bg-gray-600 text-white" : ""
+          }`}
           onClick={() => toggleDropdown(category.id)}
         >
           {category.name}
@@ -115,9 +105,7 @@ const Navbar: React.FC = () => {
           )}
         </button>
         {category.subcategories && openDropdowns[category.id] && (
-          <div className="pl-4 mt-2 space-y-1">
-            {renderCategories(category.subcategories)}
-          </div>
+          <div className="pl-4 mt-2 space-y-1">{renderCategories(category.subcategories)}</div>
         )}
       </div>
     ));
@@ -125,26 +113,28 @@ const Navbar: React.FC = () => {
 
   return (
     <nav
-      className={`bg-gray-800 text-white ${
+      className={`bg-blue-800 text-white ${
         sticky ? "fixed top-0 left-0 w-full z-50 shadow-lg" : ""
       }`}
     >
       <div className="content-container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <div className="text-lg md:text-xl font-bold">SultanChand<span className="text-red-500">&</span>Sons</div>
-
-          {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center space-x-8">
-            {categories.map((category) => (
-              <Dropdown key={category.id} category={category} />
-            ))}
-           
+          <div className="text-lg md:text-xl font-bold">
+            SultanChand<span className="text-blue-100">&</span>Sons
           </div>
 
-          {/* Search and Mobile Menu Toggle */}
+          <div className="hidden lg:flex items-center space-x-8">
+            {categories.map((category) => (
+              <Dropdown
+                key={category.id}
+                category={category}
+                currentPath={currentPath}
+              />
+            ))}
+          </div>
+
           <div className="flex items-center space-x-4">
-            <button  onClick={toggleModal}  className="hover:text-gray-300">
+            <button onClick={toggleModal} className="hover:text-gray-300">
               <svg
                 className="w-6 h-6"
                 fill="none"
@@ -186,25 +176,25 @@ const Navbar: React.FC = () => {
           </div>
         </div>
         <Modal isOpen={isModalOpen} close={toggleModal} search={true}>
-        <Modal.Title>Search</Modal.Title>
-        <Modal.Description>
-          <Input
-            name="search"
-            label="Search..."
-            value={searchQuery}
-            onChange={handleSearchChange}
-          />
-        </Modal.Description>
-        <Modal.Footer>
-          <button
-            onClick={handleSearch}
-            className="px-4 py-2 bg-red-500 text-white rounded-md"
-          >
-            Search
-          </button>
-        </Modal.Footer>
-      </Modal>
-        {/* Mobile Menu */}
+          <Modal.Title>Search</Modal.Title>
+          <Modal.Description>
+            <Input
+              name="search"
+              label="Search..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+            />
+          </Modal.Description>
+          <Modal.Footer>
+            <button
+              onClick={handleSearch}
+              className="px-4 py-2 bg-blue-800 text-white rounded-md"
+            >
+              Search
+            </button>
+          </Modal.Footer>
+        </Modal>
+
         {isMobileMenuOpen && (
           <div className="lg:hidden mt-2">
             <div className="bg-gray-700 p-4 rounded-md space-y-2">
@@ -217,29 +207,20 @@ const Navbar: React.FC = () => {
   );
 };
 
-const Dropdown: React.FC<{ category: Category }> = ({ category }) => {
+const Dropdown: React.FC<{ category: Category; currentPath: string }> = ({
+  category,
+  currentPath,
+}) => {
   const hasSubcategories = category.subcategories?.length || 0 > 0;
 
   return (
     <div className="group relative z-10">
-      <button className="text-sm sm:text-base md:text-lg flex items-center hover:text-gray-300 focus:outline-none">
+      <button
+        className={`text-sm sm:text-base flex items-center relative after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-[2px] after:bg-white after:transition-all after:duration-300 group-hover:after:w-full focus:outline-none ${
+          category.name === "Home" && currentPath === "/" ? "text-blue-100 font-semibold" : ""
+        }`}
+      >
         {category.name}
-        {/* {hasSubcategories && (
-          <svg
-            className="ml-1 w-5 h-5 transform group-hover:rotate-180 transition-transform"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 9l-7 7-7-7"
-            />
-          </svg>
-        )} */}
       </button>
       {hasSubcategories && (
         <div className="absolute left-0 top-full mt-2 w-48 bg-white text-gray-800 rounded-md shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transform translate-y-2 transition-all duration-200">

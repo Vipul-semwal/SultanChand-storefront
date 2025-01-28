@@ -2,22 +2,27 @@
 
 import React from 'react';
 import { Heading } from '@medusajs/ui';
-import { Swiper, SwiperSlide  } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-interface Props {}
+interface Props { }
 
 const Reviews: React.FC<Props> = () => {
   return (
     <div className="text-gray-600  dark:text-gray-300 pt-8 my-20" id="reviews">
       <div className="max-w-7xl content-container mx-auto px-6 md:px-12 xl:px-6">
-        <div className="mb-12 space-y-4 px-6 md:px-0">
-          <Heading level="h2" className="text-center text-2xl font-bold text-gray-800 dark:text-white md:text-4xl">
-            Famous <span className='text-[#D14B48]'>Authors</span>
+        <div className="mb-12 relative space-y-4 px-6 md:px-0">
+          <Heading
+            level="h2"
+            className="text-center text-2xl font-bold text-gray-800 dark:text-white md:text-4xl"
+          >
+           Meet Our <span className="text-blue-900">Authors</span>
           </Heading>
+      
         </div>
+
 
         <div className="md:hidden">
           {/* Swiper for small screens */}

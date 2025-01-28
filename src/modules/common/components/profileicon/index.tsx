@@ -3,7 +3,7 @@ import { Mail, Phone, Users } from 'lucide-react';
 function ProfileIcons({email="",phone="",para="",heading=""}) {
   return (
     <div className="bg-white p-3 shadow-md rounded-lg flex flex-col justify-center items-center">
-    <div className="text-red-500 text-4xl mb-4">
+    <div className="text-blue-800 text-4xl mb-4">
       <Users color='red' size={32} />
     </div>
     <div>

@@ -16,7 +16,7 @@ const GlobalHero: React.FC<IndexProps> = ({ backgroundImage, title, subtitle }) 
       }}
     >
       {/* Black Overlay */}
-      <div className="absolute inset-0 bg-red-500 opacity-60"></div>
+      <div className="absolute inset-0 bg-blue-800 opacity-60"></div>
 
       {/* Content */}
       <div className="relative max-w-5xl mx-auto text-center p-6 rounded-lg">
