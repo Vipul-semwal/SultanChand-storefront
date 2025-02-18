@@ -59,7 +59,7 @@ export default async function Nav() {
                   >
                     <div className="relative">
                       <ShoppingCart className="w-4 h-4" /> {/* ShoppingCart icon */}
-                      <span className="absolute top-0 right-0 block w-4 h-4 text-xs text-white bg-blue-800 rounded-full text-center">0</span>
+                      <span className="absolute top-0 right-0 block w-4 h-4 text-xs text-white bg-[#EA5900] rounded-full text-center">0</span>
                     </div>
                     Cart (0)
                   </LocalizedClientLink>

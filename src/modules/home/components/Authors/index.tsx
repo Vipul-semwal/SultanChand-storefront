@@ -18,7 +18,7 @@ const Reviews: React.FC<Props> = () => {
             level="h2"
             className="text-center text-2xl font-bold text-gray-800 dark:text-white md:text-4xl"
           >
-           Meet Our <span className="text-blue-900">Authors</span>
+           Meet Our <span className="text-[#EA5900]">Authors</span>
           </Heading>
       
         </div>
@@ -71,7 +71,7 @@ const Reviews: React.FC<Props> = () => {
               review: 'Pioneer of modernist literature, known for Mrs Dalloway and To the Lighthouse.'
             }].map((author, index) => (
               <SwiperSlide key={index}>
-                <div className="aspect-auto p-8 border border-gray-100 rounded-3xl bg-white dark:bg-gray-800 dark:border-gray-700 shadow-2xl shadow-gray-600/10 hover:shadow-gray-700/20 dark:shadow-none">
+                <div className="aspect-auto p-8 border border-gray-100 rounded-3xl bg-[#FFF8EE] dark:bg-gray-800 dark:border-gray-700 shadow-2xl shadow-gray-600/10 hover:shadow-gray-700/20 dark:shadow-none">
                   <div className="flex gap-4">
                     <img
                       className="w-12 h-12 rounded-full"
@@ -134,7 +134,7 @@ const Reviews: React.FC<Props> = () => {
           }].map((author, index) => (
             <div
               key={index}
-              className="aspect-auto p-8 border border-gray-100 rounded-3xl bg-white dark:bg-gray-800 dark:border-gray-700 shadow-2xl shadow-gray-600/10 hover:shadow-gray-700/20 dark:shadow-none">
+              className="aspect-auto p-8 border border-gray-100 rounded-3xl bg-[#FFF8EE] dark:bg-gray-800 dark:border-gray-700 shadow-2xl shadow-gray-600/10 hover:shadow-gray-700/20 dark:shadow-none">
               <div className="flex gap-4">
                 <img
                   className="w-12 h-12 rounded-full"

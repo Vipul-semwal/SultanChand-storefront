@@ -245,3 +245,52 @@ body {
 .react-slideshow-container [aria-label="Next Slide"] {
   margin-right: 1rem;
 }
+
+.sticky-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  animation: stickySlideDown 0.3s ease;
+}
+
+.nav-link {
+  @apply text-sm sm:text-base font-semibold transition-colors;
+  &:hover { color: #1e3a8a; }
+}
+
+.dropdown-menu {
+  @apply absolute left-0 top-full mt-2 min-w-[200px] bg-white rounded-md shadow-lg;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: none;
+  
+  &.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+.mobile-menu-container {
+  @apply fixed inset-0 bg-black bg-opacity-50 z-50;
+}
+
+.mobile-menu-content {
+  @apply bg-white p-4 max-h-[90vh] overflow-y-auto;
+}
+
+.mobile-menu-item {
+  @apply border-b border-gray-200;
+}
+
+.mobile-menu-link {
+  @apply block py-3 text-gray-800 text-sm;
+}
+
+.mobile-menu-expand-btn {
+  @apply px-3 text-gray-500;
+}

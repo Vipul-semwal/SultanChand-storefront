@@ -139,6 +139,8 @@ export async function GetAllBlogs({page,pageSize,sort}: Request): Promise<any> {
         sort,
       },
     });
+
+    console.log('heheheheeh',response.data.meta)
     
 
     // Map API data to simplified blog list items
@@ -155,9 +157,9 @@ export async function GetAllBlogs({page,pageSize,sort}: Request): Promise<any> {
       authorName: article.author.name,
       categoryName: article.category.name,
     }));
-    console.log('respone',articles)
+    // console.log('respone',articles)
     // Return only the simplified array of articles
-    return { status: 200, data: articles }
+    return { status: 200, data: articles,meta:response.data.meta }
   } catch (error: unknown) {
     console.error("Error fetching articles:", (error as Error).message);
 

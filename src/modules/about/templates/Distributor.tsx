@@ -12,7 +12,7 @@ function Distributor() {
             <section className="bg-gray-100 py-16 px-6">
                 <div className="mx-2">
                     <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-6">
-                        Our <span className="text-blue-800">Distribution</span>
+                        Our <span className="text-[#EA5900]">Distribution</span>
                     </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         {/* Team Member 1 */}

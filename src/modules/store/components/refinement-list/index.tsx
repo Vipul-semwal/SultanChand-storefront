@@ -1,20 +1,23 @@
 "use client"
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { useCallback } from "react"
-
+import { useCallback, useState } from "react"
+import { FiFilter, FiX } from "react-icons/fi" // Importing filter and close icons
+import CategoryFilter from "../CategoryFilter"
 import SortProducts, { SortOptions } from "./sort-products"
 
 type RefinementListProps = {
   sortBy: SortOptions
   search?: boolean
-  'data-testid'?: string
+  'data-testid'?: string,
+  handle?: string
 }
 
-const RefinementList = ({ sortBy, 'data-testid': dataTestId }: RefinementListProps) => {
+const RefinementList = ({ sortBy, 'data-testid': dataTestId, handle }: RefinementListProps) => {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const [isFilterOpen, setIsFilterOpen] = useState(false) // State to toggle popup
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -30,10 +33,50 @@ const RefinementList = ({ sortBy, 'data-testid': dataTestId }: RefinementListPro
     const query = createQueryString(name, value)
     router.push(`${pathname}?${query}`)
   }
-  
+
   return (
-    <div className="flex small:flex-col gap-12 py-4 mb-8 small:px-0 pl-6 small:min-w-[250px] small:ml-[1.675rem]">
-      <SortProducts sortBy={sortBy} setQueryParams={setQueryParams} data-testid={dataTestId} />
+    <div className="relative">
+      {/* Filter Button for Mobile */}
+      <button 
+        className="lg:hidden flex items-center gap-2 text-white bg-orange-600 px-4 py-2 rounded-md mb-4"
+        onClick={() => setIsFilterOpen(true)}
+      >
+        <FiFilter size={20} />
+        <span>Filters</span>
+      </button>
+
+      {/* Popup Filter Modal */}
+      {isFilterOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+          <div className="bg-white w-11/12 max-w-md p-6 rounded-lg shadow-lg relative">
+            {/* Close Button */}
+            <button 
+              className="absolute top-4 right-4 text-gray-600 hover:text-gray-900"
+              onClick={() => setIsFilterOpen(false)}
+            >
+              <FiX size={24} />
+            </button>
+
+            <h2 className="text-lg font-semibold mb-4">Filter Options</h2>
+
+            {/* Filter Content */}
+            {handle ? (
+              <CategoryFilter handle={handle} child={<SortProducts sortBy={sortBy} setQueryParams={setQueryParams} data-testid={dataTestId} />} />
+            ) : (
+              <SortProducts sortBy={sortBy} setQueryParams={setQueryParams} data-testid={dataTestId} />
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Filter Section (Visible on Desktop) */}
+      <div className="hidden lg:block">
+        {handle ? (
+          <CategoryFilter handle={handle} child={<SortProducts sortBy={sortBy} setQueryParams={setQueryParams} data-testid={dataTestId} />} />
+        ) : (
+          <SortProducts sortBy={sortBy} setQueryParams={setQueryParams} data-testid={dataTestId} />
+        )}
+      </div>
     </div>
   )
 }

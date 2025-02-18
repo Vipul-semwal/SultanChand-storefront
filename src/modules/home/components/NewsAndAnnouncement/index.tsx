@@ -19,7 +19,7 @@ const NewsAnnouncements: React.FC = () => {
   return (
     <div className=''>
       <div className="relative overflow-hidden">
-        <div className="w-full h-10 flex items-center bg-red-500 border">
+        <div className="w-full h-10 flex items-center bg-blue-950 border">
           <div
             className="animate-marquee whitespace-nowrap flex space-x-6 sm:space-x-8 md:space-x-10"
             style={marqueeStyle}

@@ -34,7 +34,7 @@ function ErrorFallback({ error, resetErrorBoundary }: { error: Error; resetError
       <h1 className="text-2xl font-bold mt-4">Something went wrong!</h1>
       <p className="mt-2">{error.message}</p>
       <button
-        className="mt-6 bg-blue-800 text-white px-4 py-2 rounded-md hover:bg-blue-800"
+        className="mt-6 bg-[#EA5900] text-white px-4 py-2 rounded-md hover:bg-[#EA5900]"
         onClick={resetErrorBoundary}
       >
         Try Again
@@ -47,25 +47,34 @@ function ErrorFallback({ error, resetErrorBoundary }: { error: Error; resetError
 function AuthorTemplate() {
 
   const searchParams = useSearchParams();
-  const [currentPage, setCurrentPage] = useState(0);
-  const limit = 15;
-   
+  const limit = 10;
+  const page = Number(searchParams.get("page")) || 1;
+  
   // Calculate offset based on the current page
-  const offset = useMemo(() => currentPage * limit, [currentPage]);
+  const offset = ((page-1)*limit)
+
 
   // Fetch authors data using React Query
   const { data, isFetching } = useQueryData<AuthorsResponse>(
     ["authors", limit, offset],
     () =>
       sdk.client.fetch(`/store/authors`, {
-        query: { limit, offset },
-      })
+        query: { limit, offset},
+      }),
+      true,  
+    { 
+      queryKey: [`author`, limit, offset],
+      staleTime: 5 * 60 * 1000, 
+      refetchOnWindowFocus: false,
+      retry: 1,
+    }
+
   );
 
   const { author: authors,count=0, } = data || { author: [] };
   
-  const page = searchParams.get("page") ; 
-  const pageNumber = page ? parseInt(page) : 1
+
+  const pageNumber = page ? page: 1
   const totalPages = Math.ceil(count / limit);
   return (
     <>
@@ -78,7 +87,7 @@ function AuthorTemplate() {
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-800">
-              Our <span className="text-red-400">Authors</span>
+              Our <span className="text-orange-400">Authors</span>
             </h2>
             <p className="text-gray-600 mt-2">
               In a creative workplace, employees responsibly try different solutions.
@@ -103,7 +112,7 @@ function AuthorTemplate() {
                     <p className="text-gray-600 mb-6">{author.description}</p>
                     <LocalizedClientLink
                       href={`/authors/${author.id}`}
-                      className="bg-blue-800 text-white px-4 py-2 rounded-md hover:bg-blue-800"
+                      className="bg-[#EA5900] text-white px-4 py-2 rounded-md hover:bg-[#EA5900]"
                     >
                       View Profile
                     </LocalizedClientLink>

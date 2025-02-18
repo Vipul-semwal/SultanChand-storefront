@@ -94,7 +94,7 @@ const ProductReviews = ({ productId }: { productId: string }) => {
     return (
       <p className="text-red-500">
         Failed to load reviews.{" "}
-        <button onClick={() => refetch()} className="text-blue-500 underline">
+        <button onClick={() => refetch()} className="text-blue-950 underline">
           Retry
         </button>
       </p>
@@ -115,7 +115,7 @@ const ProductReviews = ({ productId }: { productId: string }) => {
           {reviews.length > 0 ? (
             <>
               <ul className="space-y-3">
-                {reviews.slice(0, 10).map((review) => (
+                {reviews.slice(0, 5).map((review) => (
                   <li key={review.id} className="p-3  shadow-md bg-white-50 flex justify-between">
                     <div className="flex flex-col w-3/4">
                       <div className="flex items-center mb-1">
@@ -131,7 +131,7 @@ const ProductReviews = ({ productId }: { productId: string }) => {
                       <p className="text-sm text-gray-700">{review.comment}</p>
                       <div className="flex items-center space-x-2 mt-2">
                         {/* Display Reviewer's Profile Initials */}
-                        <div className="w-8 h-8 bg-blue-500 text-white flex items-center justify-center rounded-full">
+                        <div className="w-8 h-8 bg--[#EA5900]500 text-white flex items-center justify-center rounded-full">
                           {getInitials(review.name)}
                         </div>
                         <p className="text-xs text-gray-500">- {review.name}</p>
@@ -150,7 +150,7 @@ const ProductReviews = ({ productId }: { productId: string }) => {
               {reviews.length > 3 && (
                 <button
                   onClick={() => setModalOpen(true)}
-                  className="mt-4 px-3 py-2 bg-blue-500 text-white text-sm font-medium rounded-lg hover:bg-blue-600"
+                   className="px-4 py-2 flex items-center justify-center gap-3 bg-orange text-white rounded-lg transition-all duration-300 ease-in-out hover:bg-orange-600 hover:shadow-md hover:scale-100 focus:ring-2 focus:ring-orange-500 mt-2"
                 >
                   Read All Reviews
                 </button>
@@ -178,12 +178,12 @@ const ProductReviews = ({ productId }: { productId: string }) => {
                       />
                     ))}
                   </div>
-                  <span className="ml-2 text-xs text-gray-500">{review.email}</span>
+                  {/* <span className="ml-2 text-xs text-gray-500">{review.email}</span> */}
                 </div>
                 <p className="text-sm text-gray-700">{review.comment}</p>
                 <div className="flex items-center space-x-2 mt-2">
                   {/* Display Reviewer's Profile Initials */}
-                  <div className="w-8 h-8 bg-blue-500 text-white flex items-center justify-center rounded-full">
+                  <div className="w-8 h-8 bg--[#EA5900]500 text-white flex items-center justify-center rounded-full">
                     {getInitials(review.name)}
                   </div>
                   <p className="text-xs text-gray-500">- {review.name}</p>
@@ -201,7 +201,8 @@ const ProductReviews = ({ productId }: { productId: string }) => {
               <div className="text-center mt-4">
                 <button
                   onClick={loadMoreReviews}
-                  className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                  className="px-4 py-2 flex items-center justify-center gap-3 bg-[#2592ff] text-white rounded-lg transition-all duration-300 ease-in-out hover:bg-[#338be5] hover:shadow-md hover:scale-100 focus:ring-2 focus:ring-blue-500"
+              
                   disabled={isLoadingMore}
                 >
                   {isLoadingMore ? "Loading..." : "Load More"}

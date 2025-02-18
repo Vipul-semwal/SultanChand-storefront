@@ -1,53 +1,46 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
-import Modal from "@modules/common/components/modal";
-import Input from "@modules/common/components/input";
+import React, { useState, useEffect, useRef } from "react";
+import { useParams } from "next/navigation";
 import LocalizedClientLink from "@modules/common/components/localized-client-link";
-import { HttpTypes } from "@medusajs/types";
-import { useQueryData } from "@lib/hooks/useQueryData";
-
-interface SubCategory {
-  id: number;
-  name: string;
-  subcategories?: SubCategory[];
-}
-
-interface Category {
-  id: number;
-  name: string;
-  subcategories?: SubCategory[];
-}
+import { PiMagnifyingGlassBold } from "react-icons/pi";
+import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
+import useToggleState from "@lib/hooks/use-toggle-state";
+import { BsChevronDown, BsChevronRight } from "react-icons/bs";
+import Modal from "@modules/common/components/modal";
+import SearchBar from "@modules/common/components/search";
+import { transformProductCategory, ProductCategoryTypes as ProductCategory } from "@lib/util/transformProductCategory";
+import { useCategories } from "@lib/hooks/useCategory";
 
 const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [openDropdowns, setOpenDropdowns] = useState<Record<number, boolean>>({});
   const [sticky, setSticky] = useState(false);
-  const router = useRouter();
-  const { countryCode } = useParams();
+  const { countryCode } = useParams() as { countryCode: string };
+  const [hovered, setHovered] = useState(false);
+  const [openSubmenuId, setOpenSubmenuId] = useState<string | null>(null);
 
-  const categories: Category[] = [
-    { id: 1, name: "Home" },
-    { id: 2, name: "Contact Us", subcategories: [{ id: 21, name: "J.K. Rowling" }] },
-    { id: 4, name: "Online Library", subcategories: [{ id: 41, name: "J.K. Rowling" }] },
-    { id: 5, name: "Publish With Us", subcategories: [{ id: 51, name: "J.K. Rowling" }] },
-    { id: 6, name: "Blog", subcategories: [{ id: 61, name: "J.K. Rowling" }] },
-    { id: 7, name: "About Us", subcategories: [{ id: 71, name: "J.K. Rowling" }] },
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const categoriesRef = useRef<HTMLButtonElement | null>(null);
+  const { data: productCategories } = useCategories();
+
+
+  const allCategories: ProductCategory[] = [
+    {
+      id: "categories",
+      name: "Categories",
+      path: "#",
+      handle: "categories",
+      category_children: productCategories
+        ?.filter((data) => !data.parent_category_id) // Sirf root categories lo
+        .map(transformProductCategory) || []
+    },
+    { id: "home", name: "Home", path: "/", handle: "home" },
+    { id: "contact", name: "Contact Us", path: "/contact", handle: "contact" },
+    { id: "blog", name: "Blog", path: "/blog", handle: "blog" },
+    { id: "about", name: "About", path: "/about", handle: "about" },
+    { id: "gallery", name: "Gallery", path: "/gallery", handle: "gallery" }
   ];
-
-  const { data, isFetching, isError } = useQueryData<HttpTypes.StoreProductCategory[]>(
-    ["categories"],
-    () =>
-      fetch(`/api/categories`).then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch categories");
-        return res.json();
-      })
-  );
-
-  const toggleDropdown = (id: number) => {
-    setOpenDropdowns((prev) => ({ ...prev, [id]: !prev[id] }));
-  };
+  console.log('hello', productCategories)
 
   useEffect(() => {
     const handleScroll = () => setSticky(window.scrollY > 0);
@@ -55,187 +48,161 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const handleMouseEnter = () => setHovered(true);
+  const handleMouseLeave = () => setHovered(false);
 
-  const toggleModal = () => setIsModalOpen(!isModalOpen);
-
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
-
-  const handleSearch = () => {
-    const formattedQuery = searchQuery.trim().replace(/\s+/g, "%20");
-    if (formattedQuery) {
-      router.push(`/${countryCode}/store?q=${formattedQuery}`);
-      setIsModalOpen(false);
-      setSearchQuery("");
-    }
-  };
-
-  const currentPath = router.pathname; // Get the current route
-
-  const renderCategories = (categories: Category[] | SubCategory[]) => {
-    return categories.map((category) => (
-      <div key={category.id}>
-        <button
-          className={`w-full text-sm sm:text-base md:text-lg text-left px-4 py-2 hover:bg-gray-600 rounded-md flex justify-between items-center ${
-            category.name === "Home" && currentPath === "/" ? "bg-gray-600 text-white" : ""
-          }`}
-          onClick={() => toggleDropdown(category.id)}
-        >
-          {category.name}
-          {category.subcategories && (
-            <svg
-              className={`w-4 h-4 transform ${
-                openDropdowns[category.id] ? "rotate-180" : ""
-              } transition-transform`}
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          )}
-        </button>
-        {category.subcategories && openDropdowns[category.id] && (
-          <div className="pl-4 mt-2 space-y-1">{renderCategories(category.subcategories)}</div>
-        )}
-      </div>
-    ));
-  };
+  const { open, toggle, close, state } = useToggleState();
 
   return (
-    <nav
-      className={`bg-blue-800 text-white ${
-        sticky ? "fixed top-0 left-0 w-full z-50 shadow-lg" : ""
-      }`}
-    >
-      <div className="content-container mx-auto px-4">
+    <nav className={`bg-[#EA5900] text-white ${sticky ? "sticky top-0 shadow-lg z-50" : ""}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="text-lg md:text-xl font-bold">
-            SultanChand<span className="text-blue-100">&</span>Sons
-          </div>
-
-          <div className="hidden lg:flex items-center space-x-8">
-            {categories.map((category) => (
-              <Dropdown
-                key={category.id}
-                category={category}
-                currentPath={currentPath}
-              />
+          <div className="text-lg md:text-xl font-bold">SultanChand & Sons</div>
+          <div className="hidden lg:flex items-center space-x-8 relative">
+            {allCategories.map((category) => (
+              <LocalizedClientLink key={category.id} href={category.path}>
+                <button
+                  ref={category.handle === "categories" ? categoriesRef : null}
+                  className="px-3 py-2 text-sm font-medium hover:text-blue-950"
+                  onMouseEnter={category.handle === "categories" ? handleMouseEnter : undefined}
+                  onMouseLeave={category.handle === "categories" ? handleMouseLeave : undefined}
+                >
+                  {category.name}
+                </button>
+              </LocalizedClientLink>
             ))}
           </div>
-
-          <div className="flex items-center space-x-4">
-            <button onClick={toggleModal} className="hover:text-gray-300">
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-4.35-4.35M18.5 10.5a8 8 0 11-16 0 8 8 0 0116 0z"
-                />
-              </svg>
-            </button>
-            <button
-              className="text-gray-400 hover:text-white focus:outline-none lg:hidden"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d={
-                    isMobileMenuOpen
-                      ? "M6 18L18 6M6 6l12 12"
-                      : "M4 6h16M4 12h16m-7 6h7"
-                  }
-                />
-              </svg>
+          <div className="flex items-center gap-4">
+            <PiMagnifyingGlassBold fontSize={"24px"} onClick={open} className="cursor-pointer" />
+            <button className="lg:hidden" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              <RxHamburgerMenu fontSize={"28px"} />
             </button>
           </div>
         </div>
-        <Modal isOpen={isModalOpen} close={toggleModal} search={true}>
-          <Modal.Title>Search</Modal.Title>
-          <Modal.Description>
-            <Input
-              name="search"
-              label="Search..."
-              value={searchQuery}
-              onChange={handleSearchChange}
-            />
-          </Modal.Description>
-          <Modal.Footer>
-            <button
-              onClick={handleSearch}
-              className="px-4 py-2 bg-blue-800 text-white rounded-md"
-            >
-              Search
-            </button>
-          </Modal.Footer>
-        </Modal>
+      </div>
 
-        {isMobileMenuOpen && (
-          <div className="lg:hidden mt-2">
-            <div className="bg-gray-700 p-4 rounded-md space-y-2">
-              {renderCategories(categories)}
+      <Modal isOpen={state} close={close} search={true} size="large">
+        <Modal.Body>
+          <SearchBar />
+        </Modal.Body>
+      </Modal>
+
+      {/* Mobile Menu */}
+      <div className={`lg:hidden fixed inset-0 bg-white ${isMobileMenuOpen ? 'block' : 'hidden'} z-50`}>
+        <div className="flex justify-between items-center p-4 border-b">
+          <span className="text-gray-700 font-medium text-lg">Menu</span>
+          <button 
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              setOpenSubmenuId(null);
+            }}
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+          >
+            <RxCross2 fontSize={"24px"} className="text-gray-500 hover:text-orange-600" />
+          </button>
+        </div>
+        
+        <div className="flex flex-col h-[calc(100vh-80px)] overflow-y-auto pb-8">
+          {allCategories.map((category) => (
+            <div key={category.id} className="w-full border-b last:border-b-0">
+              {category.category_children ? (
+                <>
+                  <button
+                    onClick={() => setOpenSubmenuId(openSubmenuId === category.id ? null : category.id)}
+                    className="flex justify-between items-center w-full px-6 py-4
+                      hover:bg-gray-50 transition-colors text-left"
+                  >
+                    <div className="flex items-center gap-3">
+                      <BsChevronRight className="text-orange-600 text-sm" />
+                      <span className="font-medium text-gray-700">{category.name}</span>
+                    </div>
+                    <BsChevronDown className={`text-gray-400 transform transition-transform duration-300 
+                      ${openSubmenuId === category.id ? 'rotate-180' : ''}`} />
+                  </button>
+                  
+                  {openSubmenuId === category.id && (
+                    <div className="w-full bg-gray-50 space-y-2 pb-4">
+                      {category.category_children.map((child) => (
+                        <div key={child.id} className="relative group">
+                          <LocalizedClientLink 
+                            href={child.path} 
+                            onClick={() => {
+                              setIsMobileMenuOpen(false);
+                              setOpenSubmenuId(null);
+                            }}
+                          >
+                            <button className="flex items-center w-full text-gray-600 py-3 px-8 
+                              hover:text-orange-600 hover:pl-10 transition-all duration-300
+                              border-l-4 border-transparent hover:border-orange-600">
+                              <BsChevronRight className="text-orange-600 text-sm mr-3" />
+                              {child.name}
+                              {child.category_children && (
+                                <BsChevronDown className="ml-auto text-gray-400 text-sm" />
+                              )}
+                            </button>
+                          </LocalizedClientLink>
+
+                          {child.category_children && (
+                            <div className="pl-8 space-y-2">
+                              {child.category_children.map((subChild) => (
+                                <LocalizedClientLink key={subChild.id} href={subChild.path}>
+                                  <button className="flex items-center w-full text-gray-500 py-2 px-8 
+                                    hover:text-orange-600 hover:pl-12 transition-all duration-300
+                                    border-l-4 border-transparent hover:border-orange-400">
+                                    <BsChevronRight className="text-orange-400 text-xs mr-3" />
+                                    {subChild.name}
+                                  </button>
+                                </LocalizedClientLink>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <LocalizedClientLink href={category.path} onClick={() => setIsMobileMenuOpen(false)}>
+                  <button className="flex items-center w-full px-6 py-4
+                    hover:bg-gray-50 transition-colors text-left">
+                    <BsChevronRight className="text-orange-600 text-sm mr-3" />
+                    <span className="font-medium text-gray-700">{category.name}</span>
+                  </button>
+                </LocalizedClientLink>
+              )}
             </div>
-          </div>
-        )}
+          ))}
+        </div>
+      </div>
+
+      <div
+        ref={dropdownRef}
+        className={`absolute top-[110px] text-sm left-10 w-full h-auto content-container bg-white shadow-lg p-8 grid grid-cols-7 gap-6 z-50 transition-all duration-300 ease-in-out transform hidden lg:grid ${hovered ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
+          }`}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {allCategories
+          .find((category) => category.handle === "categories")
+          ?.category_children?.map((item) => (
+            <div key={item.id} className="flex flex-col">
+              <LocalizedClientLink href={item.path}>
+                <span className="text-gray-700 hover:text-orange-600 text-lg cursor-pointer font-bold border-b-2 border-orange-600">
+                  {item.name}
+                </span>
+              </LocalizedClientLink>
+              {item.category_children &&
+                item.category_children.map((data) => (
+                  <div className="mt-4" key={data.id}>
+                    <LocalizedClientLink href={data.path} key={data.id}>
+                      <span className="text-gray-700 hover:text-orange-600 cursor-pointer">{data.name}</span>
+                    </LocalizedClientLink>
+                  </div>
+                ))}
+            </div>
+          ))}
       </div>
     </nav>
-  );
-};
-
-const Dropdown: React.FC<{ category: Category; currentPath: string }> = ({
-  category,
-  currentPath,
-}) => {
-  const hasSubcategories = category.subcategories?.length || 0 > 0;
-
-  return (
-    <div className="group relative z-10">
-      <button
-        className={`text-sm sm:text-base flex items-center relative after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-[2px] after:bg-white after:transition-all after:duration-300 group-hover:after:w-full focus:outline-none ${
-          category.name === "Home" && currentPath === "/" ? "text-blue-100 font-semibold" : ""
-        }`}
-      >
-        {category.name}
-      </button>
-      {hasSubcategories && (
-        <div className="absolute left-0 top-full mt-2 w-48 bg-white text-gray-800 rounded-md shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transform translate-y-2 transition-all duration-200">
-          <ul className="py-2">
-            {category.subcategories?.map((sub) => (
-              <li key={sub.id}>
-                <button className="w-full text-sm md:text-base px-4 py-2 text-left hover:bg-gray-100">
-                  {sub.name}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
   );
 };
 

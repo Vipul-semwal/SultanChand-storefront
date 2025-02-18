@@ -245,3 +245,8 @@ export const updateCustomerAddress = async (
       return { success: false, error: err.toString() }
     })
 }
+
+export const isCustomerLoggedIn = async (): Promise<boolean> => {
+  const customer = await retrieveCustomer();
+  return customer !== null;
+};

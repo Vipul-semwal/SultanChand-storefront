@@ -1,4 +1,4 @@
-  interface Pagination {
+  export interface BlogPaginationTypes {
     page: number;
     pageSize: number;
     pageCount: number;

@@ -36,7 +36,7 @@ interface ImageResponse {
 
 // Function to fetch banner images
 export async function fetchBannerImages(): Promise<string[]> {
-    console.log('lund')
+   
   try {
     const response = await axios.get<ImageResponse[]>(
       "http://localhost:1337/api/upload/files",

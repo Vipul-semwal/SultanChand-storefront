@@ -5,12 +5,12 @@ interface Props {}
 
 const InfoBanner: React.FC<Props> = () => {
   return (
-    <div className="my-5 flex justify-center bg-blue-800 bg-[url('/Banner-patti-obi-scaled.jpg')] bg-cover bg-center relative">
-      <div className="absolute top-0 left-0 w-full h-full bg-blue-800 opacity-75 z-10"></div>
+    <div className="my-5 flex justify-center bg-blue-950 bg-[url('/Banner-patti-obi-scaled.jpg')] bg-cover bg-center relative">
+      <div className="absolute top-0 left-0 w-full h-full bg-blue-950 opacity-75 z-10"></div>
 
       <div className="container py-8 flex justify-center flex-col items-center relative z-20">
         <div className="center">
-          <Heading level="h1" className="text-white text-[29px] font-bold border-b-2 border-white pb-1">
+          <Heading level="h1" className="text-white text-[29px] font-bold border-b-2 border-orange-500 pb-1">
             Get Published
           </Heading>
         </div>
@@ -22,7 +22,7 @@ const InfoBanner: React.FC<Props> = () => {
         </div>
 
         <div className="published-link">
-          <button className="get-published p-[10px] px-[25px] bg-white text-blue-800 mt-2 font-bold text-[16px] rounded-[20px] hover:bg-gray-200 transition-all duration-500 ease-in-out">
+          <button className="get-published p-[10px] px-[25px] bg-[#EA5900] text-white mt-2 font-bold text-[16px] rounded-[20px] hover:bg-[#c8672a] transition-all duration-500 ease-in-out">
             Get Published
           </button>
         </div>

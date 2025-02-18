@@ -1,13 +1,12 @@
-import { Container, clx,Text } from "@medusajs/ui"
+import { Container, clx, Text } from "@medusajs/ui"
 import Image from "next/image"
 import React from "react"
-import { EyeIcon } from 'lucide-react';
+import { EyeIcon } from "lucide-react"
 
 import PlaceholderImage from "@modules/common/icons/placeholder-image"
 
 type ThumbnailProps = {
   thumbnail?: string | null
-  // TODO: Fix image typings
   images?: any[] | null
   size?: "small" | "medium" | "large" | "full" | "square"
   isFeatured?: boolean
@@ -27,28 +26,23 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
 
   return (
     <Container
-    className={clx(
-      "relative w-full overflow-hidden   p-2 bg-ui-bg-subtle shadow-elevation-card-rest outline-none  group-hover:shadow-elevation-card-hover transition-shadow ease-in-out duration-150",
-      className,
-      {
-        "aspect-[11/14]": isFeatured,
-        "aspect-[9/16]": !isFeatured && size !== "square",
-        "aspect-[1/1]": size === "square",
-        "w-[180px]": size === "small",
-        "w-[290px]": size === "medium",
-        "w-[440px]": size === "large",
-        "w-full": size === "full",
-      }
-    )}
-    data-testid={dataTestid}
-  >
-    <ImageOrPlaceholder image={initialImage} size={size} />
-   
-  </Container>
-  
-  
-  
-  
+      className={clx(
+        "relative w-full overflow-hidden p-2 bg-ui-bg-subtle shadow-elevation-card-rest outline-none group transition-shadow ease-in-out duration-150 hover:shadow-lg",
+        className,
+        {
+          "aspect-[11/14]": isFeatured,
+          "aspect-[9/16]": !isFeatured && size !== "square",
+          "aspect-[1/1]": size === "square",
+          "w-[180px]": size === "small",
+          "w-[290px]": size === "medium",
+          "w-[440px]": size === "large",
+          "w-full": size === "full",
+        }
+      )}
+      data-testid={dataTestid}
+    >
+      <ImageOrPlaceholder image={initialImage} size={size} />
+    </Container>
   )
 }
 
@@ -58,17 +52,16 @@ const ImageOrPlaceholder = ({
 }: Pick<ThumbnailProps, "size"> & { image?: string }) => {
   return image ? (
     <Image
-  src={image}
-  alt="Thumbnail"
-  className="absolute inset-0 object-cover  object-center mx-auto my-auto"
-  draggable={false}
-  quality={50}
-  sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
-  fill
-/>
-
+      src={image}
+      alt="Thumbnail"
+      className="absolute inset-0 object-cover object-center mx-auto my-auto transition-transform duration-300 ease-in-out group-hover:scale-110 group-hover:opacity-90"
+      draggable={false}
+      quality={50}
+      sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
+      fill
+    />
   ) : (
-    <div className="w-full h-full absolute inset-0 outline-none  flex items-center justify-center">
+    <div className="w-full h-full absolute inset-0 outline-none flex items-center justify-center">
       <PlaceholderImage size={size === "small" ? 16 : 24} />
     </div>
   )

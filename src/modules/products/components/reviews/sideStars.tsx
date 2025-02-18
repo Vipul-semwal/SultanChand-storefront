@@ -38,7 +38,7 @@ const SideStars: React.FC<SideStarsProps> = ({ averageRating, reviews,prouduct_i
   
             return (
               <div key={rating} className="flex items-center mt-2">
-                <span className="text-sm font-medium text-blue-600 hover:underline shrink-0 w-12">
+                <span className="text-sm font-medium text-blue-950 hover:underline shrink-0 w-12">
                   {rating} ★
                 </span>
                 <div className="w-3/4 h-4 mx-2 bg-gray-200 rounded">
@@ -56,7 +56,8 @@ const SideStars: React.FC<SideStarsProps> = ({ averageRating, reviews,prouduct_i
   
           <button
             onClick={openModal}  // Use the open function from useToggleState
-            className="px-4 py-2 flex items-center justify-center gap-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+            className="px-4 py-2 flex items-center justify-center gap-3 bg-[#2592ff] text-white rounded-lg transition-all duration-300 ease-in-out hover:bg-[#338be5] hover:shadow-md hover:scale-105 focus:ring-2 focus:ring-blue-500"
+
           >
             Write Review <FaFilePen />
           </button>
