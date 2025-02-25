@@ -1,10 +1,3 @@
-const checkEnvVariables = require("./check-env-variables")
-
-checkEnvVariables()
-
-/**
- * @type {import('next').NextConfig}
- */
 const nextConfig = {
   reactStrictMode: true,
   logging: {
@@ -21,14 +14,14 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "http",  
+        protocol: "http",
         hostname: "localhost",
         port: "1337",
       },
       {
         protocol: "http",
         hostname: "localhost",
-        port: "9000", 
+        port: "9000",
       },
       {
         protocol: "https",
@@ -44,6 +37,10 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "sultan-chand-and-sons.s3.ap-south-1.amazonaws.com", 
+      },
+      {
+        protocol: "https",
         hostname: "unsplash.com",
       },
       {
@@ -52,5 +49,6 @@ const nextConfig = {
       },
     ],
   },
-}
-module.exports = nextConfig
+};
+
+module.exports = nextConfig;

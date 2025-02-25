@@ -8,24 +8,24 @@ export const contactSchema = z.object({
 export type ContactFormData = z.infer<typeof contactSchema>;
 
 
-export const specimenRequestSchema = z.object({
-  categoryName: z.string().min(1, "Category Name is required"),
-  schoolName: z.string().min(1, "School/College/Coaching Name is required"),
-  state: z.string().min(1, "State is required"),
-  residenceAddress: z.string().min(1, "Residence Address is required"),
-  phoneNumber: z.string().min(10, "Phone Number must be at least 10 digits"),
-  email: z.string().email("Invalid email format"),
-  titleName: z.string().min(1, "Title Name is required"),
-  strength: z.string().min(1, "Strength is required"),
-  name: z.string().min(1, "Name is required"),
-  schoolAddress: z.string().min(1, "School Address is required"),
-  city: z.string(),
-  pinCode: z.string().min(1, "Pin Code is required"),
-  mobileNumber: z.string().min(10, "Mobile Number must be at least 10 digits"),
-  titleCategory: z.string().min(1, "Title Category is required"),
-  letterHead: z.any(), 
-  photoID: z.any(),
-});
+  export const specimenRequestSchema = z.object({
+    categoryName: z.string().min(1, "Category Name is required"),
+    schoolName: z.string().min(1, "School/College/Coaching Name is required"),
+    state: z.string().min(1, "State is required"),
+    residenceAddress: z.string().min(1, "Residence Address is required"),
+    phoneNumber: z.string().min(10, "Phone Number must be at least 10 digits"),
+    email: z.string().email("Invalid email format"),
+    titleName: z.string().min(1, "Title Name is required"),
+    strength: z.string().min(1, "Strength is required"),
+    name: z.string().min(1, "Name is required"),
+    schoolAddress: z.string().min(1, "School Address is required"),
+    city: z.string(),
+    pinCode: z.string().min(1, "Pin Code is required"),
+    mobileNumber: z.string().min(10, "Mobile Number must be at least 10 digits"),
+    titleCategory: z.string().min(1, "Title Category is required"),
+    letterHead: z.any(), 
+    photoID: z.any(),
+  });
 
 export type specimenFormData = z.infer<typeof specimenRequestSchema>;
 

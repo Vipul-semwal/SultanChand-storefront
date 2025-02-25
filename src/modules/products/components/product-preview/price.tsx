@@ -1,7 +1,7 @@
 import { Text, clx } from "@medusajs/ui"
 import { VariantPrice } from "types/global"
 
-export default  function PreviewPrice({ price }: { price: VariantPrice }) {
+export default  function PreviewPrice({ price }: { price?: VariantPrice | null }) {
   if (!price) {
     return null
   }

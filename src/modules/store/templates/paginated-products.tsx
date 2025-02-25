@@ -3,6 +3,8 @@ import { getRegion } from "@lib/data/regions"
 import ProductPreview from "@modules/products/components/product-preview"
 import { Pagination } from "@modules/store/components/pagination"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
+import { makeSerch } from "@lib/data/products"
+import { HttpTypes } from "@medusajs/types"
 
 const PRODUCT_LIMIT = 12
 
@@ -23,6 +25,7 @@ export default async function PaginatedProducts({
   productsIds,
   countryCode,
   searchQuery,
+  searchby,
 }: {
   sortBy?: SortOptions
   page: number
@@ -31,9 +34,10 @@ export default async function PaginatedProducts({
   productsIds?: string[]
   countryCode: string
   searchQuery?: string
+  searchby?: string
 }) {
   const queryParams: PaginatedProductsParams = {
-    limit: 12,
+    limit: PRODUCT_LIMIT,
   }
 
   if (collectionId) {
@@ -51,47 +55,68 @@ export default async function PaginatedProducts({
   if (sortBy === "created_at") {
     queryParams["order"] = "created_at"
   }
-  
+
   if (searchQuery) {
     queryParams["q"] = searchQuery
   }
+
   const region = await getRegion(countryCode)
 
   if (!region) {
     return null
   }
 
-  let {
-    response: { products, count },
-  } = await listProductsWithSort({
-    page,
-    queryParams,
-    sortBy,
-    countryCode,
-  })
+  let products: HttpTypes.StoreProduct[] = []
+  let totalPages = 0
+  const hastoFetchAgain = Boolean(searchby)
 
-  const totalPages = Math.ceil(count / PRODUCT_LIMIT)
+  if (hastoFetchAgain && searchQuery) {
+    const { products: data, status } = await makeSerch({
+      page,
+      limit: PRODUCT_LIMIT,
+      name: searchby,
+      query: searchQuery,
+    })
+
+    if (status === 500) {
+      return <div className="flex justify-center items-center">Something went wrong</div>
+    }
+
+    products = data
+  } else {
+    let {
+      response: { products: data, count },
+    } = await listProductsWithSort({
+      page,
+      queryParams,
+      sortBy,
+      countryCode,
+    })
+
+    totalPages = Math.ceil(count / PRODUCT_LIMIT)
+    products = data
+  }
 
   return (
     <>
-      <ul
-        className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8"
-        data-testid="products-list"
-      >
-        {products.map((p) => {
-          return (
+      {products.length === 0 ? (
+        <div className="flex justify-center items-center h-32 text-gray-500 text-lg">
+          No products found. Try searching for something else.
+        </div>
+      ) : (
+        <ul
+          className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8"
+          data-testid="products-list"
+        >
+          {products.map((p) => (
             <li key={p.id}>
-              <ProductPreview product={p} region={region} />
+              <ProductPreview product={p} region={region} haveTofetchAgain={hastoFetchAgain} />
             </li>
-          )
-        })}
-      </ul>
+          ))}
+        </ul>
+      )}
       {totalPages > 1 && (
-        <Pagination
-          data-testid="product-pagination"
-          page={page}
-          totalPages={totalPages}
-        />
+        <Pagination data-testid="product-pagination" page={page} totalPages={totalPages} />
       )}
     </>
   )

@@ -6,6 +6,10 @@ import { Input, Button, Select } from "@medusajs/ui";
 import { specimenRequestSchema, specimenFormData } from "../../schema/schema";
 import { useCities } from "../../../lib/hooks/useCities";
 import { stateCityData } from "@lib/data/stateCityData";
+import { useMutationData } from "@lib/hooks/useMutationData";
+import { sdk } from "@lib/config";
+import { toast } from "@medusajs/ui";
+import uploadFileWithSdk from "@lib/data/uploadfile";
 
 export default function SpecimenRequestForm() {
   const {
@@ -13,23 +17,82 @@ export default function SpecimenRequestForm() {
     handleSubmit,
     watch,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<specimenFormData>({
     resolver: zodResolver(specimenRequestSchema),
   });
 
   const selectedState = watch("state");
-  
+
   const test = watch("schoolName");
   const cities = useCities(selectedState);
-  console.log('ciotesss:',selectedState)
+  console.log('ciotesss:', errors)
+  const { mutate,isPending } = useMutationData(
+    ["specimenrequest"],
+    async (data) => {
+      const res:any = await sdk.client.fetch("/store/SpecimenRequest", {
+        method: "POST",
+        body: data,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+        
+      console.log('ressssonhshdeiur',res)
+      if (!res.sucsess) {
+        throw new Error("Network response was not ok");
+      }
 
-  const onSubmit = (data: specimenFormData) => {
-    console.log("Form Submitted:", test);
+      return res
+    },
+    ["specimenrequest"],
+    () => {
+      toast.success("Info", {
+        description: "Request submmited successfully",
+      })
+      reset()
+    }
+  );
+
+  const onSubmit = async (data: specimenFormData) => {
+    try {
+      const missingFiles = [];
+    if (!data.letterHead?.[0]) missingFiles.push("Letter Head");
+    if (!data.photoID?.[0]) missingFiles.push("Photo ID");
+
+    if (missingFiles.length) {
+      toast.error("Missing Files", {
+        description: `${missingFiles.join(" and ")} ${missingFiles.length > 1 ? "are" : "is"} required.`,
+      });
+      return;
+    }
+      console.log('saryahahai:', data)
+      const [letterHeadUrl, photoIDUrl] = await Promise.all([
+        data.letterHead?.[0] ? uploadFileWithSdk(data.letterHead[0]) : null,
+        data.photoID?.[0] ? uploadFileWithSdk(data.photoID[0]) : null,
+      ]);
+
+      console.log('filessbaey',letterHeadUrl,photoIDUrl);
+      if (!(letterHeadUrl?.success && photoIDUrl?.success)) {
+        throw new Error('File upload failed: Ensure both letterHead and photoID are uploaded successfully.');
+      }
+      const updatedData = {
+        ...data,
+        letterHead: letterHeadUrl.url,
+        photoID: photoIDUrl.url,
+      };
+
+      mutate(updatedData);
+    } catch (error) {
+      toast.error("Error", {
+        description: "File upload failed. Please try again.",
+      });
+    }
   };
 
   return (
-    <form 
+    <form
       onSubmit={handleSubmit(onSubmit)}
       className="bg-white p-6 shadow-lg rounded-lg max-w-3xl mx-auto space-y-6"
     >
@@ -41,7 +104,9 @@ export default function SpecimenRequestForm() {
         {/* Category Name */}
         <div>
           <label className="text-gray-700 text-sm font-medium">Category Name</label>
-          <Select {...register("categoryName")}>
+          <Select {...register("categoryName")} onValueChange={(data) => {
+            setValue('categoryName', data);
+          }}>
             <Select.Trigger>
               <Select.Value placeholder="Select Category" />
             </Select.Trigger>
@@ -52,38 +117,68 @@ export default function SpecimenRequestForm() {
           </Select>
           {errors.categoryName && <p className="text-red-500 text-xs mt-1">{errors.categoryName.message}</p>}
         </div>
-
+        
         {/* School Name */}
         <div>
           <label className="text-gray-700 text-sm font-medium">School/College/Coaching Name</label>
           <Input {...register("schoolName")} className="mt-1 w-full" />
           {errors.schoolName && <p className="text-red-500 text-xs mt-1">{errors.schoolName.message}</p>}
         </div>
+        
+         {/* name */}
+         <div>
+          <label className="text-gray-700 text-sm font-medium"> Name</label>
+          <Input {...register("name")} className="mt-1 w-full" />
+          {errors.schoolName && <p className="text-red-500 text-xs mt-1">{errors.name?.message}</p>}
+        </div>
+        
+          {/* City */}
+          <div>
+          <label className="text-gray-700 text-sm font-medium">City</label>
+          <Select
+            {...register("city")}
+            onValueChange={(value) => setValue("city", value)}
+            value={watch("city")}
+            disabled={!selectedState}
+          >
+            <Select.Trigger>
+              <Select.Value placeholder="Select City" />
+            </Select.Trigger>
+            <Select.Content>
+              {cities.map((city) => (
+                <Select.Item key={city} value={city}>
+                  {city}
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select>
+          {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city.message}</p>}
+        </div>
 
         {/* State */}
         <div>
-  <label className="text-gray-700 text-sm font-medium">State</label>
-  <Select 
-    {...register("state")}
-    onValueChange={(value) => {
-      setValue("state", value);
-      setValue("city", ""); // Reset city when state changes
-    }}
-    value={selectedState}
-  >
-    <Select.Trigger>
-      <Select.Value placeholder="Select State" />
-    </Select.Trigger>
-    <Select.Content>
-      {Object.keys(stateCityData).map((state) => (
-        <Select.Item key={state} value={state}>
-          {state}
-        </Select.Item>
-      ))}
-    </Select.Content>
-  </Select>
-  {errors.state && <p className="text-red-500 text-xs mt-1">{errors.state.message}</p>}
-</div>
+          <label className="text-gray-700 text-sm font-medium">State</label>
+          <Select
+            {...register("state")}
+            onValueChange={(value) => {
+              setValue("state", value);
+              setValue("city", ""); // Reset city when state changes
+            }}
+            value={selectedState}
+          >
+            <Select.Trigger>
+              <Select.Value placeholder="Select State" />
+            </Select.Trigger>
+            <Select.Content>
+              {Object.keys(stateCityData).map((state) => (
+                <Select.Item key={state} value={state}>
+                  {state}
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select>
+          {errors.state && <p className="text-red-500 text-xs mt-1">{errors.state.message}</p>}
+        </div>
 
         {/* Residence Address */}
         <div>
@@ -98,7 +193,8 @@ export default function SpecimenRequestForm() {
           <Input {...register("phoneNumber")} className="mt-1 w-full" />
           {errors.phoneNumber && <p className="text-red-500 text-xs mt-1">{errors.phoneNumber.message}</p>}
         </div>
-
+        
+        
         {/* Email */}
         <div>
           <label className="text-gray-700 text-sm font-medium">Email</label>
@@ -116,7 +212,9 @@ export default function SpecimenRequestForm() {
         {/* Strength */}
         <div>
           <label className="text-gray-700 text-sm font-medium">Strength</label>
-          <Select {...register("strength")}>
+          <Select {...register("strength")} onValueChange={(data) => {
+            setValue("strength", data)
+          }}>
             <Select.Trigger>
               <Select.Value placeholder="Select Strength" />
             </Select.Trigger>
@@ -127,37 +225,14 @@ export default function SpecimenRequestForm() {
           </Select>
           {errors.strength && <p className="text-red-500 text-xs mt-1">{errors.strength.message}</p>}
         </div>
-
+      
+      
         {/* School Address */}
         <div>
           <label className="text-gray-700 text-sm font-medium">School/College Address</label>
           <Input {...register("schoolAddress")} className="mt-1 w-full" />
           {errors.schoolAddress && <p className="text-red-500 text-xs mt-1">{errors.schoolAddress.message}</p>}
         </div>
-
-        {/* City */}
-        <div>
-  <label className="text-gray-700 text-sm font-medium">City</label>
-  <Select 
-    {...register("city")}
-    onValueChange={(value) => setValue("city", value)}
-    value={watch("city")}
-    disabled={!selectedState}
-  >
-    <Select.Trigger>
-      <Select.Value placeholder="Select City" />
-    </Select.Trigger>
-    <Select.Content>
-      {cities.map((city) => (
-        <Select.Item key={city} value={city}>
-          {city}
-        </Select.Item>
-      ))}
-    </Select.Content>
-  </Select>
-  {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city.message}</p>}
-</div>
-
         {/* Pin Code */}
         <div>
           <label className="text-gray-700 text-sm font-medium">Pin Code</label>
@@ -172,10 +247,31 @@ export default function SpecimenRequestForm() {
           {errors.mobileNumber && <p className="text-red-500 text-xs mt-1">{errors.mobileNumber.message}</p>}
         </div>
 
+
         {/* Title Category */}
         <div>
           <label className="text-gray-700 text-sm font-medium">Title Category</label>
-          <Input {...register("titleCategory")} className="mt-1 w-full" />
+          <Select {...register("titleCategory")} onValueChange={(data) => {
+            setValue('titleCategory', data);
+          }}>
+            <Select.Trigger>
+              <Select.Value placeholder="Select Category" />
+            </Select.Trigger>
+            <Select.Content>
+              <Select.Item value="Accountancy">Accountancy</Select.Item>
+              <Select.Item value="Commerce & Management">Commerce & Management</Select.Item>
+              <Select.Item value="Computer & Information Technology">Computer & Information Technology</Select.Item>
+              <Select.Item value="Economics">Economics</Select.Item>
+              <Select.Item value="Humanities">Humanities</Select.Item>
+              <Select.Item value="Law">Law</Select.Item>
+              <Select.Item value="Management">Management</Select.Item>
+              <Select.Item value="Mathematical Sciences">Mathematical Sciences</Select.Item>
+              <Select.Item value="Philosophy">Philosophy</Select.Item>
+              <Select.Item value="Psychology">Psychology</Select.Item>
+              <Select.Item value="Science">Science</Select.Item>
+              <Select.Item value="Self Development/Improvement">Self Development/Improvement</Select.Item>
+            </Select.Content>
+          </Select>
           {errors.titleCategory && <p className="text-red-500 text-xs mt-1">{errors.titleCategory.message}</p>}
         </div>
 
@@ -193,8 +289,8 @@ export default function SpecimenRequestForm() {
 
       {/* Submit Button */}
       <div className="text-center">
-        <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-md text-lg">
-          Submit
+        <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-md text-lg" disabled={isPending}>
+         {isPending?"loading...":" Submit"}
         </Button>
       </div>
     </form>

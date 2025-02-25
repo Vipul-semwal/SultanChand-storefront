@@ -13,7 +13,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 
 interface QuickViewProps {
   productInfo: HttpTypes.StoreProduct;
-  cheapestPrice:VariantPrice
+  cheapestPrice?:VariantPrice |null
   cb?:()=>void
 }
 
@@ -23,14 +23,14 @@ const QuickView: React.FC<QuickViewProps> = ({ productInfo,cheapestPrice,cb }) =
     notFound()
   }
   
- console.log('prodcuinfo',productInfo)
+ console.log('prodcuinfo',productInfo.images)
   return (
     <div className="w-full  flex justify-center items-center">
       <div className="bg-white w-full max-w-4xl rounded-lg flex flex-col sm:flex-row overflow-hidden">
         {/* Book Image */}
         <div className="w-full sm:w-1/2">
           <img
-            src={productInfo.thumbnail??""}
+            src={productInfo?.images?.[0]?.url ?? undefined}
             alt={productInfo.title}
             className="w-full h-64 sm:h-auto object-cover"
           />
@@ -49,7 +49,7 @@ const QuickView: React.FC<QuickViewProps> = ({ productInfo,cheapestPrice,cb }) =
 
           {/* Buttons */}
           <div className="mt-3 grid sm:grid-cols-2 gap-4">
-           <QuickAddToCart product={productInfo} countryCode={countryCode} cb={cb}/>
+          {cheapestPrice &&  <QuickAddToCart product={productInfo} countryCode={countryCode} cb={cb}/>}
            <LocalizedClientLink href={`/products/${productInfo.handle}`}>
             <button
               className="bg-gray-100 text-gray-700 py-3 rounded-lg text-sm hover:bg-gray-200 transition-all w-full"

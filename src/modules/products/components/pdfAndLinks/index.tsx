@@ -60,7 +60,7 @@ function PdfAndLinks({ product_id }: Props) {
     })
    }
  
-   const {data,isFetching,} = useQueryData<ProductResponse>(["extralinks",product_id],extalinkCall)
+   const {data,isFetching,} = useQueryData<ProductResponse>(["extralinksandpdf",product_id],extalinkCall)
    // console.table(data?.data[0].extra_link);
    const extraLinks = data?.data[0].extra_link as unknown as ExtraLinksTypes;
    const author = data?.data[0].author as Author;
@@ -116,7 +116,7 @@ function PdfAndLinks({ product_id }: Props) {
          <div key={index} style={itemStyle}>
            <FaFilePdf style={{ ...iconStyle, color: pdfIconColor }} />
            {url ? (
-             <a href={url} style={linkStyle} target="_blank" rel="noopener noreferrer">
+             <a href={url as string | undefined} style={linkStyle} target="_blank" rel="noopener noreferrer">
                {label}
              </a>
            ) : (

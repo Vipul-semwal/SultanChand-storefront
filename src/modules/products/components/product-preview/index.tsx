@@ -10,18 +10,42 @@ import QuickView from "../quick-view";
 import Modal from "@modules/common/components/modal";
 import useToggleState from "@lib/hooks/use-toggle-state";
 import ProductRating from "../reviews/ProductRating"; // Updated ProductRating
+import { useQueryData } from "@lib/hooks/useQueryData";
+import { useProductData } from "@lib/hooks/useProductData";
+import { useParams } from "next/navigation";
+import { useState,useEffect } from "react";
 
 export default function ProductPreview({
   product,
   isFeatured,
   region,
+  haveTofetchAgain=false,
 }: {
   product: HttpTypes.StoreProduct;
   isFeatured?: boolean;
   region: HttpTypes.StoreRegion;
+  haveTofetchAgain: boolean;
 }) {
+  const [productData, setProductData] = useState<HttpTypes.StoreProduct>(product);
+
+  const params = useParams();
+  const countryCode = params?.countryCode as string;
+
+  // ✅ Always call useProductData, but avoid fetching inside it
+  const { data, isFetching } = useProductData(
+    countryCode, 
+    product.handle, 
+    haveTofetchAgain // Hook ke andar handle hoga ki API call karni hai ya nahi
+  );
+
+  useEffect(() => {
+    if (haveTofetchAgain && data && !isFetching) {
+      setProductData(data);
+    }
+  }, [haveTofetchAgain, data, isFetching]);
+
   const { cheapestPrice } = getProductPrice({
-    product,
+    product:productData,
   });
 
   const [isQuickViewOpen, openQuickView, closeQuickView] = useToggleState();
@@ -29,7 +53,7 @@ export default function ProductPreview({
   return (
     <div className="test">
       <LocalizedClientLink
-        href={`/products/${product.handle}`}
+        href={`/products/${productData.handle}`}
         className="group outline-none"
       >
         <div
@@ -37,8 +61,8 @@ export default function ProductPreview({
           className="outline-none text-center flex flex-col items-center"
         >
           <Thumbnail
-            thumbnail={product.thumbnail}
-            images={product.images}
+            thumbnail={productData.thumbnail}
+            images={productData.images}
             size="full"
             isFeatured={isFeatured}
           />
@@ -47,14 +71,14 @@ export default function ProductPreview({
               className="text-ui-fg-subtle font-bold text-center"
               data-testid="product-title"
             >
-              {product.title}
+              {productData.title}
             </Text>
           </div>
 
           {/* Only Stars Rating Section */}
           <div className="flex items-center justify-center ">
             <ProductRating
-              productId={product.id} // Pass the product ID to fetch reviews
+              productId={productData.id} // Pass the product ID to fetch reviews
               fontSize="medium"
               showDetails={false} // Hide average rating and total reviews
             />
@@ -77,11 +101,11 @@ export default function ProductPreview({
           <Modal.Title><p className="border-l-orange-500 border-l-4 p-1">Quick View</p></Modal.Title>
           <Modal.Body>
             <div className="p-4">
-            {cheapestPrice && <QuickView productInfo={product} cheapestPrice={cheapestPrice} />}
+            { <QuickView productInfo={productData} cheapestPrice={cheapestPrice?cheapestPrice:null} />}
             </div>
           </Modal.Body>
         </Modal>
-      </div>
+      </div> 
     </div>
   );
 }

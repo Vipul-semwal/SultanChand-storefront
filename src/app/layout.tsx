@@ -4,9 +4,10 @@ import "styles/globals.css"
 import { Poppins } from 'next/font/google'
 import ReactQueryProvider from '../provider/index'
 import {Toaster} from "@medusajs/ui"
+import PopUpBanner from "../modules/popup"
 
 export const metadata: Metadata = {
-  metadataBase: new URL(getBaseURL()),
+  metadataBase: new URL(getBaseURL()),  
 } 
 // WIP font problem in all !
 
@@ -22,6 +23,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
     <html lang="en" data-mode="light" className={`${poppins.className} bg-white`}>
       <body>
         <main className="relative"><ReactQueryProvider>
+          <PopUpBanner/>
         <Toaster />
         {props.children}
           </ReactQueryProvider></main>

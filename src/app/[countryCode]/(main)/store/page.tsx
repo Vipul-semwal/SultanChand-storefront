@@ -14,7 +14,8 @@ type Params = {
     page?: string,
     q?: string,
     category:string,
-    handle:string
+    handle:string,
+    searchby?: string
 
   }>
   params: Promise<{
@@ -25,8 +26,8 @@ type Params = {
 export default async function StorePage(props: Params) {
   const params = await props.params;
   const searchParams = await props.searchParams;
-  const { sortBy, page,q,category,handle } = searchParams
-  console.log('hhleee',handle )
+  const { sortBy, page,q,category,handle,searchby } = searchParams
+  // console.log('serchby',searchby )
 
  
   return (
@@ -37,6 +38,7 @@ export default async function StorePage(props: Params) {
       serchQuery={q}
       category={category}
       handle={handle}
+      searchby={searchby}
       
     />
   )

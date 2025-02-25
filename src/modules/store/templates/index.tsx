@@ -13,17 +13,19 @@ const StoreTemplate = ({
   serchQuery,
   category,
   handle,
+  searchby
 }: {
   sortBy?: SortOptions
   page?: string
   countryCode: string,
   serchQuery?: string,
   category?:string,
-  handle?:string
+  handle?:string,
+  searchby?: string
 }) => {
   const pageNumber = page ? parseInt(page) : 1
   const sort = sortBy || "created_at"
-  console.log('hellooo',handle)
+  // console.log('hellooo',handle)
 
   return (
     <div
@@ -44,6 +46,7 @@ const StoreTemplate = ({
             countryCode={countryCode}
             searchQuery={serchQuery}
             categoryId={category}
+            searchby={searchby}
           />
         </Suspense>
       </div>

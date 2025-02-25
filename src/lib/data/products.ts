@@ -133,4 +133,65 @@ export const listProductsWithSort = async ({
     nextPage,
     queryParams,
   }
-}
+};
+
+
+
+export const makeSerch = async ({ 
+  page = 1,
+  limit = 10,
+  name = "author",
+  query = "",
+}: {
+  page?: number;
+  limit?: number;
+  name?: string;
+  query?: string;
+}): Promise<{
+  products: HttpTypes.StoreProduct[] | []; // Merged products array
+  count: number;
+  nextPage: number | null;
+  status: number;
+}> => {
+  const offset = (page - 1) * limit;
+
+  // Fetch data from API
+ try{
+  const response = await sdk.client.fetch<{ 
+    data: { 
+      id: string;
+      products?: HttpTypes.StoreProduct[]; // Each item may have products
+    }[] | [];
+    count: number;
+    limit: number;
+    offset: number;
+  }>(`/store/serch`, {
+    query: { name, query, limit, offset },
+  });
+
+  // Extract necessary fields
+  const { data = [], count = 0 } = response;
+
+  // Merge all products into a single array
+  const mergedProducts = data.flatMap((item) => item.products || []).slice(0, limit);
+  console.log('mergedProducts',mergedProducts[0].variants)
+
+  const nextPage = count > offset + limit ? page + 1 : null;
+
+  return {
+    products: mergedProducts, // Flattened product array
+    count,
+    nextPage,
+    status: 200,
+  };
+ }
+ catch(e){
+  return {
+    products: [], // Flattened product array
+    count:0,
+    nextPage:0,
+    status: 500,
+  };
+ }
+};
+

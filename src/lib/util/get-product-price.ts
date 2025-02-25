@@ -55,6 +55,8 @@ export function getProductPrice({
     return getPricesForVariant(cheapestVariant)
   }
 
+  console.log('lunlega bshh',product.variants)
+
   const variantPrice = () => {
     if (!product || !variantId) {
       return null

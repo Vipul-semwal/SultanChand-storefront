@@ -15,6 +15,13 @@ const Hero = () => {
   const { data: images, isPending, isError } = useQueryData<string[]>(
     ['bannerImages'],
     fetchBannerImages,
+    true ,
+    { 
+      queryKey: [`bannerImages`],
+      staleTime: 5 * 60 * 1000, 
+      refetchOnWindowFocus: false,
+      retry: 1,
+    }
   );
    const strepiurl =process.env.NEXT_PUBLIC_STRAPI_API_URL
 

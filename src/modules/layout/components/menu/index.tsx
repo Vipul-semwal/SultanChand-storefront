@@ -35,7 +35,7 @@ const Navbar: React.FC = () => {
         .map(transformProductCategory) || []
     },
     { id: "home", name: "Home", path: "/", handle: "home" },
-    { id: "contact", name: "Contact Us", path: "/contact", handle: "contact" },
+    { id: "contact", name: "Contact Us", path: "/contact-us", handle: "contact" },
     { id: "blog", name: "Blog", path: "/blog", handle: "blog" },
     { id: "about", name: "About", path: "/about", handle: "about" },
     { id: "gallery", name: "Gallery", path: "/gallery", handle: "gallery" }
@@ -81,7 +81,8 @@ const Navbar: React.FC = () => {
         </div>
       </div>
 
-      <Modal isOpen={state} close={close} search={true} size="large">
+      <Modal isOpen={state} close={close} search={true} size="large" takeFull >
+          <Modal.Title>Serch</Modal.Title>
         <Modal.Body>
           <SearchBar />
         </Modal.Body>

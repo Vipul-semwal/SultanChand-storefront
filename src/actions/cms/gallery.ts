@@ -29,7 +29,7 @@ export async function GetAllGalleries({ page, pageSize, sort }: Request): Promis
 
 
 
-    console.log('response:',response)
+    console.log('responsebanner:',response)
 
     // Map API data to simplified gallery list items
     const galleries: GalleryListItem[] = response.data.data.map((gallery) => ({

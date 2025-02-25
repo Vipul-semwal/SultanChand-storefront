@@ -13,6 +13,7 @@ type ModalProps = {
   takeFull?: boolean; // New prop to enable full-screen mode
   children: React.ReactNode;
   "data-testid"?: string;
+  nrml?:boolean
 };
 
 const Modal = ({
@@ -23,6 +24,7 @@ const Modal = ({
   takeFull = false, // Default is false
   children,
   "data-testid": dataTestId,
+  nrml
 }: ModalProps) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -68,8 +70,8 @@ const Modal = ({
                     "max-w-md": size === "small" && !takeFull,
                     "max-w-xl": size === "medium" && !takeFull,
                     "max-w-3xl": size === "large" && !takeFull,
-                    "bg-transparent shadow-none": search,
-                    "bg-white shadow-xl border rounded-rounded": !search,
+                    "bg-transparent shadow-none": search ,
+                    "bg-white shadow-xl border rounded-rounded": !search && !nrml,
                   }
                 )}
               >

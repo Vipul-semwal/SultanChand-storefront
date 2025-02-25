@@ -36,7 +36,7 @@ export const useMutationData = (
       },
       onError:async ()=>{
         toast.error("Info", {
-          description: "something went wrong while adding Review",
+          description: "something went wrong !!",
         })
       }
     })
