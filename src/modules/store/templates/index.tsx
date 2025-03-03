@@ -2,9 +2,11 @@ import { Suspense } from "react"
 
 import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-grid"
 import RefinementList from "@modules/store/components/refinement-list"
-import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
+import SortProducts, { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 
 import PaginatedProducts from "./paginated-products"
+import GlobalHero from "@modules/common/components/globalhero"
+import { MdNavigateNext } from "react-icons/md";
 
 const StoreTemplate = ({
   sortBy,
@@ -19,8 +21,8 @@ const StoreTemplate = ({
   page?: string
   countryCode: string,
   serchQuery?: string,
-  category?:string,
-  handle?:string,
+  category?: string,
+  handle?: string,
   searchby?: string
 }) => {
   const pageNumber = page ? parseInt(page) : 1
@@ -28,17 +30,26 @@ const StoreTemplate = ({
   // console.log('hellooo',handle)
 
   return (
-    <div
-      className="flex flex-col small:flex-row small:items-start py-6 content-container"
+    <div>
+      <GlobalHero backgroundImage="/book.jpg" title="Searching" subtitle="We have lots of books so find a good for you!" />
+      <div
+      className="grid grid-cols-1 md:grid-cols-12 gap-6 py-6 content-container"
       data-testid="category-container"
     >
-     <div className="mr-5">
-       <RefinementList sortBy={sort} handle={handle}/>
-     </div>
-      <div className="w-full">
-        <div className="mb-8 text-2xl-semi">
-          <h1 data-testid="store-page-title">All products</h1>
+      {/* Left Section (4 columns on medium and larger screens) */}
+      <div className="md:col-span-2">
+        <RefinementList sortBy={sort} handle={handle} />
+      </div>
+
+      {/* Right Section (8 columns on medium and larger screens) */}
+      <div className="md:col-span-10 w-full">
+        <div className="mb-8 flex justify-between items-center text-sm font-semibold text-blue-950 sm:text-2xl">
+          <h1 data-testid="store-page-title" className="flex items-center">
+            All Books <span><MdNavigateNext className="text-orange-600" /></span>
+          </h1>
+          {/* <SortProducts sortBy={sort} setQueryParams={setQueryParams}  /> */}
         </div>
+
         <Suspense fallback={<SkeletonProductGrid />}>
           <PaginatedProducts
             sortBy={sort}
@@ -51,6 +62,8 @@ const StoreTemplate = ({
         </Suspense>
       </div>
     </div>
+    </div>
+
   )
 }
 

@@ -1,18 +1,18 @@
-import { Container, clx, Text } from "@medusajs/ui"
-import Image from "next/image"
-import React from "react"
-import { EyeIcon } from "lucide-react"
+import { Container, clx, Text } from "@medusajs/ui";
+import Image from "next/image";
+import React from "react";
+import { EyeIcon } from "lucide-react";
 
-import PlaceholderImage from "@modules/common/icons/placeholder-image"
+import PlaceholderImage from "@modules/common/icons/placeholder-image";
 
 type ThumbnailProps = {
-  thumbnail?: string | null
-  images?: any[] | null
-  size?: "small" | "medium" | "large" | "full" | "square"
-  isFeatured?: boolean
-  className?: string
-  "data-testid"?: string
-}
+  thumbnail?: string | null;
+  images?: any[] | null;
+  size?: "small" | "medium" | "large" | "full" | "square";
+  isFeatured?: boolean;
+  className?: string;
+  "data-testid"?: string;
+};
 
 const Thumbnail: React.FC<ThumbnailProps> = ({
   thumbnail,
@@ -22,7 +22,7 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
   className,
   "data-testid": dataTestid,
 }) => {
-  const initialImage = thumbnail || images?.[0]?.url
+  const initialImage = thumbnail || images?.[0]?.url;
 
   return (
     <Container
@@ -31,7 +31,7 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
         className,
         {
           "aspect-[11/14]": isFeatured,
-          "aspect-[9/16]": !isFeatured && size !== "square",
+          "aspect-[3/4]": !isFeatured && size !== "square",
           "aspect-[1/1]": size === "square",
           "w-[180px]": size === "small",
           "w-[290px]": size === "medium",
@@ -43,8 +43,8 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
     >
       <ImageOrPlaceholder image={initialImage} size={size} />
     </Container>
-  )
-}
+  );
+};
 
 const ImageOrPlaceholder = ({
   image,
@@ -64,7 +64,7 @@ const ImageOrPlaceholder = ({
     <div className="w-full h-full absolute inset-0 outline-none flex items-center justify-center">
       <PlaceholderImage size={size === "small" ? 16 : 24} />
     </div>
-  )
-}
+  );
+};
 
-export default Thumbnail
+export default Thumbnail;

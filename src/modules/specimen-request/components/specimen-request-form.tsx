@@ -13,7 +13,7 @@ import uploadFileWithSdk from "@lib/data/uploadfile";
 
 export default function SpecimenRequestForm() {
   const {
-    register,
+    register, 
     handleSubmit,
     watch,
     setValue,
@@ -25,13 +25,15 @@ export default function SpecimenRequestForm() {
 
   const selectedState = watch("state");
 
-  const test = watch("schoolName");
   const cities = useCities(selectedState);
-  console.log('ciotesss:', errors)
+ 
   const { mutate,isPending } = useMutationData(
     ["specimenrequest"],
     async (data) => {
-      const res:any = await sdk.client.fetch("/store/SpecimenRequest", {
+      const res = await sdk.client.fetch<{
+        sucsess:boolean,
+        message:string
+      }>("/store/specimen", {
         method: "POST",
         body: data,
         headers: {
@@ -41,7 +43,7 @@ export default function SpecimenRequestForm() {
         
       console.log('ressssonhshdeiur',res)
       if (!res.sucsess) {
-        throw new Error("Network response was not ok");
+        throw new Error("something went wrong");
       }
 
       return res
@@ -58,8 +60,8 @@ export default function SpecimenRequestForm() {
   const onSubmit = async (data: specimenFormData) => {
     try {
       const missingFiles = [];
-    if (!data.letterHead?.[0]) missingFiles.push("Letter Head");
-    if (!data.photoID?.[0]) missingFiles.push("Photo ID");
+    if (!data.letter_head?.[0]) missingFiles.push("Letter Head");
+    if (!data.photo_id?.[0]) missingFiles.push("Photo ID");
 
     if (missingFiles.length) {
       toast.error("Missing Files", {
@@ -67,24 +69,26 @@ export default function SpecimenRequestForm() {
       });
       return;
     }
-      console.log('saryahahai:', data)
+      // console.log('saryahahai:', data)
       const [letterHeadUrl, photoIDUrl] = await Promise.all([
-        data.letterHead?.[0] ? uploadFileWithSdk(data.letterHead[0]) : null,
-        data.photoID?.[0] ? uploadFileWithSdk(data.photoID[0]) : null,
+        data.letter_head?.[0] ? uploadFileWithSdk(data.letter_head[0]) : null,
+        data.photo_id?.[0] ? uploadFileWithSdk(data.photo_id[0]) : null,
       ]);
 
-      console.log('filessbaey',letterHeadUrl,photoIDUrl);
+      // console.log('filessbaey',letterHeadUrl,photoIDUrl);
       if (!(letterHeadUrl?.success && photoIDUrl?.success)) {
         throw new Error('File upload failed: Ensure both letterHead and photoID are uploaded successfully.');
       }
+      // console.log('letter head:',letterHeadUrl,photoIDUrl);
       const updatedData = {
         ...data,
-        letterHead: letterHeadUrl.url,
-        photoID: photoIDUrl.url,
+        letter_head: letterHeadUrl.url,
+        photo_id: photoIDUrl.url,
       };
 
       mutate(updatedData);
     } catch (error) {
+      console.log('erro:',error)
       toast.error("Error", {
         description: "File upload failed. Please try again.",
       });
@@ -104,8 +108,8 @@ export default function SpecimenRequestForm() {
         {/* Category Name */}
         <div>
           <label className="text-gray-700 text-sm font-medium">Category Name</label>
-          <Select {...register("categoryName")} onValueChange={(data) => {
-            setValue('categoryName', data);
+          <Select {...register("category_name")} onValueChange={(data) => {
+            setValue('category_name', data);
           }}>
             <Select.Trigger>
               <Select.Value placeholder="Select Category" />
@@ -115,21 +119,46 @@ export default function SpecimenRequestForm() {
               <Select.Item value="Student">Student</Select.Item>
             </Select.Content>
           </Select>
-          {errors.categoryName && <p className="text-red-500 text-xs mt-1">{errors.categoryName.message}</p>}
+          {errors.category_name && <p className="text-red-500 text-xs mt-1">{errors.category_name.message}</p>}
         </div>
         
         {/* School Name */}
         <div>
           <label className="text-gray-700 text-sm font-medium">School/College/Coaching Name</label>
-          <Input {...register("schoolName")} className="mt-1 w-full" />
-          {errors.schoolName && <p className="text-red-500 text-xs mt-1">{errors.schoolName.message}</p>}
+          <Input {...register("school_name")} className="mt-1 w-full" />
+          {errors.school_name && <p className="text-red-500 text-xs mt-1">{errors.school_name.message}</p>}
         </div>
         
          {/* name */}
          <div>
           <label className="text-gray-700 text-sm font-medium"> Name</label>
           <Input {...register("name")} className="mt-1 w-full" />
-          {errors.schoolName && <p className="text-red-500 text-xs mt-1">{errors.name?.message}</p>}
+          {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name?.message}</p>}
+        </div>
+
+          {/* State */}
+          <div>
+          <label className="text-gray-700 text-sm font-medium">State</label>
+          <Select
+            {...register("state")}
+            onValueChange={(value) => {
+              setValue("state", value);
+              setValue("city", ""); // Reset city when state changes
+            }}
+            value={selectedState}
+          >
+            <Select.Trigger>
+              <Select.Value placeholder="Select State" />
+            </Select.Trigger>
+            <Select.Content>
+              {Object.keys(stateCityData).map((state) => (
+                <Select.Item key={state} value={state}>
+                  {state}
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select>
+          {errors.state && <p className="text-red-500 text-xs mt-1">{errors.state.message}</p>}
         </div>
         
           {/* City */}
@@ -155,43 +184,19 @@ export default function SpecimenRequestForm() {
           {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city.message}</p>}
         </div>
 
-        {/* State */}
-        <div>
-          <label className="text-gray-700 text-sm font-medium">State</label>
-          <Select
-            {...register("state")}
-            onValueChange={(value) => {
-              setValue("state", value);
-              setValue("city", ""); // Reset city when state changes
-            }}
-            value={selectedState}
-          >
-            <Select.Trigger>
-              <Select.Value placeholder="Select State" />
-            </Select.Trigger>
-            <Select.Content>
-              {Object.keys(stateCityData).map((state) => (
-                <Select.Item key={state} value={state}>
-                  {state}
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select>
-          {errors.state && <p className="text-red-500 text-xs mt-1">{errors.state.message}</p>}
-        </div>
 
         {/* Residence Address */}
         <div>
           <label className="text-gray-700 text-sm font-medium">Residence Address</label>
-          <Input {...register("residenceAddress")} className="mt-1 w-full" />
-          {errors.residenceAddress && <p className="text-red-500 text-xs mt-1">{errors.residenceAddress.message}</p>}
+          <Input {...register("residence_address")} className="mt-1 w-full" />
+          {errors.residence_address && <p className="text-red-500 text-xs mt-1">{errors.residence_address.message}</p>}
         </div>
 
         {/* Phone Number */}
         <div>
           <label className="text-gray-700 text-sm font-medium">Phone Number</label>
-          <Input {...register("phoneNumber")} className="mt-1 w-full" />
-          {errors.phoneNumber && <p className="text-red-500 text-xs mt-1">{errors.phoneNumber.message}</p>}
+          <Input {...register("phone_number")} className="mt-1 w-full" type="number"/>
+          {errors.phone_number && <p className="text-red-500 text-xs mt-1">{errors.phone_number.message}</p>}
         </div>
         
         
@@ -205,8 +210,8 @@ export default function SpecimenRequestForm() {
         {/* Title Name */}
         <div>
           <label className="text-gray-700 text-sm font-medium">Title Name</label>
-          <Input {...register("titleName")} className="mt-1 w-full" />
-          {errors.titleName && <p className="text-red-500 text-xs mt-1">{errors.titleName.message}</p>}
+          <Input {...register("title_name")} className="mt-1 w-full" />
+          {errors.title_name && <p className="text-red-500 text-xs mt-1">{errors.title_name.message}</p>}
         </div>
 
         {/* Strength */}
@@ -221,6 +226,10 @@ export default function SpecimenRequestForm() {
             <Select.Content>
               <Select.Item value="10">10 Students</Select.Item>
               <Select.Item value="20">20 Students</Select.Item>
+              <Select.Item value="50">50 Students</Select.Item>
+              <Select.Item value="80">80 Students</Select.Item>
+              <Select.Item value="100">100 Students</Select.Item>
+              <Select.Item value="200">200 Students</Select.Item>
             </Select.Content>
           </Select>
           {errors.strength && <p className="text-red-500 text-xs mt-1">{errors.strength.message}</p>}
@@ -230,29 +239,29 @@ export default function SpecimenRequestForm() {
         {/* School Address */}
         <div>
           <label className="text-gray-700 text-sm font-medium">School/College Address</label>
-          <Input {...register("schoolAddress")} className="mt-1 w-full" />
-          {errors.schoolAddress && <p className="text-red-500 text-xs mt-1">{errors.schoolAddress.message}</p>}
+          <Input {...register("school_address")} className="mt-1 w-full" />
+          {errors.school_address && <p className="text-red-500 text-xs mt-1">{errors.school_address.message}</p>}
         </div>
         {/* Pin Code */}
         <div>
           <label className="text-gray-700 text-sm font-medium">Pin Code</label>
-          <Input {...register("pinCode")} className="mt-1 w-full" />
-          {errors.pinCode && <p className="text-red-500 text-xs mt-1">{errors.pinCode.message}</p>}
+          <Input {...register("pin_code")} className="mt-1 w-full" />
+          {errors.pin_code && <p className="text-red-500 text-xs mt-1">{errors.pin_code.message}</p>}
         </div>
 
         {/* Mobile Number */}
         <div>
           <label className="text-gray-700 text-sm font-medium">Mobile Number</label>
-          <Input {...register("mobileNumber")} className="mt-1 w-full" />
-          {errors.mobileNumber && <p className="text-red-500 text-xs mt-1">{errors.mobileNumber.message}</p>}
+          <Input {...register("mobile_number")} className="mt-1 w-full" type="number" />
+          {errors.mobile_number && <p className="text-red-500 text-xs mt-1">{errors.mobile_number.message}</p>}
         </div>
 
 
         {/* Title Category */}
         <div>
           <label className="text-gray-700 text-sm font-medium">Title Category</label>
-          <Select {...register("titleCategory")} onValueChange={(data) => {
-            setValue('titleCategory', data);
+          <Select {...register("title_category")} onValueChange={(data) => {
+            setValue('title_category', data);
           }}>
             <Select.Trigger>
               <Select.Value placeholder="Select Category" />
@@ -272,18 +281,18 @@ export default function SpecimenRequestForm() {
               <Select.Item value="Self Development/Improvement">Self Development/Improvement</Select.Item>
             </Select.Content>
           </Select>
-          {errors.titleCategory && <p className="text-red-500 text-xs mt-1">{errors.titleCategory.message}</p>}
+          {errors.title_category && <p className="text-red-500 text-xs mt-1">{errors.title_category.message}</p>}
         </div>
 
         {/* File Uploads */}
         <div>
           <label className="text-gray-700 text-sm font-medium">Attach Letter Head</label>
-          <Input type="file" {...register("letterHead")} className="mt-1 w-full" />
+          <Input type="file" {...register("letter_head")} className="mt-1 w-full" />
         </div>
 
         <div>
           <label className="text-gray-700 text-sm font-medium">Attach Photo ID</label>
-          <Input type="file" {...register("photoID")} className="mt-1 w-full" />
+          <Input type="file" {...register("photo_id")} className="mt-1 w-full" />
         </div>
       </div>
 

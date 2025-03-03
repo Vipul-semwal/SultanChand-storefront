@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 // Correct the variable name to `poppins`
 const poppins = Poppins({
-  weight: "200", // Font weight as per your requirement
+  weight: "400", // Font weight as per your requirement
   subsets: ['latin'],
   display: 'swap',
 })
@@ -23,9 +23,9 @@ export default function RootLayout(props: { children: React.ReactNode }) {
     <html lang="en" data-mode="light" className={`${poppins.className} bg-white`}>
       <body>
         <main className="relative"><ReactQueryProvider>
-          <PopUpBanner/>
         <Toaster />
         {props.children}
+        <PopUpBanner/>
           </ReactQueryProvider></main>
       </body>
     </html>

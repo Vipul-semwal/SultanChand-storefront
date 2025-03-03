@@ -1,5 +1,5 @@
 const path = require("path")
-
+import { fontFamily } from "tailwindcss/defaultTheme";
 module.exports = {
   darkMode: "class",
   presets: [require("@medusajs/ui-preset")],
@@ -12,6 +12,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        poppins: ["Poppins", ...fontFamily.sans],
+      },
       transitionProperty: {
         width: "width margin",
         height: "height",

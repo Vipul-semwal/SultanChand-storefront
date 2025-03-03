@@ -14,7 +14,7 @@ export function transformProductCategory(cat: HttpTypes.StoreProductCategory): P
     id: cat.id,
     name: cat.name,
     handle: cat.handle,
-    path: `/store?category=${cat.id}&handle=${cat.handle}`,
+    path: `/categories/${cat.handle}?handle=${cat.handle}`,
     category_children: cat.category_children?.map(transformProductCategory),
   };
 }

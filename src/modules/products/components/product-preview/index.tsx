@@ -13,18 +13,18 @@ import ProductRating from "../reviews/ProductRating"; // Updated ProductRating
 import { useQueryData } from "@lib/hooks/useQueryData";
 import { useProductData } from "@lib/hooks/useProductData";
 import { useParams } from "next/navigation";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function ProductPreview({
   product,
   isFeatured,
   region,
-  haveTofetchAgain=false,
+  haveTofetchAgain = false,
 }: {
   product: HttpTypes.StoreProduct;
   isFeatured?: boolean;
   region: HttpTypes.StoreRegion;
-  haveTofetchAgain: boolean;
+  haveTofetchAgain?: boolean;
 }) {
   const [productData, setProductData] = useState<HttpTypes.StoreProduct>(product);
 
@@ -33,8 +33,8 @@ export default function ProductPreview({
 
   // ✅ Always call useProductData, but avoid fetching inside it
   const { data, isFetching } = useProductData(
-    countryCode, 
-    product.handle, 
+    countryCode,
+    product.handle,
     haveTofetchAgain // Hook ke andar handle hoga ki API call karni hai ya nahi
   );
 
@@ -45,7 +45,7 @@ export default function ProductPreview({
   }, [haveTofetchAgain, data, isFetching]);
 
   const { cheapestPrice } = getProductPrice({
-    product:productData,
+    product: productData,
   });
 
   const [isQuickViewOpen, openQuickView, closeQuickView] = useToggleState();
@@ -66,13 +66,14 @@ export default function ProductPreview({
             size="full"
             isFeatured={isFeatured}
           />
-          <div className="flex txt-compact-medium mt-4 justify-between items-center text-center">
-            <Text
-              className="text-ui-fg-subtle font-bold text-center"
+          <div className="flex txt-compact-medium mt-4 justify-between items-center text-center ">
+            <p
+              style={{ fontFamily: 'Poppins, sans-serif' }}
+              className="text-ui-fg-subtle font-bold text-center text-xs sm:text-sm "
               data-testid="product-title"
             >
               {productData.title}
-            </Text>
+            </p>
           </div>
 
           {/* Only Stars Rating Section */}
@@ -92,7 +93,7 @@ export default function ProductPreview({
       <div className="flex items-center justify-center w-full">
         <button
           onClick={openQuickView}
-          className="text-[#CF4747] mt-2 border border-[#CF4747] py-1.5 px-2 text-[12px] sm:text-base leading-5 font-semibold tracking-wider rounded-full bg-transparent transition-all duration-400 hover:bg-[#CF4747] hover:text-white flex items-center gap-2"
+          className="text-[#CF4747] mt-2 border border-[#CF4747] py-1 px-2 text-xs sm:text-sm leading-5 font-semibold tracking-wider rounded-full bg-transparent transition-all duration-400 hover:bg-[#CF4747] hover:text-white flex items-center gap-1"
         >
           <FiEye className="text-base " />
           Quick View
@@ -101,11 +102,11 @@ export default function ProductPreview({
           <Modal.Title><p className="border-l-orange-500 border-l-4 p-1">Quick View</p></Modal.Title>
           <Modal.Body>
             <div className="p-4">
-            { <QuickView productInfo={productData} cheapestPrice={cheapestPrice?cheapestPrice:null} />}
+              {<QuickView productInfo={productData} cheapestPrice={cheapestPrice ? cheapestPrice : null} />}
             </div>
           </Modal.Body>
         </Modal>
-      </div> 
+      </div>
     </div>
   );
 }

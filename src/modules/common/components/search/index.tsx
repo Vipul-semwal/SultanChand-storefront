@@ -87,7 +87,7 @@ const SearchBar = () => {
     <div className="relative flex justify-center items-center w-full z-20">
       <form onSubmit={handleSearch} className="w-full max-w-2xl mx-auto">
         <div className="relative w-full">
-          <div className="absolute inset-y-0 left-0 flex items-center ps-3">
+          <div className="absolute inset-y-0 left-0 flex items-center ps-3 text-xs sm:text-sm">
             <Search className="w-4 h-4 text-gray-500" />
           </div>
 

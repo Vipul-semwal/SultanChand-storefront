@@ -15,10 +15,16 @@ function BookContents({ product_id }: Props) {
     });
   };
 
-  const { data, isFetching } = useQueryData<ProductResponse>(['book_contents', product_id], fetchBookContent);
+  const { data, isFetching } = useQueryData<ProductResponse>(['book_contents', product_id], fetchBookContent,true,{ 
+    queryKey: ['book_contents', product_id],
+    staleTime: 5 * 60 * 1000, 
+    refetchOnWindowFocus: false,
+    retry: 1,
+  });
 
   // Extract Content (Ensure it exists)
-  const content = data?.data[0]?.book_contents?.content || '<p>No content available</p>';
+  const content = data?.data[0]?.book_content?.content || '<p>No content available</p>';
+  console.log('bhengibeta:',data?.data[0]  )
 
   return (
     <div className="p-4 border rounded-lg shadow-md bg-white mt-4">

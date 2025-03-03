@@ -60,7 +60,12 @@ function PdfAndLinks({ product_id }: Props) {
     })
    }
  
-   const {data,isFetching,} = useQueryData<ProductResponse>(["extralinksandpdf",product_id],extalinkCall)
+   const {data,isFetching,} = useQueryData<ProductResponse>(["extralinksandpdf",product_id],extalinkCall,true,{ 
+    queryKey: ["extralinksandpdf",product_id],
+    staleTime: 5 * 60 * 1000, 
+    refetchOnWindowFocus: false,
+    retry: 1,
+  })
    // console.table(data?.data[0].extra_link);
    const extraLinks = data?.data[0].extra_link as unknown as ExtraLinksTypes;
    const author = data?.data[0].author as Author;

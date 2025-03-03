@@ -30,8 +30,10 @@ const Hero = () => {
     { url: "/bachan.jpg" },
     { url: "/krishna.jpg" }
   ];
+
+  console.log('data',images)
   
- const data = images?.map((url) => ({ url: `${strepiurl}${url}` })) || fallbackData;
+ const data = images?.map((url) => ({ url: url })) || fallbackData;
   return (
     <div>
      
@@ -56,7 +58,7 @@ const Hero = () => {
             <SwiperSlide key={key} className="flex items-center justify-center">
               <div className="w-full flex flex-col items-center text-center space-y-4">
                 <Image
-                  src={i.url}
+                  src={i?.url || ''}
                   alt={`Slide ${key + 1}`}
                   width={1200}
                   height={600}

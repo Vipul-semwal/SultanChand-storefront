@@ -38,10 +38,10 @@ const Blog: React.FC = () => {
   return (
     <div className="content-container mx-auto p-5 sm:p-10 md:p-16">
       <div className="mb-5 flex justify-between text-sm">
-        <div className="text-[#EA5900] flex items-center pb-2 pr-2 border-b-2 border-[#EC0000] uppercase">
-          <Text className="font-semibold inline-block">Latest Blogs</Text>
+        <div className="text-[#EA5900] flex items-center pb-2 pr-2 border-b-2 border-[#EA5900] uppercase">
+          <Text className="font-semibold text-xs sm:text-sm inline-block">Latest Blogs</Text>
         </div>
-        <LocalizedClientLink href={'/blog'} className="bg-[#EA5900] text-white px-3 py-2 rounded-lg flex items-center text-[15px] justify-center gap-2 hover:bg-[#EA5900] transition-all duration-300 border-none outline-none">
+        <LocalizedClientLink href={'/blog'} className="bg-[#EA5900] text-white px-3 py-2 rounded-sm flex items-center text-[15px] justify-center gap-2 hover:bg-[#EA5900] text-xs sm:text-sm transition-all duration-300 border-none outline-none">
           View More
           <ArrowUpRightMini
             className="group-hover:rotate-45 ease-in-out duration-150"

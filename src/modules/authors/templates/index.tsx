@@ -10,7 +10,6 @@ import Loading from "app/[countryCode]/(main)/account/loading";
 import { Pagination } from "@modules/store/components/pagination";
 import { useSearchParams } from "next/navigation";
 
-
 // Define the type for the Authors response
 type AuthorsResponse = {
   author: {
@@ -24,7 +23,6 @@ type AuthorsResponse = {
   limit: number;
   offset: number;
 };
-
 
 // Error fallback component
 function ErrorFallback({ error, resetErrorBoundary }: { error: Error; resetErrorBoundary: () => void }) {
@@ -43,13 +41,19 @@ function ErrorFallback({ error, resetErrorBoundary }: { error: Error; resetError
   );
 }
 
+// Helper function to truncate text
+function truncateText(htmlString: string, maxLength: number) {
+  if (htmlString.length <= maxLength) return htmlString;
+  return htmlString.slice(0, maxLength) + "...";
+}
+
 // AuthorTemplate Component
 function AuthorTemplate() {
 
   const searchParams = useSearchParams();
   const limit = 10;
   const page = Number(searchParams.get("page")) || 1;
-  
+
   // Calculate offset based on the current page
   const offset = ((page-1)*limit)
 
@@ -72,7 +76,7 @@ function AuthorTemplate() {
   );
 
   const { author: authors,count=0, } = data || { author: [] };
-  
+
 
   const pageNumber = page ? page: 1
   const totalPages = Math.ceil(count / limit);
@@ -109,7 +113,7 @@ function AuthorTemplate() {
                   <div className="p-6">
                     <h3 className="text-xl font-semibold text-gray-800">{author.name}</h3>
                     <p className="text-sm text-gray-500 mb-4">{author.subText}</p>
-                    <p className="text-gray-600 mb-6">{author.description}</p>
+                    {/* <div className="text-gray-600 mb-6" dangerouslySetInnerHTML={{ __html: truncateText(author.description, 150) }} /> */}
                     <LocalizedClientLink
                       href={`/authors/${author.id}`}
                       className="bg-[#EA5900] text-white px-4 py-2 rounded-md hover:bg-[#EA5900]"

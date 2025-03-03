@@ -1,6 +1,6 @@
 type Product = {
     id: string;
-    book_contents: BookContent;
+    book_content: BookContent;
   };
   
   export type ProductResponse = {

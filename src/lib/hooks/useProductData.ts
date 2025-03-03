@@ -17,5 +17,11 @@ export const useProductData = (countryCode: string, handle: string,run:boolean) 
       return response.products[0]; // Return first product
     },
     run, // Enable query by default
+    { 
+      queryKey: ["product", countryCode, handle],
+      staleTime: 5 * 60 * 1000, 
+      refetchOnWindowFocus: false,
+      retry: 1,
+    }
   );
 };

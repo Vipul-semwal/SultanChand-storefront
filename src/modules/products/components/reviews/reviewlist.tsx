@@ -49,7 +49,15 @@ const ProductReviews = ({ productId }: { productId: string }) => {
 
   const { data, isPending, isError, refetch } = useQueryData(
     ["productReviews", productId],
-    () => fetchReviews(0) // Fetch the initial set of reviews with offset = 0
+    () => fetchReviews(0) // Fetch the initial set of reviews with offset = 0,
+    ,
+    true,
+    { 
+      queryKey: ["productReviews", productId],
+      staleTime: 5 * 60 * 1000, 
+      refetchOnWindowFocus: false,
+      retry: 1,
+    }
   );
 
   React.useEffect(() => {

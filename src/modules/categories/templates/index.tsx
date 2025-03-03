@@ -8,17 +8,23 @@ import { SortOptions } from "@modules/store/components/refinement-list/sort-prod
 import PaginatedProducts from "@modules/store/templates/paginated-products"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { HttpTypes } from "@medusajs/types"
+import GlobalHero from "@modules/common/components/globalhero"
+import { MdNavigateNext } from "react-icons/md"
+
+
 
 export default function CategoryTemplate({
   category,
   sortBy,
   page,
   countryCode,
+  handle,
 }: {
   category: HttpTypes.StoreProductCategory
   sortBy?: SortOptions
   page?: string
   countryCode: string
+  handle?:string
 }) {
   const pageNumber = page ? parseInt(page) : 1
   const sort = sortBy || "created_at"
@@ -37,34 +43,40 @@ export default function CategoryTemplate({
   getParents(category)
 
   return (
-    <div
-      className="flex flex-col small:flex-row small:items-start py-6 content-container"
+    <div>
+       <GlobalHero backgroundImage="/book.jpg" title="Searching" subtitle="We have lots of books so find a good for you!" />
+<div
+      className="grid grid-cols-1 md:grid-cols-12 gap-6 py-6 content-container"
       data-testid="category-container"
     >
-      <RefinementList sortBy={sort} data-testid="sort-by-container" />
-      <div className="w-full">
-        <div className="flex flex-row mb-8 text-2xl-semi gap-4">
+      <div className="md:col-span-2">
+         <RefinementList sortBy={sort} data-testid="sort-by-container" handle={handle}/>
+      </div>
+     
+      <div className="md:col-span-10 w-full">
+        <div className="flex flex-row mb-8 text-xs sm:text-xl font-semibold gap-1">
           {parents &&
             parents.map((parent) => (
-              <span key={parent.id} className="text-ui-fg-subtle">
+              <span key={parent.id} className="text-ui-fg-subtle flex items-center">
                 <LocalizedClientLink
-                  className="mr-4 hover:text-black"
-                  href={`/categories/${parent.handle}`}
+                  className=" hover:text-black"
+                  href={`/categories/${parent.handle}?handle=${parent.handle}`}
                   data-testid="sort-by-link"
                 >
                   {parent.name}
                 </LocalizedClientLink>
-                /
+                <MdNavigateNext className="text-orange-500" width={"12px"} />
+
               </span>
             ))}
-          <h1 data-testid="category-page-title">{category.name}</h1>
+          <h1 className="flex items-center text-xs   sm:text-xl" data-testid="category-page-title">{category.name}<span><MdNavigateNext className="text-orange-600" /></span></h1>
         </div>
         {category.description && (
           <div className="mb-8 text-base-regular">
             <p>{category.description}</p>
           </div>
         )}
-        {category.category_children && (
+        {/* {category.category_children && (
           <div className="mb-8 text-base-large">
             <ul className="grid grid-cols-1 gap-2">
               {category.category_children?.map((c) => (
@@ -76,7 +88,7 @@ export default function CategoryTemplate({
               ))}
             </ul>
           </div>
-        )}
+        )} */}
         <Suspense
           fallback={
             <SkeletonProductGrid
@@ -93,5 +105,7 @@ export default function CategoryTemplate({
         </Suspense>
       </div>
     </div>
+    </div>
+    
   )
 }

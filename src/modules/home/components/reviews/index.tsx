@@ -51,18 +51,18 @@ const testimonials = [
 
 function TestimonialSlider() {
   return (
-    <section className="py-12 sm:py-16 lg:py-20">
+    <section className="py-12 sm:py-16 lg:py-6">
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="text-center">
           <p className="text-sm font-medium text-gray-600">
             2,157 people have said how good Rareblocks
           </p>
-          <h2 className="mt-4 text-lg font-extrabold text-gray-900 sm:text-4xl xl:text-4xl">
+          <h2 className="mt-4 text-lg sm:text-2xl lg:text-4xl font-extrabold text-gray-900">
             Our happy <span className="text-[#EA5900]">Customers</span>
           </h2>
         </div>
 
-        <div className="relative mt-10 lg:mt-16">
+        <div className="relative mt-7 lg:mt-16">
           <Swiper
             modules={[Pagination, Autoplay]}
             pagination={false} // Hide pagination dots
@@ -82,24 +82,23 @@ function TestimonialSlider() {
               <SwiperSlide key={testimonial.id}>
                 <div className="bg-[#FFF8EE] p-6 lg:p-8 rounded-2xl shadow-lg">
                   <blockquote>
-                    <p className="text-lg text-gray-800 italic">"{testimonial.feedback}"</p>
+                    <p className="text-sm sm:text-sm lg:text-lg text-gray-800 italic">"{testimonial.feedback}"</p>
                   </blockquote>
                   <div className="flex items-center mt-6">
                     <img
-                      className="w-14 h-14 rounded-full border-2 border-gray-200"
+                      className="w-12 sm:w-14 h-12 sm:h-14 rounded-full border-2 border-gray-200"
                       src={testimonial.avatar}
                       alt={testimonial.name}
                     />
                     <div className="ml-4">
-                      <p className="text-base font-bold text-gray-900">{testimonial.name}</p>
-                      <p className="text-sm text-gray-600">{testimonial.role}</p>
+                      <p className="text-sm sm:text-base font-bold text-gray-900">{testimonial.name}</p>
+                      <p className="text-xs sm:text-sm text-gray-600">{testimonial.role}</p>
                     </div>
                   </div>
                 </div>
               </SwiperSlide>
             ))}
           </Swiper>
-         
         </div>
       </div>
     </section>

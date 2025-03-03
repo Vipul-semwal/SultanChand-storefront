@@ -39,7 +39,14 @@ const ProductRating: React.FC<ProductRatingProps> = ({
     isError,
   } = useQueryData<ReviewsResponse>(
     ["reviews", productId], // Query key for caching
-    () => fetchReviewsAction(productId) // Query function
+    () => fetchReviewsAction(productId), // Query function,
+true,
+{ 
+  queryKey: ["reviews", productId],
+  staleTime: 5 * 60 * 1000, 
+  refetchOnWindowFocus: false,
+  retry: 1,
+}
   );
 
   if (isPending) {

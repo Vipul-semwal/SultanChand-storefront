@@ -10,7 +10,7 @@ interface IndexProps {
 const GlobalHero: React.FC<IndexProps> = ({ backgroundImage, title, subtitle }) => {
   return (
     <div
-      className="relative bg-cover bg-center bg-no-repeat text-white py-8 px-6"
+      className="relative bg-cover bg-center bg-no-repeat text-white py-8 px-4 sm:px-6"
       style={{
         backgroundImage: `url(${backgroundImage})`, // Dynamic background image
       }}
@@ -19,11 +19,11 @@ const GlobalHero: React.FC<IndexProps> = ({ backgroundImage, title, subtitle }) 
       <div className="absolute inset-0 bg-[#172554] opacity-60"></div>
 
       {/* Content */}
-      <div className="relative max-w-5xl mx-auto text-center p-6 rounded-lg">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold mb-4">
+      <div className="relative max-w-5xl mx-auto text-center p-4 sm:p-6 rounded-lg">
+        <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-4">
           {title} {/* Dynamic Title */}
         </h1>
-        <p className="text-base sm:text-lg md:text-xl lg:text-2xl">
+        <p className="text-sm sm:text-base md:text-lg lg:text-xl">
           {subtitle} {/* Dynamic Subtitle */}
         </p>
       </div>

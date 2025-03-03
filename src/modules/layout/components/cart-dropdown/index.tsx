@@ -16,6 +16,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import Thumbnail from "@modules/products/components/thumbnail"
 import { usePathname } from "next/navigation"
 import { Fragment, useEffect, useRef, useState } from "react"
+import {  ShoppingCart } from "lucide-react";
 
 const CartDropdown = ({
   cart: cartState,
@@ -73,6 +74,7 @@ const CartDropdown = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalItems, itemRef.current])
 
+
   return (
     <div
       className="h-full z-50"
@@ -85,7 +87,11 @@ const CartDropdown = ({
             className="hover:text-ui-fg-base"
             href="/cart"
             data-testid="nav-cart-link"
-          >{`Cart (${totalItems})`}</LocalizedClientLink>
+          ><div className="relative">
+            <ShoppingCart className="w-4 h-4 sm:w-6 sm:h-6" />
+            <div>
+             <p style={{fontFamily:"Poppins', sans-serif"}} className="text-sm bg-orange-600 rounded-xl absolute px-1 bottom-3 left-4  text-white ">{`${totalItems}`}</p> </div>
+            </div></LocalizedClientLink>
         </PopoverButton>
         <Transition
           show={cartDropdownOpen}

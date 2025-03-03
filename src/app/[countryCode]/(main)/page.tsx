@@ -6,9 +6,10 @@ import { listCollections } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
 import NewsAnnouncements from "@modules/home/components/NewsAndAnnouncement/index"
 import InfoBanner from "@modules/home/components/infoBanner"
-import Author from "@modules/home/components/Authors"
+import Author from "@modules/home/components/author"
 import Blog from "@modules/home/components/Blog"
-import Testimonial from "@modules/home/components/Testimonial"
+import Testimonial from "@modules/home/components/reviews"
+import SecondBanner from "@modules/home/components/2ndBanner/secondBanner"
 
 export const metadata: Metadata = {
   title: "SultanChand storeFront",
@@ -38,7 +39,8 @@ export default async function Home(props: {
     <>
       <Hero />
       <NewsAnnouncements />
-      <div className="py-12">
+      <SecondBanner/>
+      <div className="py-6">
         <ul className="flex flex-col gap-x-6">
           <FeaturedProducts collections={collections} region={region} />
         </ul>

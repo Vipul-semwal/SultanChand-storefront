@@ -47,7 +47,7 @@ function popUpBanner() {
         <a href={popup?.link} target="_blank" rel="noopener noreferrer">
             {popup && (
               <img
-                src={getStrapiMedia(getStrapiMedia(popup.popuBanner.url)) as string ?? undefined}
+                src={getStrapiMedia(getStrapiMedia(popup?.popuBanner?.url)) as string ?? undefined}
                 alt="Popup Banner"
                 className="w-full h-auto rounded-lg"
               />

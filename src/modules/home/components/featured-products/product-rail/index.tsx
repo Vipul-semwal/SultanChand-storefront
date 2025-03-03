@@ -31,23 +31,23 @@ export default async function ProductRail({
 
   return (
     <>
-      <div className="content-container py-9 small:py-7">
+      <div className="content-container pb-9 small:pb-9">
         <div className="flex justify-between mb-4">
           {/* Responsive Heading */}
-          <Heading
-            level={"h2"}
-            className="font-bold text-[#EA5900] border-b-2 border-[#EA5900] text-lg sm:text-xl md:text-2xl lg:text-3xl"
+          <h2
+            
+            className="font-bold  text-[#EA5900] border-b-2 border-[#EA5900] text-sm sm:text-lg md:text-xl lg:text-2xl"
           >
             {collection.title}
-          </Heading>
+          </h2>
 
           {/* Responsive Button */}
           <InteractiveLink href={`/collections/${collection.handle}`}>
-            <button className="bg-[#EA5900] text-white px-2 py-2 rounded-md flex items-center text-sm sm:text-base md:text-lg lg:text-lg justify-center gap-1 hover:bg-[#EA5900] transition-all duration-300 border-none outline-none">
+            <button style={{ fontFamily: 'Poppins, sans-serif' }} className="bg-[#EA5900] text-white px-2 py-2 rounded-sm font-medium flex items-center text-xs sm:text-base md:text-lg lg:text-sm justify-center gap-1 hover:bg-[#EA5900] transition-all duration-300 border-none outline-none">
               View More
               <ArrowUpRightMini className="group-hover:rotate-45 ease-in-out duration-150" color="white" />
             </button>
-          </InteractiveLink>
+          </InteractiveLink>  
         </div>
 
         <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-20 md:gap-y-27">

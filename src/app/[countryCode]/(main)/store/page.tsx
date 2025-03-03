@@ -5,7 +5,7 @@ import StoreTemplate from "@modules/store/templates"
 
 export const metadata: Metadata = {
   title: "Store",
-  description: "Explore all of our products.",
+  description: "Explore all of our books.",
 }
 
 type Params = {
@@ -19,7 +19,7 @@ type Params = {
 
   }>
   params: Promise<{
-    countryCode: string
+    countryCode: string,
   }>
 }
 
@@ -28,7 +28,6 @@ export default async function StorePage(props: Params) {
   const searchParams = await props.searchParams;
   const { sortBy, page,q,category,handle,searchby } = searchParams
   // console.log('serchby',searchby )
-
  
   return (
     <StoreTemplate

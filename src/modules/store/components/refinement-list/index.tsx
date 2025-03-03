@@ -5,6 +5,7 @@ import { useCallback, useState } from "react"
 import { FiFilter, FiX } from "react-icons/fi" // Importing filter and close icons
 import CategoryFilter from "../CategoryFilter"
 import SortProducts, { SortOptions } from "./sort-products"
+import AuthorFilter from "../authorFilter"
 
 type RefinementListProps = {
   sortBy: SortOptions
@@ -35,16 +36,18 @@ const RefinementList = ({ sortBy, 'data-testid': dataTestId, handle }: Refinemen
   }
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       {/* Filter Button for Mobile */}
       <button 
         className="lg:hidden flex items-center gap-2 text-white bg-orange-600 px-4 py-2 rounded-md mb-4"
         onClick={() => setIsFilterOpen(true)}
       >
-        <FiFilter size={20} />
-        <span>Filters</span>
+        <FiFilter size={12} />
+        <span className="text-xs">Filters</span>
       </button>
-
+      <div className="mb-5  hidden lg:block pr-2">
+        <AuthorFilter/>
+        </div>
       {/* Popup Filter Modal */}
       {isFilterOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
@@ -65,6 +68,9 @@ const RefinementList = ({ sortBy, 'data-testid': dataTestId, handle }: Refinemen
             ) : (
               <SortProducts sortBy={sortBy} setQueryParams={setQueryParams} data-testid={dataTestId} />
             )}
+              <div className="mt-4">
+        <AuthorFilter/>
+        </div>
           </div>
         </div>
       )}

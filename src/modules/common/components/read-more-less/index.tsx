@@ -14,9 +14,9 @@ const ExpandableText: React.FC<ExpandableTextProps> = ({ text, maxLength = 150 }
   }
 
   return (
-    <p className="text-gray-600 mt-2 text-sm sm:text-base leading-relaxed">
+    <p className="text-gray-600 mt-2 text-xs sm:text-sm leading-relaxed">
       {isExpanded ? text : `${text.slice(0, maxLength)}...`}
-      <button onClick={toggle} className="text-orange-600 ml-2 text-sm underline">
+      <button onClick={toggle} className="text-orange-600 ml-2 text-xs underline">
         {isExpanded ? "Show Less" : "Read More"}
       </button>
     </p>

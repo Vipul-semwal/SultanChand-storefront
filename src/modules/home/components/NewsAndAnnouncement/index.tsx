@@ -45,9 +45,10 @@ const NewsAnnouncements: React.FC = () => {
   return (
     <div className="relative overflow-hidden bg-blue-950">
       <div className="relative flex items-center w-full h-12 border-b border-blue-700">
-        <div className="flex items-center px-4 text-white bg-blue-800 z-10">
-          <Megaphone className="w-5 h-5 mr-2 animate-bounce" />
-          <span className="text-sm font-bold uppercase">Announcements</span>
+        <div className="flex items-center pl-4 pr-2 text-white bg-blue-950 z-10">
+          <Megaphone className="w-5 h-5 text-orange-500 mr-2 animate-bounce" />
+          <span className="hidden sm:inline">Announcements</span>
+
         </div>
 
         {items.length > 0 ? (
@@ -61,7 +62,7 @@ const NewsAnnouncements: React.FC = () => {
                 href={link.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs sm:text-sm md:text-base font-semibold text-white hover:text-gray-200 transition-all duration-200 px-4"
+                className="text-xs sm:text-sm md:text-base font-medium text-white hover:text-gray-200 transition-all duration-200 px-4 flex items-center"
                 onMouseEnter={(e) => {
                   const target = e.currentTarget.closest<HTMLDivElement>(".animate-marquee");
                   if (target) target.style.animationPlayState = "paused";
@@ -71,7 +72,7 @@ const NewsAnnouncements: React.FC = () => {
                   if (target) target.style.animationPlayState = "running";
                 }}
               >
-                {link.text}
+                <span className="text-orange-500 mr-2">●</span>{link.text}
               </a>
             ))}
           </div>
