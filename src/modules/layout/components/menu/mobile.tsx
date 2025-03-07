@@ -53,7 +53,9 @@ const MobileViewNav: React.FC<MobileViewNavProps> = ({ isVisible, onClose }) => 
       >
         <div className="flex items-center gap-3">
           <BsChevronRight className="text-orange-600 text-sm" />
-          <span className="font-medium text-gray-700">{category.name}</span>
+         <LocalizedClientLink href={category.path} onClick={onClose}>
+         <span className="font-medium text-gray-700">{category.name}</span>
+         </LocalizedClientLink>
         </div>
         {category.category_children && (
           <BsChevronDown
