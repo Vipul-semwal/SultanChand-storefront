@@ -150,7 +150,7 @@ export default function ProductActions({
             !isValidVariant
           }
           variant="primary"
-          className="w-full h-10"
+          className="w-full h-10 bg-blue-950 border-none outline-none"
           isLoading={isAdding}
           data-testid="add-product-button"
         >

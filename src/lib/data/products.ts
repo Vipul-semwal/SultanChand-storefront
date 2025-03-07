@@ -172,6 +172,15 @@ export const makeSerch = async ({
   // Extract necessary fields
   const { data = [], count = 0 } = response;
 
+  if(data.length === 0){
+   return {
+      products: [], // Flattened product array
+      count:0,
+      nextPage:0,
+      status: 200,
+    }
+  }
+
   // Merge all products into a single array
   const mergedProducts = data.flatMap((item) => item.products || []).slice(0, limit);
   console.log('mergedProducts',mergedProducts[0].variants)
@@ -186,6 +195,7 @@ export const makeSerch = async ({
   };
  }
  catch(e){
+  console.log('errorbhen',e)
   return {
     products: [], // Flattened product array
     count:0,

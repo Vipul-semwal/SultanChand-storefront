@@ -8,7 +8,7 @@ interface Request {
   page?: number;
   pageSize: number;
   sort?: string;
-}
+};
 
 export async function GetAllPopups({ page, pageSize, sort }: Request): Promise<{ status: number; data?: DataItem[]; meta?: ApiResponse['meta']; message?: string }> {
   try {

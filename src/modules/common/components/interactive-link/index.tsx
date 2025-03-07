@@ -20,7 +20,7 @@ const InteractiveLink = ({
       onClick={onClick}
       {...props}
     >
-      <Text className="text-ui-fg-interactive">{children}</Text>
+      <Text className="text-ui-fg-interactive text-orange-500">{children}</Text>
     </LocalizedClientLink>
   )
 }

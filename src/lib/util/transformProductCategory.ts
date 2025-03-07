@@ -8,13 +8,13 @@ export interface ProductCategoryTypes {
   category_children?: ProductCategoryTypes [];
 }
 
-export function transformProductCategory(cat: HttpTypes.StoreProductCategory): ProductCategoryTypes{
-    // console.log('yaaya are ', cat)
+export function transformProductCategory(cat: HttpTypes.StoreProductCategory): ProductCategoryTypes {
   return {
     id: cat.id,
     name: cat.name,
     handle: cat.handle,
-    path: `/categories/${cat.handle}?handle=${cat.handle}`,
+    path: `/categories/${encodeURIComponent(cat.handle)}?handle=${encodeURIComponent(cat.handle)}`,
     category_children: cat.category_children?.map(transformProductCategory),
   };
 }
+

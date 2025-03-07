@@ -1,15 +1,14 @@
-import {  GalleryImage, GalleryResponse,GalleryListItem,GetGallryDataTypes } from '../../lib/types/gallery'; // Import types
+import {  GalleryImage, GalleryResponse,GalleryListItem,GetGallryDataTypes } from '../../lib/types/gallery'; 
 import { BannerResponse } from '@lib/types/banner';
 import axios from 'axios';
 const GetallBanneresurl = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/banners?populate=*`
-const GetGalleryDataUrl = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/galleries`
 
 
 interface Request {
   page?: number;
   pageSize: number;
   sort?: string;
-}
+};
 
 
 export async function GetAllBanner( ): Promise<{status:number,data:string,message?:string}> {
@@ -34,9 +33,9 @@ export async function GetAllBanner( ): Promise<{status:number,data:string,messag
     // Return simplified data and pagination info
     return { status: 200, data: response.data.data[0].img[0].url };
   } catch (error: unknown) {
-    console.error("Error fetching galleries:", (error as Error).message);
+    console.error("Error fetching banner:", (error as Error).message);
 
     return { status: 400, message: "Failed to fetch galleries",data:"" };
   }
-}
+};
 

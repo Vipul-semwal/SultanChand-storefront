@@ -10,7 +10,7 @@ import 'swiper/css/pagination';
 import { sdk } from "@lib/config";
 import { useQueryData } from "@lib/hooks/useQueryData";
 import LocalizedClientLink from '@modules/common/components/localized-client-link';
-
+import { ArrowUpRightMini } from "@medusajs/icons"
 type AuthorsResponse = {
   author: {
     id: string;
@@ -118,6 +118,16 @@ const Authors: React.FC<Props> = () => {
           ))}
         </div>
       </div>
+
+<div className='w-full py-4 flex items-center justify-center'>
+  <LocalizedClientLink href={'/authors'}>
+  <button style={{ fontFamily: 'Poppins, sans-serif' }} className="bg-[#EA5900] text-white px-4 py-2 rounded-lg font-semibold flex items-center text-xs sm:text-base md:text-lg lg:text-sm justify-center gap-1 hover:bg-[#EA5900] transition-all duration-300 border-none outline-none">
+              View More
+              <ArrowUpRightMini className="group-hover:rotate-45 ease-in-out duration-150" color="white" />
+            </button>
+  </LocalizedClientLink>
+</div>
+   
     </div>
   );
 };

@@ -15,11 +15,6 @@ export default function Post({ data }: { data: Article }) {
 
     return (
         <article className="space-y-8 dark:bg-black dark:text-gray-50">
-             <h1 className="leading-tight text-2xl mt-7 text-center sm:text-2xl md:text-5xl font-bold">
-                        {title}
-                    </h1>
-         
-
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 
                 {/* Blog Content (8 Columns) */}
@@ -35,7 +30,9 @@ export default function Post({ data }: { data: Article }) {
                     priority
                 />
             )}
-                   
+                    <h1 className="leading-tight text-2xl mt-7 text-center sm:text-2xl md:text-5xl font-bold">
+                        {title}
+                    </h1>
                     <div className="flex flex-col items-start justify-between w-full md:flex-row md:items-center dark:text-gray-400">
                         <div className="flex items-center justify-center m-auto ">
                             <p className="text-sm flex items-center justify-center sm:text-base md:text-sm dark:text-violet-400">

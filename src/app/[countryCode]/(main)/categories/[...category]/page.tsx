@@ -86,4 +86,6 @@ export default async function CategoryPage(props: Props) {
       
     />
   )
-}
+};
+
+export const revalidate = 5600

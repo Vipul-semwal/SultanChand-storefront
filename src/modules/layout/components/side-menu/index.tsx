@@ -14,7 +14,7 @@ const SideMenuItems = {
   Store: "/store",
   Account: "/account",
   Cart: "/cart",
-  Contact: "/contact",
+  Contact: "/contact-us",
   About: "/about",
   FAQ: "/faq",
 };
@@ -23,7 +23,7 @@ const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
   const toggleState = useToggleState();
 
   return (
-    <div className="h-full">
+    <div className="h-full ">
       <div className="flex items-center h-full">
         <Popover className="h-full flex">
           {({ open, close }) => (

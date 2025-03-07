@@ -25,11 +25,11 @@ export default function ContactForm() {
 
   return (
     <div className="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
-      <h2 className="text-gray-900 text-lg mb-1 font-medium title-font">
-        We will contact you soon!
+      <h2 className="text-gray-900  text-xl mb-1 font-bold title-font">
+        We will <span className="text-orange-500">Contact</span> you soon!
       </h2>
       <p className="leading-relaxed mb-5 text-gray-600">
-        Post-ironic Portland shabby chic echo park, banjo fashion axe
+        We will get back to you as soon as possible
       </p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

@@ -1,8 +1,8 @@
 import axios from "axios";
 import { promises } from "dns";
 
-const STRAPI_API_URL = "http://localhost:1337/api/articles?populate=*";
-const GetBlogDataURl = "http://localhost:1337/api/articles"
+const STRAPI_API_URL = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/articles?populate=*`;
+const GetBlogDataURl = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/articles`
 
 // Request Interface
 interface Request {
@@ -140,7 +140,7 @@ export async function GetAllBlogs({page,pageSize,sort}: Request): Promise<any> {
       },
     });
 
-    console.log('heheheheeh',response.data.meta)
+    console.log('heheheheeh',response.data)
     
 
     // Map API data to simplified blog list items
@@ -154,10 +154,10 @@ export async function GetAllBlogs({page,pageSize,sort}: Request): Promise<any> {
       thumbnail:
         article.cover?.formats?.thumbnail?.url ||
         article.cover?.url, // Fallback to main image URL
-      authorName: article.author.name,
-      categoryName: article.category.name,
+      authorName: article?.author?.name,
+      categoryName: article?.category?.name,
     }));
-    // console.log('respone',articles)
+    console.log('rizzling the shit out of you',articles)
     // Return only the simplified array of articles
     return { status: 200, data: articles,meta:response.data.meta }
   } catch (error: unknown) {
@@ -171,7 +171,7 @@ export async function GetAllBlogs({page,pageSize,sort}: Request): Promise<any> {
 
 export async function GetBlogData(slug: string):Promise<{status:Number,data?:BlogResponse,message?:string}> {
     try {
-      const response = await axios.get(`http://localhost:1337/api/articles/?populate=*&filters[slug][$eqi]=${slug}`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/articles/?populate=*&filters[slug][$eqi]=${slug}`, {
       });
   
     console.log('daaaaaaaaaaaaaaaaaaaaaa',response.data)
@@ -186,4 +186,4 @@ export async function GetBlogData(slug: string):Promise<{status:Number,data?:Blo
       // Error handling
       return { status: 400, message: "Failed to fetch article" };
     }
-  }
+  };

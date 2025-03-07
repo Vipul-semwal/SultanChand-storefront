@@ -66,13 +66,13 @@ const SearchBar = () => {
   interface SearchParams {
     q: string;
     searchby?: string;
-  }
+  };
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!searchQuery.trim()) return;
 
-    const params: SearchParams = { q: encodeURIComponent(searchQuery) };
+    const params: SearchParams = { q: searchQuery };
     if (searchType) params.searchby = searchType;
 
     close();
@@ -87,15 +87,13 @@ const SearchBar = () => {
     <div className="relative flex justify-center items-center w-full z-20">
       <form onSubmit={handleSearch} className="w-full max-w-2xl mx-auto">
         <div className="relative w-full">
-          <div className="absolute inset-y-0 left-0 flex items-center ps-3 text-xs sm:text-sm">
-            <Search className="w-4 h-4 text-gray-500" />
-          </div>
+          
 
-          <div className="absolute left-8 inset-y-0 flex items-center z-10">
+          <div className="absolute left-3 inset-y-0 flex items-center z-10">
             <select
               value={searchType}
               onChange={(e) => setSearchType(e.target.value)}
-              className="pl-2 pr-6 text-xs bg-transparent border-none focus:outline-none"
+              className=" pr-6 text-xs max-w-full   inline-block bg-transparent  border-none "
             >
               <option value="">All</option>
               <option value="author">Author</option>
@@ -111,13 +109,13 @@ const SearchBar = () => {
             placeholder="Search.."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="block w-full p-4 pl-32 text-sm text-gray-900 bg-[#FFF8EE] border-none rounded-sm focus:ring-orange-500 focus:outline-none"
+            className="block w-full p-4 pl-24 text-sm text-gray-900 bg-[#FFF8EE] border-none rounded-sm focus:ring-orange-500 focus:outline-none"
             required
           />
 
           <button
             type="submit"
-            className="absolute right-3 bottom-[10px] bg-orange-600 text-white text-sm rounded-sm px-2 py-1 hover:bg-orange-800"
+            className="absolute right-2 bottom-[10px] bg-orange-600 top-3 text-white text-xs rounded-sm px-1 py-1 hover:bg-orange-800"
             disabled={!searchQuery.trim()}
           >
             Search
@@ -136,7 +134,7 @@ const SearchBar = () => {
                 className="flex items-center p-3 hover:bg-orange-100 cursor-pointer transition-transform duration-300 ease-in-out transform "
                 onClick={() => {
                   close();
-                  router.push(`/${countryCode}/store/?${new URLSearchParams(product.title as any).toString()}`);
+                  router.push(`/${countryCode}/products/${product.handle}`);
                 }}
               >
                 <img

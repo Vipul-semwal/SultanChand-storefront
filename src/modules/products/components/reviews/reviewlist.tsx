@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQueryData } from "../../../../lib/hooks/useQueryData";
 import { sdk } from "@lib/config";
 import SideStars from "./sideStars"; // Import the SideStars component
 import Modal from "@modules/common/components/modal";
-import { FaStar } from "react-icons/fa"; 
+import { FaStar } from "react-icons/fa";
 import { formatDate } from "@lib/util/strapi"; // Assuming this is your date formatter function
 
 export interface Review {
@@ -52,15 +52,15 @@ const ProductReviews = ({ productId }: { productId: string }) => {
     () => fetchReviews(0) // Fetch the initial set of reviews with offset = 0,
     ,
     true,
-    { 
+    {
       queryKey: ["productReviews", productId],
-      staleTime: 5 * 60 * 1000, 
+      staleTime: 5 * 60 * 1000,
       refetchOnWindowFocus: false,
       retry: 1,
     }
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (data) {
       setReviews(data.data); // Set initial reviews
     }
@@ -158,14 +158,20 @@ const ProductReviews = ({ productId }: { productId: string }) => {
               {reviews.length > 3 && (
                 <button
                   onClick={() => setModalOpen(true)}
-                   className="px-4 py-2 flex items-center justify-center gap-3 bg-orange text-white rounded-lg transition-all duration-300 ease-in-out hover:bg-orange-600 hover:shadow-md hover:scale-100 focus:ring-2 focus:ring-orange-500 mt-2"
+                  className="px-4 py-2 flex items-center justify-center gap-3 bg-orange text-white rounded-lg transition-all duration-300 ease-in-out hover:bg-orange-600 hover:shadow-md hover:scale-100 focus:ring-2 focus:ring-orange-500 mt-2"
                 >
                   Read All Reviews
                 </button>
               )}
             </>
           ) : (
-            <p className="text-gray-500">No reviews for this product yet.</p>
+            <div className="flex items-center flex-col">
+              <img src="/review.png" className="max-w-xs sm:max-w-xl mt-6 sm:mt-0 " alt="" />
+              <p className="text-gray-500 text-sm sm:text-xl">No reviews for this product yet.</p>
+            </div>
+
+
+
           )}
         </div>
       </div>
@@ -209,8 +215,8 @@ const ProductReviews = ({ productId }: { productId: string }) => {
               <div className="text-center mt-4">
                 <button
                   onClick={loadMoreReviews}
-                  className="px-4 py-2 flex items-center justify-center gap-3 bg-[#2592ff] text-white rounded-lg transition-all duration-300 ease-in-out hover:bg-[#338be5] hover:shadow-md hover:scale-100 focus:ring-2 focus:ring-blue-500"
-              
+                  className="px-4 py-2 flex items-center justify-center gap-3 bg-blue-950 text-white rounded-lg transition-all duration-300 ease-in-out hover:bg-[#338be5] hover:shadow-md hover:scale-100 focus:ring-2 focus:ring-blue-500"
+
                   disabled={isLoadingMore}
                 >
                   {isLoadingMore ? "Loading..." : "Load More"}

@@ -54,7 +54,7 @@ const ImageOrPlaceholder = ({
     <Image
       src={image}
       alt="Thumbnail"
-      className="absolute inset-0 object-cover object-center mx-auto my-auto transition-transform duration-300 ease-in-out group-hover:scale-110 group-hover:opacity-90"
+      className="absolute inset-0 object-cover object-center mx-auto my-auto transition-transform duration-300 ease-in-out group-hover:scale-105 group-hover:opacity-90"
       draggable={false}
       quality={50}
       sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"

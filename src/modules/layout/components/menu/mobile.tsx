@@ -28,10 +28,14 @@ const MobileViewNav: React.FC<MobileViewNavProps> = ({ isVisible, onClose }) => 
         productCategories?.filter((data) => !data.parent_category_id).map(transformProductCategory) || [],
     },
     { id: 'home', name: 'Home', path: '/', handle: 'home' },
-    { id: 'contact', name: 'Contact Us', path: '/contact-us', handle: 'contact' },
-    { id: 'blog', name: 'Blog', path: '/blog', handle: 'blog' },
-    { id: 'about', name: 'About', path: '/about', handle: 'about' },
-    { id: 'gallery', name: 'Gallery', path: '/gallery', handle: 'gallery' },
+    { id: 'store', name: 'Store', path: '/store', handle: '/store' },
+    { id: 'account', name: 'Account', path: '/account', handle: '/account' },
+    { id: 'cart', name: 'Cart', path: '/cart', handle: '/cart' },
+    { id: 'contact', name: 'Contact Us', path: '/contact-us', handle: '/contact-us' },
+    { id: 'about', name: 'About', path: '/about-us', handle: '/about-us' },
+    { id: 'faq', name: 'FAQ', path: '/faq', handle: '/faq' },
+    { id: 'blog', name: 'Blog', path: '/blog', handle: '/blog' },
+    { id: 'gallery', name: 'Gallery', path: '/gallery', handle: '/gallery' }
   ];
 
   const handleToggleSubmenu = useCallback((id: string) => {

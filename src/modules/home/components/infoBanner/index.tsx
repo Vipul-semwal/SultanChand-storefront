@@ -5,7 +5,7 @@ interface Props {}
 
 const InfoBanner: React.FC<Props> = () => {
   return (
-    <div className="my-5 flex justify-center bg-blue-950 bg-[url('/Banner-patti-obi-scaled.jpg')] bg-cover bg-center relative font-poppins">
+    <div className="my-5 flex justify-center bg-blue-950 bg-[url('/banner.jpg')] bg-cover bg-center relative font-poppins">
       <div className="absolute top-0 left-0 w-full h-full bg-blue-950 opacity-75 z-10"></div>
 
       <div className="container py-8 flex justify-center flex-col items-center relative z-20">

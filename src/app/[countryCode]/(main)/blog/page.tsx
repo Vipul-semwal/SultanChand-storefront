@@ -11,6 +11,7 @@ import SideBlog from "@modules/blog/components/sideBlog";
 import { formatDate } from "@lib/util/strapi";
 import Spinner from "@modules/common/icons/spinner";
 import { Pagination } from "@modules/store/components/pagination";
+import { getStrapiMedia } from "@lib/util/strapi";
 
 function BlogPage() {
   const searchParams = useSearchParams();
@@ -66,7 +67,7 @@ function BlogPage() {
                   {/* Left Column: Thumbnail */}
                   <div className="flex-shrink-0 w-32 h-32 mr-6">
                     <img
-                      src={post.thumbnail ? `http://localhost:1337${post.thumbnail}` : "/default-thumbnail.jpg"}
+                      src={post.thumbnail ? getStrapiMedia(post.thumbnail) || "https://placehold.co/600x400" : "https://placehold.co/600x400"}
                       alt={post.title}
                       className="w-full h-full object-cover rounded-md"
                     />

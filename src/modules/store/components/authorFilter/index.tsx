@@ -57,7 +57,7 @@ const AuthorFilter = () => {
       </button>
 
       {showDropdown && (
-        <div className="absolute left-0 mt-2 w-64 bg-white shadow-lg rounded-md max-h-80 overflow-y-auto z-50">
+        <div className="absolute bottom-3/4 bottom- mt-2 w-64 bg-white shadow-lg rounded-md max-h-80 overflow-y-auto z-50">
           {isFetching ? (
             <div className="flex justify-center p-4">
               <Loader2 className="animate-spin w-5 h-5 text-[#EA5900]" />

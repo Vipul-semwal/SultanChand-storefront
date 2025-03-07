@@ -9,43 +9,43 @@ import 'swiper/css/pagination';
 const testimonials = [
   {
     id: 1,
-    name: 'Leslie Alexander',
-    role: 'Freelance React Developer',
+    name: 'Amit Sharma',
+    role: 'Book Enthusiast',
     feedback:
-      '“You made it so simple. My new site is so much faster and easier to work with than my old site. I just choose the page, make the change.”',
-    avatar: 'https://cdn.rareblocks.xyz/collection/clarity/images/testimonial/4/avatar-male-1.png',
+      '“यह किताब मेरी समझ को एक नई दिशा में ले गई। भाषा सरल और स्पष्ट है, पढ़ने में आनंद आया।”',
+    avatar: 'https://randomuser.me/api/portraits/men/31.jpg',
   },
   {
     id: 2,
-    name: 'John Doe',
-    role: 'Software Engineer',
+    name: 'Priya Verma',
+    role: 'College Student',
     feedback:
-      '“This product has been a game-changer for my work! The quality and support are exceptional.”',
-    avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
+      '“बहुत ही बढ़िया पुस्तक! कठिन विषयों को भी बहुत आसानी से समझाया गया है।”',
+    avatar: 'https://randomuser.me/api/portraits/women/36.jpg',
   },
   {
     id: 3,
-    name: 'Jane Smith',
-    role: 'Product Manager',
+    name: 'Rajesh Gupta',
+    role: 'Teacher',
     feedback:
-      '“Absolutely love it! The design is sleek, and it has simplified my workflow tremendously.”',
-    avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
+      '“इस किताब की सामग्री प्रैक्टिकल और रोजमर्रा की समस्याओं को हल करने में सहायक है।”',
+    avatar: 'https://randomuser.me/api/portraits/men/41.jpg',
   },
   {
     id: 4,
-    name: 'Chris Johnson',
-    role: 'UI/UX Designer',
+    name: 'Sneha Iyer',
+    role: 'Research Scholar',
     feedback:
-      '“A brilliant product! It has made my job easier and more enjoyable.”',
-    avatar: 'https://randomuser.me/api/portraits/men/45.jpg',
+      '“पुस्तक का ज्ञानवर्धक दृष्टिकोण और सटीक उदाहरण इसे अद्वितीय बनाते हैं।”',
+    avatar: 'https://randomuser.me/api/portraits/women/55.jpg',
   },
   {
     id: 5,
-    name: 'Emily Davis',
-    role: 'Marketing Specialist',
+    name: 'Vikram Choudhary',
+    role: 'Competitive Exam Aspirant',
     feedback:
-      '“Highly recommend it to anyone looking to boost their productivity.”',
-    avatar: 'https://randomuser.me/api/portraits/women/50.jpg',
+      '“प्रतियोगी परीक्षाओं की तैयारी के लिए यह किताब बहुत उपयोगी है। मैंने इसे पढ़कर बहुत कुछ सीखा।”',
+    avatar: 'https://randomuser.me/api/portraits/men/47.jpg',
   },
 ];
 

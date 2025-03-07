@@ -23,7 +23,7 @@ const GlobalHero: React.FC<IndexProps> = ({ backgroundImage, title, subtitle }) 
         <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-4">
           {title} {/* Dynamic Title */}
         </h1>
-        <p className="text-sm sm:text-base md:text-lg lg:text-xl">
+        <p className="text-sm sm:text-sm md:text-sm lg:text-xl">
           {subtitle} {/* Dynamic Subtitle */}
         </p>
       </div>

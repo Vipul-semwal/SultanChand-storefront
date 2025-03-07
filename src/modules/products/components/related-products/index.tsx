@@ -50,10 +50,10 @@ export default async function RelatedProducts({
   return (
     <div className="product-page-constraint">
       <div className="flex flex-col items-center text-center mb-16">
-        <span className="text-base-regular text-gray-600 mb-6">
+        <span className="text-base-regular text-orange-500 mb-2">
           Related Books
         </span>
-        <p className="text-2xl-regular text-ui-fg-base max-w-lg">
+        <p className="text-xl-regular text-ui-fg-base sm:text-2xl">
           You might also want to check out these Books.
         </p>
       </div>

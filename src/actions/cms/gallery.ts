@@ -44,7 +44,7 @@ export async function GetAllGalleries({ page, pageSize, sort }: Request): Promis
     // Return simplified data and pagination info
     return { status: 200, data: galleries, meta: response.data.meta.pagination };
   } catch (error: unknown) {
-    console.error("Error fetching galleries:", (error as Error).message);
+    console.error("Error fetching gallerio:", (error as Error).message);
 
     return { status: 400, message: "Failed to fetch galleries" };
   }

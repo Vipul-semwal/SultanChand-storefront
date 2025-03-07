@@ -42,7 +42,7 @@ const Blog: React.FC = () => {
           <Text className="font-semibold text-xs sm:text-sm inline-block">Latest Blogs</Text>
         </div>
         <LocalizedClientLink href={'/blog'} className="bg-[#EA5900] text-white px-3 py-2 rounded-sm flex items-center text-[15px] justify-center gap-2 hover:bg-[#EA5900] text-xs sm:text-sm transition-all duration-300 border-none outline-none">
-          View More
+          View More   
           <ArrowUpRightMini
             className="group-hover:rotate-45 ease-in-out duration-150"
             color="white"

@@ -68,12 +68,20 @@ export default function ProductPreview({
           />
           <div className="flex txt-compact-medium mt-4 justify-between items-center text-center ">
             <p
-              style={{ fontFamily: 'Poppins, sans-serif' }}
-              className="text-ui-fg-subtle font-bold text-center text-xs sm:text-sm "
+              style={{
+                fontFamily: 'Poppins, sans-serif',
+                maxWidth: '150px', // Explicit width for ellipsis to work
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+              className="text-ui-fg-subtle font-bold text-center text-xs sm:text-sm"
               data-testid="product-title"
             >
               {productData.title}
             </p>
+
+
           </div>
 
           {/* Only Stars Rating Section */}
@@ -85,7 +93,7 @@ export default function ProductPreview({
             />
           </div>
 
-          <div className="flex items-center gap-x-2">
+          <div className="flex items-center  gap-x-2">
             {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
           </div>
         </div>

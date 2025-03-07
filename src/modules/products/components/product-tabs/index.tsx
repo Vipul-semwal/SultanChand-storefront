@@ -18,10 +18,10 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
       label: "Product Information",
       component: <ProductInfoTab product={product} />,
     },
-    {
-      label: "Meta Data",
-      component: <MetadataInfoTab product={product} />,
-    },
+    // {
+    //   label: "Meta Data",
+    //   component: <MetadataInfoTab product={product} />,
+    // },
     {
       label: "Shipping & Returns",
       component: <ShippingInfoTab />,

@@ -3,6 +3,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import { GetAllBlogs } from "actions/cms/blog";
 import { useQueryData } from "@lib/hooks/useQueryData";
 import { formatDate } from "@lib/util/strapi";
+import { getStrapiMedia } from "@lib/util/strapi";
 
 
 
@@ -42,12 +43,13 @@ const SideBlog = () => {
         </h3>
         {Array.isArray(data) && data.length > 0 ? (
           data.map((post) => (
-            <div key={post.id} className="mb-6 group">
+          <LocalizedClientLink href={`/blog/${post.slug}`} key={post.slug}>
+              <div key={post.id} className="mb-6 group">
               <div className="flex items-center gap-4 border-l-4 border-transparent group-hover:border-orange-500  transition-all">
                 {/* Image */}
                 <div className="flex-shrink-0 w-16 h-16">
                   <img
-                    src={post.thumbnail ? `http://localhost:1337${post.thumbnail}` : "/default-thumbnail.jpg"}
+                    src={post.thumbnail ? getStrapiMedia(post.thumbnail) || "https://placehold.co/600x400" : "https://placehold.co/600x400"}
                     alt={post.title}
                     className="w-full h-full object-cover rounded-md"
                   />
@@ -66,6 +68,7 @@ const SideBlog = () => {
                 </div>
               </div>
             </div>
+          </LocalizedClientLink>
           ))
         ) : (
           <p className="text-gray-500">No recent posts available.</p>

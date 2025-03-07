@@ -32,14 +32,18 @@ interface ImageResponse {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-}
+};
+
+const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/upload/files`;
+
+
 
 // Function to fetch banner images
 export async function fetchBannerImages(): Promise<string[]> {
    
   try {
     const response = await axios.get<ImageResponse[]>(
-      "http://localhost:1337/api/upload/files",
+      url,
       {
         params: {
           "filters[caption]": "banner",

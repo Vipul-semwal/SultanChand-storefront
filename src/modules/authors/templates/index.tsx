@@ -90,7 +90,7 @@ function AuthorTemplate() {
       <section className="bg-white py-12">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-800">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
               Our <span className="text-orange-400">Authors</span>
             </h2>
             <p className="text-gray-600 mt-2">
@@ -102,7 +102,7 @@ function AuthorTemplate() {
           {isFetching ? (
             <p>Loading authors...</p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-10">
               {authors.map((author,index) => (
                 <div key={author.id} className="bg-white shadow-md rounded-lg overflow-hidden" data-testid="author-card">
                   <img
@@ -110,13 +110,13 @@ function AuthorTemplate() {
                     alt={author.name}
                     className="w-full h-48 object-cover"
                   />
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold text-gray-800">{author.name}</h3>
-                    <p className="text-sm text-gray-500 mb-4">{author.subText}</p>
+                  <div className="p-2 sm:p-6 flex flex-col justify-between ">
+                    <h3 className="text-sm font-semibold text-blue-950 sm:text-lg">{author.name}</h3>
+                    <p className=" text-xs sm:text-sm  text-gray-500 mb-4">{author.subText}</p>
                     {/* <div className="text-gray-600 mb-6" dangerouslySetInnerHTML={{ __html: truncateText(author.description, 150) }} /> */}
                     <LocalizedClientLink
                       href={`/authors/${author.id}`}
-                      className="bg-[#EA5900] text-white px-4 py-2 rounded-md hover:bg-[#EA5900]"
+                      className="bg-[#EA5900] text-white px-4 py-2 text-center text-sm rounded-sm hover:bg-[#EA5900]"
                     >
                       View Profile
                     </LocalizedClientLink>

@@ -4,6 +4,33 @@ import GlobalHero from '@modules/common/components/globalhero';
 export interface IAppProps {}
 
 export default function AboutTamplet(props: IAppProps) {
+
+  const publications= [
+    {
+      id: 1,
+      image: '/1.jpeg',
+      title: 'Master Amir Chand ji  ',
+      description: "Freedom Fighter  (1869 – 1915)",
+    },
+    {
+      id: 2,
+      image: '/2.jpeg',
+      title: 'Shri Sultan Chand ji  ',
+      description: 'Founder of  M/s Sultan Chand & Sons  Educational Publishers (20.12.1896 – 01.02.1975) ',
+    },
+    {
+      id: 3,
+      image: '/3.jpeg',
+      title: 'Shri Subhash Chand Aggarwal  ',
+      description: '(01.11.1939 – 17.06.2017) ',
+    },
+    {
+      id: 4,
+      image: '/4.jpeg',
+      title: 'Dr. (Miss) Usha Aggarwal ',
+      description: '(10.04.1941 – 07.01.2021)',
+    },
+  ];
   return (
     <div>
       <div className="bg-gray-50">
@@ -12,7 +39,9 @@ export default function AboutTamplet(props: IAppProps) {
         <GlobalHero
           backgroundImage="/banner.jpg"
           title="About Us"
-          subtitle="Sultan Chand and Sons - A Legacy of Excellence in Education."
+          subtitle="Sultan Chand & Sons -  75 Years of Excellence in Publishing
+Educational Books
+"
         />
 
         {/* Legacy Section */}
@@ -20,7 +49,7 @@ export default function AboutTamplet(props: IAppProps) {
           <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-8">
             <div className="md:w-1/2">
               <img
-                src="https://images.unsplash.com/photo-1518373714866-3f1478910cc0?q=80&w=2070&auto=format&fit=crop"
+                src="/about.jpeg"
                 alt="Legacy"
                 className="rounded-lg shadow-lg w-full object-cover"
               />
@@ -41,7 +70,7 @@ export default function AboutTamplet(props: IAppProps) {
         <section className="py-12 px-4 sm:py-16 sm:px-6">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8">Our <span className='text-[#EA5900]'>Vision</span> & <span className='text-[#EA5900]'>Mission</span></h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 items-center md:grid-cols-2 gap-8">
               <div className="flex flex-col items-center">
                 <h3 className="text-lg sm:text-xl font-semibold text-[#EA5900] mb-4">Vision</h3>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
@@ -49,12 +78,12 @@ export default function AboutTamplet(props: IAppProps) {
                 </p>
               </div>
               <div className="flex items-center justify-center">
-                <img src="https://images.unsplash.com/photo-1507415492521-917f60c93bfe?q=80" alt="Vision" className="max-w-full h-auto" />
+                <img src="/about1.jpg" alt="Vision" className="max-w-full h-auto" />
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+            <div className="grid grid-cols-1 items-center md:grid-cols-2 gap-8 mt-8">
               <div className="flex items-center justify-center">
-                <img src="https://images.unsplash.com/photo-1507415492521-917f60c93bfe?q=80" alt="Mission" className="max-w-full h-auto" />
+                <img src="/about3.jpg" alt="Mission" className="max-w-full h-auto" />
               </div>
               <div className="flex flex-col items-center">
                 <h3 className="text-lg sm:text-xl font-semibold text-[#EA5900] mb-4">Mission</h3>
@@ -67,19 +96,19 @@ export default function AboutTamplet(props: IAppProps) {
         </section>
 
         {/* Publications Section */}
-        <section className="py-12 px-4 sm:py-16 sm:px-6 bg-gray-100">
+        <section className="py-12 px-4 sm:py-16 sm:px-6 bg-orange-50">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8 text-center">Our <span className='text-[#EA5900]'>Publications</span></h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3].map((item) => (
-                <div key={item} className="p-6 bg-white rounded-lg shadow-lg">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {publications.map((item,id) => (
+                <div key={item.id} className="p-6 bg-white rounded-lg shadow-lg">
                   <img
-                    src="https://m.media-amazon.com/images/I/715smRhK8JL._SY466_.jpg"
+                    src={item.image}
                     alt={`Book ${item}`}
-                    className="rounded-lg w-full object-cover mb-4"
+                    className="rounded-sm max-w-full max-h-full object-cover mb-4"
                   />
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-800">Title {item}</h3>
-                  <p className="text-sm sm:text-base text-gray-600">A brief description of the book and its significance.</p>
+                  <h3 className="text-sm sm:text-sm font-semibold text-gray-800">{item.title}</h3>
+                  <p className="text-sm sm:text-sm text-gray-600">{item.description}</p>
                 </div>
               ))}
             </div>

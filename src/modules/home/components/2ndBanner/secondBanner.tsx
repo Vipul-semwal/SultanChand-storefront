@@ -23,9 +23,9 @@ function SecondBanner() {
           retry: 1,
         }
       );
-      console.log('katakatka:',data);
+      // console.log('katakatka:',data);
   return (
-    <div className="content-container pt-6 ">
+    data?.img?(<div className="content-container pt-6 ">
       <div
         className="mx-auto"
         style={{
@@ -40,7 +40,7 @@ function SecondBanner() {
           className="w-full h-full object-cover"
         />
       </div>
-    </div>
+    </div>):null
   );
 }
 

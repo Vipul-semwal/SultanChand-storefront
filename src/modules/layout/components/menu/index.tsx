@@ -27,9 +27,12 @@ const Navbar: React.FC = () => {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const categoriesRef = useRef<HTMLButtonElement | null>(null);
   const { data: productCategories } = useCategories();
+  console.log('danda apki gand me',productCategories);
 
   const allCategories: ProductCategory[] = [
-    {
+   
+    { id: "home", name: "Home", path: "/", handle: "home" },
+ {
       id: "categories",
       name: "Categories",
       path: "#",
@@ -38,15 +41,14 @@ const Navbar: React.FC = () => {
         ?.filter((data) => !data.parent_category_id) // Sirf root categories lo
         .map(transformProductCategory) || [],
     },
-    { id: "home", name: "Home", path: "/", handle: "home" },
-
     { id: "blog", name: "Blog", path: "/blog", handle: "blog" },
 
-    { id: "gallery", name: "Gallery", path: "/gallery", handle: "gallery" },
-    { id: "speciman-request", name: "Specimen-Request", path: "/speciman-request", handle: "speciman-request" },
+    { id: "Contact", name: "Contact Us", path: "/contact-us", handle: "About Us" },
+    { id: "speciman-request", name: "Specimen Request", path: "/specimen-request", handle: "speciman-request" },
     { id: "online-library", name: "Online Library", path: "/categories/online-library ", handle: "online-library" },
-    { id: "catelog-list", name: "Catelog List", path: "/catelog-list", handle: "catelog-list" },
-  ];
+    { id: "Catelog-List", name: "Catelog List", path: "/catalogs", handle: "catelog-list" },
+  ];  
+  // console.log('danda apki gand me',allCategories);
 
   useEffect(() => {
     const handleScroll = () => setSticky(window.scrollY > 0);
@@ -63,29 +65,33 @@ const Navbar: React.FC = () => {
     <nav
       className={`bg-[#EA5900] text-white transition-all duration-300 ${sticky ? "fixed top-0 left-0 w-full shadow-lg z-50" : ""}`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <LocalizedClientLink href="/">
-            <div className="text-sm md:text-xl font-bold flex items-center gap-1">
-              <FaCrown className="text-blue-950" fontSize={20} />
-              SultanChand & Sons
+            <div className="text-sm md:text-lg font-bold flex items-center gap-1">
+             <img src="/logowhite.png" width={"40px"} />
+              Sultan 
+              Chand  <span className="text-blue-950">&</span> Sons
             </div>
           </LocalizedClientLink>
-          <div className="hidden lg:flex items-center space-x-8 relative">
-            {allCategories.map((category) => (
-              <LocalizedClientLink key={category.id} href={category.path}>
-                <button
-                  ref={category.handle === "categories" ? categoriesRef : null}
-                  className={`px-3 py-2 text-sm font-semibold relative group ${category.path === window.location.pathname ? "underline" : ""}`}
-                  onMouseEnter={category.handle === "categories" ? handleMouseEnter : undefined}
-                  onMouseLeave={category.handle === "categories" ? handleMouseLeave : undefined}
-                >
-                  {category.name}
-                  <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-white transition-all group-hover:w-full"></span>
-                </button>
-              </LocalizedClientLink>
-            ))}
-          </div>
+          <div className="hidden lg:flex items-center space-x-4 relative">
+  {allCategories.map((category) => (
+    <LocalizedClientLink key={category.id} href={category.path}>
+      <button
+        ref={category.handle === "categories" ? categoriesRef : null}
+        className={`px-3 py-2 text-[14px] font-semibold relative group ${
+          category.path === window.location.pathname ? "underline" : ""
+        } max-[1163px]:text-[12px]`}
+        onMouseEnter={category.handle === "categories" ? handleMouseEnter : undefined}
+        onMouseLeave={category.handle === "categories" ? handleMouseLeave : undefined}
+      >
+        {category.name}
+        <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-white transition-all group-hover:w-full"></span>
+      </button>
+    </LocalizedClientLink>
+  ))}
+</div>
+
           <div className="flex items-center gap-4">
             <PiMagnifyingGlassBold
               fontSize={"18px"}

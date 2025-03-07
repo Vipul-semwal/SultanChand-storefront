@@ -27,19 +27,19 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 
   const article = (response.data as unknown as Article[])[0];
-  const imgurl = getStrapiMedia(article.cover?.formats.thumbnail?.url ?? null)
+  const imgurl = getStrapiMedia(article?.cover?.formats?.thumbnail?.url ?? null)
   return {
-    title: article.title,
-    description: article.description,
+    title: article?.title,
+    description: article?.description,
     openGraph: {
-      title: article.title,
-      description: article.description,
+      title: article?.title,
+      description: article?.description,
       images: [
         {
           url:imgurl,
           width: 1200,
           height: 630,
-          alt: article.title,
+          alt: article?.title,
         },
       ],
     },
@@ -57,4 +57,6 @@ async function Blog(props: {
   )
 }
 
-export default Blog
+export default Blog;
+
+export const revalidate = 36000

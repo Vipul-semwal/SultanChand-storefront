@@ -77,6 +77,7 @@ export default async function PaginatedProducts({
       name: searchby,
       query: searchQuery,
     })
+    console.log('dath tere ki',data,status)
 
     if (status === 500) {
       return <div className="flex justify-center items-center">Something went wrong</div>

@@ -19,6 +19,7 @@ const poppins = Poppins({
 })
 
 export default function RootLayout(props: { children: React.ReactNode }) {
+  // console.log('publsihkey:', "pk_ecce647272761283e5915729e0269ad39cffb3b48559a8990eebc150169be6e8")
   return (
     <html lang="en" data-mode="light" className={`${poppins.className} bg-white`}>
       <body>

@@ -14,6 +14,7 @@ const BlogPost = ({ slug }: { slug: string }) => {
     async () => {
       const response = await GetBlogData(slug);
       if (response.status === 200 && response.data) {
+        console.log('yatiare hai:',response.data)
         return response.data;
       } else {
         throw new Error(response.message || "Error fetching blog data");

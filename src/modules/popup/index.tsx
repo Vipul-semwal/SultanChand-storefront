@@ -36,7 +36,7 @@ function popUpBanner() {
   return (
    <>
   {isFetching?<Spinner/>:(
-      <Modal 
+    popup?.popuBanner?.url ? <Modal 
       isOpen={state} 
       close={closeModal}
       size="large"
@@ -55,7 +55,7 @@ function popUpBanner() {
           </a>
         </div>
       </Modal.Body>
-    </Modal>
+    </Modal>:null
   )}
    </>
   )

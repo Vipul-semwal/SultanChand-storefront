@@ -13,7 +13,7 @@ import uploadFileWithSdk from "@lib/data/uploadfile";
 
 export default function SpecimenRequestForm() {
   const {
-    register, 
+    register,
     handleSubmit,
     watch,
     setValue,
@@ -26,13 +26,13 @@ export default function SpecimenRequestForm() {
   const selectedState = watch("state");
 
   const cities = useCities(selectedState);
- 
-  const { mutate,isPending } = useMutationData(
+
+  const { mutate, isPending } = useMutationData(
     ["specimenrequest"],
     async (data) => {
       const res = await sdk.client.fetch<{
-        sucsess:boolean,
-        message:string
+        sucsess: boolean,
+        message: string
       }>("/store/specimen", {
         method: "POST",
         body: data,
@@ -40,8 +40,8 @@ export default function SpecimenRequestForm() {
           "Content-Type": "application/json",
         },
       });
-        
-      console.log('ressssonhshdeiur',res)
+
+      console.log('ressssonhshdeiur', res)
       if (!res.sucsess) {
         throw new Error("something went wrong");
       }
@@ -60,15 +60,15 @@ export default function SpecimenRequestForm() {
   const onSubmit = async (data: specimenFormData) => {
     try {
       const missingFiles = [];
-    if (!data.letter_head?.[0]) missingFiles.push("Letter Head");
-    if (!data.photo_id?.[0]) missingFiles.push("Photo ID");
+      if (!data.letter_head?.[0]) missingFiles.push("Letter Head");
+      if (!data.photo_id?.[0]) missingFiles.push("Photo ID");
 
-    if (missingFiles.length) {
-      toast.error("Missing Files", {
-        description: `${missingFiles.join(" and ")} ${missingFiles.length > 1 ? "are" : "is"} required.`,
-      });
-      return;
-    }
+      if (missingFiles.length) {
+        toast.error("Missing Files", {
+          description: `${missingFiles.join(" and ")} ${missingFiles.length > 1 ? "are" : "is"} required.`,
+        });
+        return;
+      }
       // console.log('saryahahai:', data)
       const [letterHeadUrl, photoIDUrl] = await Promise.all([
         data.letter_head?.[0] ? uploadFileWithSdk(data.letter_head[0]) : null,
@@ -88,7 +88,7 @@ export default function SpecimenRequestForm() {
 
       mutate(updatedData);
     } catch (error) {
-      console.log('erro:',error)
+      console.log('erro:', error)
       toast.error("Error", {
         description: "File upload failed. Please try again.",
       });
@@ -101,7 +101,7 @@ export default function SpecimenRequestForm() {
       className="bg-white p-6 shadow-lg rounded-lg max-w-3xl mx-auto space-y-6"
     >
       <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">
-        Specimen Request Form
+        Specimen <span className="text-orange-500">Request</span> Form
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -121,23 +121,23 @@ export default function SpecimenRequestForm() {
           </Select>
           {errors.category_name && <p className="text-red-500 text-xs mt-1">{errors.category_name.message}</p>}
         </div>
-        
+
         {/* School Name */}
         <div>
           <label className="text-gray-700 text-sm font-medium">School/College/Coaching Name</label>
           <Input {...register("school_name")} className="mt-1 w-full" />
           {errors.school_name && <p className="text-red-500 text-xs mt-1">{errors.school_name.message}</p>}
         </div>
-        
-         {/* name */}
-         <div>
+
+        {/* name */}
+        <div>
           <label className="text-gray-700 text-sm font-medium"> Name</label>
           <Input {...register("name")} className="mt-1 w-full" />
           {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name?.message}</p>}
         </div>
 
-          {/* State */}
-          <div>
+        {/* State */}
+        <div>
           <label className="text-gray-700 text-sm font-medium">State</label>
           <Select
             {...register("state")}
@@ -160,9 +160,9 @@ export default function SpecimenRequestForm() {
           </Select>
           {errors.state && <p className="text-red-500 text-xs mt-1">{errors.state.message}</p>}
         </div>
-        
-          {/* City */}
-          <div>
+
+        {/* City */}
+        <div>
           <label className="text-gray-700 text-sm font-medium">City</label>
           <Select
             {...register("city")}
@@ -195,11 +195,11 @@ export default function SpecimenRequestForm() {
         {/* Phone Number */}
         <div>
           <label className="text-gray-700 text-sm font-medium">Phone Number</label>
-          <Input {...register("phone_number")} className="mt-1 w-full" type="number"/>
+          <Input {...register("phone_number")} className="mt-1 w-full" type="number" />
           {errors.phone_number && <p className="text-red-500 text-xs mt-1">{errors.phone_number.message}</p>}
         </div>
-        
-        
+
+
         {/* Email */}
         <div>
           <label className="text-gray-700 text-sm font-medium">Email</label>
@@ -234,8 +234,8 @@ export default function SpecimenRequestForm() {
           </Select>
           {errors.strength && <p className="text-red-500 text-xs mt-1">{errors.strength.message}</p>}
         </div>
-      
-      
+
+
         {/* School Address */}
         <div>
           <label className="text-gray-700 text-sm font-medium">School/College Address</label>
@@ -298,10 +298,16 @@ export default function SpecimenRequestForm() {
 
       {/* Submit Button */}
       <div className="text-center">
-        <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-md text-lg" disabled={isPending}>
-         {isPending?"loading...":" Submit"}
-        </Button>
-      </div>
+  <Button
+    type="submit"
+    className="bg-orange-500 hover:bg-orange-700 text-white py-2 px-8 text-sm border-none outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus:ring-transparent"
+    disabled={isPending}
+  >
+    {isPending ? "loading..." : "Submit"}
+  </Button>
+</div>
+
+
     </form>
   );
 }
