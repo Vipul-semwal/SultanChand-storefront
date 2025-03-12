@@ -32,7 +32,7 @@ const Hero = () => {
   const data = images?.map((url) => ({ url })) || fallbackData;
 
   return (
-    <div>
+    <div className="flex justify-center">
       <Swiper
         modules={[Navigation, Pagination, Autoplay, Parallax]}
         spaceBetween={20}
@@ -44,11 +44,11 @@ const Hero = () => {
           disableOnInteraction: false,
         }}
         speed={2000}
-        className="max-w-10xl mx-auto"
+        className="w-full max-w-10xl  h-[80%]"
       >
         {data.map((i, key) => (
           <SwiperSlide key={key} className="flex items-center justify-center">
-            <div className="w-full aspect-[16/7] relative">
+            <div className="w-full aspect-[16/6] relative">
               <Image
                 src={i.url || ""}
                 alt={`Slide ${key + 1}`}

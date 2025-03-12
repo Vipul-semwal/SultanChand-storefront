@@ -70,7 +70,7 @@ export default function ProductPreview({
             <p
               style={{
                 fontFamily: 'Poppins, sans-serif',
-                maxWidth: '150px', // Explicit width for ellipsis to work
+                maxWidth: 'clamp(100px, 10vw, 150px)', // Responsive between 100px and 150px
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
@@ -80,6 +80,7 @@ export default function ProductPreview({
             >
               {productData.title}
             </p>
+
 
 
           </div>

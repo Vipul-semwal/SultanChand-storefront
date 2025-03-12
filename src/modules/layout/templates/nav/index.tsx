@@ -24,11 +24,9 @@ export default async function Nav() {
 
             <div className="flex items-center h-full">
               <LocalizedClientLink href="/">
-                <img
-                  className="max-w-[50px] md:max-w-[60px] lg:max-w-[50px] w-auto h-auto"
-                  src="/logo4.png"
-                  alt="Logo"
-                />
+                <span className="font-semibold  text-sm sm:text-lg text-blue-950 uppercase">
+                  Sultan Chand & Sons
+                </span>
               </LocalizedClientLink>
             </div>
 

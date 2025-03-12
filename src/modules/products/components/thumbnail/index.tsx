@@ -1,8 +1,6 @@
-import { Container, clx, Text } from "@medusajs/ui";
+import { Container, clx } from "@medusajs/ui";
 import Image from "next/image";
 import React from "react";
-import { EyeIcon } from "lucide-react";
-
 import PlaceholderImage from "@modules/common/icons/placeholder-image";
 
 type ThumbnailProps = {
@@ -30,8 +28,8 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
         "relative w-full overflow-hidden p-2 bg-ui-bg-subtle shadow-elevation-card-rest outline-none group transition-shadow ease-in-out duration-150 hover:shadow-lg",
         className,
         {
+          "aspect-[2/3]": !isFeatured && size !== "square", // Set the 2:3 ratio here
           "aspect-[11/14]": isFeatured,
-          "aspect-[3/4]": !isFeatured && size !== "square",
           "aspect-[1/1]": size === "square",
           "w-[180px]": size === "small",
           "w-[290px]": size === "medium",
@@ -54,7 +52,7 @@ const ImageOrPlaceholder = ({
     <Image
       src={image}
       alt="Thumbnail"
-      className="absolute inset-0 object-cover object-center mx-auto my-auto transition-transform duration-300 ease-in-out group-hover:scale-105 group-hover:opacity-90"
+      className="absolute p-2 sm:p-4 inset-0 object-cover object-center mx-auto my-auto transition-transform duration-300 ease-in-out group-hover:scale-105 bg-orange-50 group-hover:opacity-90"
       draggable={false}
       quality={50}
       sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"

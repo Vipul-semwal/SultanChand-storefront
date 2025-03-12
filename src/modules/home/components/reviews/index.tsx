@@ -3,6 +3,7 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
+import Blog from 'app/[countryCode]/(main)/blog/[slug]/page';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
@@ -52,7 +53,7 @@ const testimonials = [
 function TestimonialSlider() {
   return (
     <section className="py-12 sm:py-16 lg:py-6">
-      <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+      <div className="px-4 mx-auto sm:px-6 lg:px-8">
         <div className="text-center">
           <p className="text-sm font-medium text-gray-600">
             2,157 people have said how good Rareblocks
@@ -62,7 +63,7 @@ function TestimonialSlider() {
           </h2>
         </div>
 
-        <div className="relative mt-7 lg:mt-16">
+        <div className="relative mt-7 ">
           <Swiper
             modules={[Pagination, Autoplay]}
             pagination={false} // Hide pagination dots
@@ -74,8 +75,8 @@ function TestimonialSlider() {
             slidesPerView={1}
             breakpoints={{
               640: { slidesPerView: 1 },
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
+              768: { slidesPerView: 1 },
+              1024: { slidesPerView: 1 },
             }}
           >
             {testimonials.map((testimonial) => (
@@ -100,6 +101,7 @@ function TestimonialSlider() {
             ))}
           </Swiper>
         </div>
+       
       </div>
     </section>
   );

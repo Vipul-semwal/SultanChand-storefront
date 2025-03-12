@@ -36,10 +36,10 @@ const Blog: React.FC = () => {
   const BlogPost = data ? data.slice(0, 3) : [];
 
   return (
-    <div className="content-container mx-auto p-5 sm:p-10 md:p-16">
+    <div className="content-container mx-auto p-5">
       <div className="mb-5 flex justify-between text-sm">
         <div className="text-[#EA5900] flex items-center pb-2 pr-2 border-b-2 border-[#EA5900] uppercase">
-          <Text className="font-semibold text-xs sm:text-sm inline-block">Latest Blogs</Text>
+          <h2 className="font-semibold text-xs sm:text-sm inline-block">Latest Blogs</h2>
         </div>
         <LocalizedClientLink href={'/blog'} className="bg-[#EA5900] text-white px-3 py-2 rounded-sm flex items-center text-[15px] justify-center gap-2 hover:bg-[#EA5900] text-xs sm:text-sm transition-all duration-300 border-none outline-none">
           View More   
@@ -50,7 +50,7 @@ const Blog: React.FC = () => {
         </LocalizedClientLink>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-5">
         { BlogPost && BlogPost.map((post) => {
           const imgUrl = getStrapiMedia(post.thumbnail ?? "");
           return (
@@ -61,13 +61,13 @@ const Blog: React.FC = () => {
               <img
                 src={imgUrl ?? ""}
                 alt={post.title}
-                className="w-full h-56 object-cover"
+                className="w-full h-40 object-cover"
               />
               <div className="p-4">
-                <h3 className="text-lg font-semibold">{post.title}</h3>
-                <p className="text-sm text-gray-600 mt-2">{post.description}</p>
+                <h3 className="text-sm sm:text-lg font-semibold">{post.title}</h3>
+                <p className="text-xs sm:text-sm text-gray-600 mt-2">{post.description}</p>
                 <div className="mt-4 flex justify-between items-center">
-                  <LocalizedClientLink href={`/blog/${post.slug}`} className="text-[#EA5900] cursor-pointer hover:underline">
+                  <LocalizedClientLink href={`/blog/${post.slug}`} className="text-[#EA5900] text-sm cursor-pointer hover:underline">
                     Read More
                   </LocalizedClientLink>
                   <span className="text-sm text-gray-500">{formatDate(post.createdAt)}</span>

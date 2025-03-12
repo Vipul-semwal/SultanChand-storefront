@@ -47,7 +47,7 @@ const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
                 leaveFrom="opacity-100 backdrop-blur-2xl"
                 leaveTo="opacity-0"
               >
-                <PopoverPanel className="flex flex-col absolute w-full pr-4 sm:pr-0 sm:w-1/3 2xl:w-1/4 sm:min-w-min h-[calc(100vh-1rem)] z-30 inset-x-0 text-xs sm:text-sm m-2 backdrop-blur-2xl">
+                <PopoverPanel className="flex flex-col absolute w-[30%] pr-4 sm:pr-0 sm:w-1/4 2xl:w-1/6   h-[calc(100vh-1rem)] z-30 inset-x-0 text-xs sm:text-sm m-2 backdrop-blur-2xl">
                   <div
                     data-testid="nav-menu-popup"
                     className="flex flex-col h-full bg-[rgba(163,173,201,0.5)] rounded-lg justify-between p-4 sm:p-6"

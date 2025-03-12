@@ -25,12 +25,13 @@ export default function Post({ data }: { data: Article }) {
                     alt="article cover image"
                     width={400}
                     height={400}
-                    className="w-full h-96 object-cover "
+                    className="w-full mt-5 h-100 object-cover "
                     unoptimized
+                     
                     priority
                 />
             )}
-                    <h1 className="leading-tight text-2xl mt-7 text-center sm:text-2xl md:text-5xl font-bold">
+                    <h1 className="leading-tight text-xl mt-7 text-center sm:text-xl md:text-3xl font-bold">
                         {title}
                     </h1>
                     <div className="flex flex-col items-start justify-between w-full md:flex-row md:items-center dark:text-gray-400">
@@ -44,7 +45,7 @@ export default function Post({ data }: { data: Article }) {
                     <div className="dark:text-gray-100 text-center">
                         <p className="text-sm sm:text-base md:text-lg">{description}</p>
 
-                        <div className="px-10">
+                        <div className="">
                             {data.blocks && data.blocks.map((section: any, index: number) => postRenderer(section, index))}
                         </div>
                     </div>

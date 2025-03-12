@@ -13,7 +13,7 @@ export default async function Footer() {
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d218.8459781203116!2d77.244018!3d28.643676!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd824a0907ef%3A0x440f63f912791aa8!2sSultan%20Chand%20%26%20Sons%2C%20Since%201950!5e0!3m2!1sen!2sin!4v1741198254136!5m2!1sen!2sin"
         height="300"
-        style={{ border: 0, width: "100%" }}
+        style={{ border: 0, width: "100%" ,marginTop: "20px"}}
         allowFullScreen
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
@@ -44,11 +44,11 @@ export default async function Footer() {
             <div>
               <p className="text-sm sm:text-sm font-bold tracking-widest text-white uppercase underline underline-offset-8 decoration-[#EA5900]">Useful LINKS</p>
               <ul className="mt-6 space-y-4">
-                {["Policy", "FAQ"].map((item, index) => (
+                {["Policy", "FAQ","contact-us","about"].map((item, index) => (
                   <li key={index}>
                     <LocalizedClientLink
                       className="flex text-sm sm:text-sm text-gray-100 transition-all duration-200 hover:text-[#EA5900] focus:text-[#EA5900]"
-                      href={`/${item.toLowerCase()}`}
+                      href={`/${item}`}
                     >
                       {item}
                     </LocalizedClientLink>
@@ -65,7 +65,7 @@ export default async function Footer() {
                   <li key={index}>
                     <LocalizedClientLink
                       className="flex text-sm sm:text-sm text-white transition-all duration-200 hover:text-[#EA5900] focus:text-[#EA5900]"
-                      href="#"
+                      href="/Policy"
                     >
                       {item}
                     </LocalizedClientLink>
@@ -89,7 +89,7 @@ export default async function Footer() {
 
             {/* Connect with us */}
             <div>
-              <p className="text-sm sm:text-sm font-semibold tracking-widest text-white uppercase underline underline-offset-8 decoration-[#EA5900]">Connect with us</p>
+              <p className="text-xs sm:text-sm font-semibold tracking-widest text-white uppercase underline underline-offset-8 decoration-[#EA5900]">Connect with us</p>
               <ul className="flex items-center flex-wrap overflow-hidden space-x-3 mt-4">
                 {[FaTwitter, FaFacebookF, FaInstagram, FaYoutube, FaLinkedinIn].map((Icon, idx) => (
                   <li key={idx}>

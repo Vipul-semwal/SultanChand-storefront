@@ -7,6 +7,7 @@ import { BsChevronDown, BsChevronRight } from 'react-icons/bs';
 import { RxCross2 } from 'react-icons/rx';
 import { transformProductCategory, ProductCategoryTypes as ProductCategory } from '@lib/util/transformProductCategory';
 import { useCategories } from '@lib/hooks/useCategory';
+import { trasnformCollection } from '@lib/util/transformProductCategory';
 
 interface MobileViewNavProps {
   isVisible: boolean;
@@ -17,6 +18,14 @@ const MobileViewNav: React.FC<MobileViewNavProps> = ({ isVisible, onClose }) => 
   const [openSubmenus, setOpenSubmenus] = useState<Record<string, boolean>>({});
   const { countryCode } = useParams() as { countryCode: string };
   const { data: productCategories } = useCategories();
+   const [collection,Setcollection] = useState<ProductCategory[]>([])
+     useEffect(()=>{
+      ( async function fetchCollection(){
+       const data = await trasnformCollection();
+       console.log('collect kar bawa',data);
+       Setcollection(data)
+     })()
+     },[])
 
   const allCategories: ProductCategory[] = [
     {
@@ -27,6 +36,7 @@ const MobileViewNav: React.FC<MobileViewNavProps> = ({ isVisible, onClose }) => 
       category_children:
         productCategories?.filter((data) => !data.parent_category_id).map(transformProductCategory) || [],
     },
+    ...collection,
     { id: 'home', name: 'Home', path: '/', handle: 'home' },
     { id: 'store', name: 'Store', path: '/store', handle: '/store' },
     { id: 'account', name: 'Account', path: '/account', handle: '/account' },

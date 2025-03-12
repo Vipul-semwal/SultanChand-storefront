@@ -62,16 +62,16 @@ const Authors: React.FC<Props> = () => {
           </h2>
         </div>
 
-        <div className="md:hidden">
+        <div className="">
           <Swiper
             spaceBetween={30}
             slidesPerView={1}
             pagination={{ clickable: true }}
             autoplay={{ delay: 3000, disableOnInteraction: false }}
-            modules={[Pagination, Autoplay]}
+            modules={[ Autoplay]}
             breakpoints={{
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
+              768: { slidesPerView: 3 },
+              1024: { slidesPerView: 4 },
             }}
             className="mySwiper"
           >
@@ -86,7 +86,7 @@ const Authors: React.FC<Props> = () => {
                     <p className="font-semibold text-blue-900 text-center dark:text-white">{i.name}</p>
                   </div>
                   <p
-                    className="text-gray-600 text-sm sm:text-lg text-center dark:text-gray-300 italic mb-6"
+                    className="text-gray-600 text-xs sm:text-sm text-center dark:text-gray-300 italic mb-6"
                     dangerouslySetInnerHTML={{ __html: truncateText(i.description, 150) }}
                   />
                 </div>
@@ -96,7 +96,7 @@ const Authors: React.FC<Props> = () => {
           </Swiper>
         </div>
 
-        <div className="hidden md:grid md:grid-cols-3 gap-4">
+        {/* <div className="hidden md:grid md:grid-cols-3 gap-4">
           {data?.author.map((i, index) => (
             <LocalizedClientLink href={`/authors/${i.id}`}  key={index}>
               <div
@@ -116,7 +116,7 @@ const Authors: React.FC<Props> = () => {
             </div>
             </LocalizedClientLink>
           ))}
-        </div>
+        </div> */}
       </div>
 
 <div className='w-full py-4 flex items-center justify-center'>

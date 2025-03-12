@@ -10,9 +10,9 @@ import { BsChevronDown, BsChevronRight } from "react-icons/bs";
 import Modal from "@modules/common/components/modal";
 import { FaCrown } from "react-icons/fa6";
 import SearchBar from "@modules/common/components/search";
-import { transformProductCategory, ProductCategoryTypes as ProductCategory } from "@lib/util/transformProductCategory";
+import { transformProductCategory, ProductCategoryTypes as ProductCategory,trasnformCollection } from "@lib/util/transformProductCategory";
 import { useCategories } from "@lib/hooks/useCategory";
-import MobileViewNav from "./mobile"; 
+import MobileViewNav from "./mobile";
 
 const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -23,16 +23,28 @@ const Navbar: React.FC = () => {
   const { countryCode } = useParams() as { countryCode: string };
   const [hovered, setHovered] = useState(false);
   const [openSubmenuId, setOpenSubmenuId] = useState<string | null>(null);
+  const [collection,Setcollection] = useState<ProductCategory[]>([])
 
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const categoriesRef = useRef<HTMLButtonElement | null>(null);
   const { data: productCategories } = useCategories();
-  console.log('danda apki gand me',productCategories);
+  // console.log('danda apki gand me', productCategories);
+  // console.log('collectionbeticho:',collection);
+  
+  useEffect(()=>{
+   ( async function fetchCollection(){
+    const data = await trasnformCollection();
+    console.log('collect kar bawa',data);
+    Setcollection(data)
+  })()
+  },[])
 
   const allCategories: ProductCategory[] = [
-   
+
     { id: "home", name: "Home", path: "/", handle: "home" },
- {
+    ...collection
+    ,
+    {
       id: "categories",
       name: "Categories",
       path: "#",
@@ -47,7 +59,7 @@ const Navbar: React.FC = () => {
     { id: "speciman-request", name: "Specimen Request", path: "/specimen-request", handle: "speciman-request" },
     { id: "online-library", name: "Online Library", path: "/categories/online-library ", handle: "online-library" },
     { id: "Catelog-List", name: "Catelog List", path: "/catalogs", handle: "catelog-list" },
-  ];  
+  ];
   // console.log('danda apki gand me',allCategories);
 
   useEffect(() => {
@@ -68,29 +80,27 @@ const Navbar: React.FC = () => {
       <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <LocalizedClientLink href="/">
-            <div className="text-sm md:text-lg font-bold flex items-center gap-1">
-             <img src="/logowhite.png" width={"40px"} />
-              Sultan 
-              Chand  <span className="text-blue-950">&</span> Sons
+            <div className="text-sm md:text-lg font-bold flex items-center ml-4">
+              <img src="/logowhite.png" width={"50px"} />
+
             </div>
           </LocalizedClientLink>
           <div className="hidden lg:flex items-center space-x-4 relative">
-  {allCategories.map((category) => (
-    <LocalizedClientLink key={category.id} href={category.path}>
-      <button
-        ref={category.handle === "categories" ? categoriesRef : null}
-        className={`px-3 py-2 text-[14px] font-semibold relative group ${
-          category.path === window.location.pathname ? "underline" : ""
-        } max-[1163px]:text-[12px]`}
-        onMouseEnter={category.handle === "categories" ? handleMouseEnter : undefined}
-        onMouseLeave={category.handle === "categories" ? handleMouseLeave : undefined}
-      >
-        {category.name}
-        <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-white transition-all group-hover:w-full"></span>
-      </button>
-    </LocalizedClientLink>
-  ))}
-</div>
+            {allCategories.map((category) => (
+              <LocalizedClientLink key={category.id} href={category.path}>
+                <button
+                  ref={category.handle === "categories" ? categoriesRef : null}
+                  className={`px-2 text-[14px] font-semibold relative group ${category.path === window.location.pathname ? "underline" : ""
+                    } max-[1163px]:text-[12px]`}
+                  onMouseEnter={category.handle === "categories" ? handleMouseEnter : undefined}
+                  onMouseLeave={category.handle === "categories" ? handleMouseLeave : undefined}
+                >
+                  {category.name}
+                  <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-white transition-all group-hover:w-full"></span>
+                </button>
+              </LocalizedClientLink>
+            ))}
+          </div>
 
           <div className="flex items-center gap-4">
             <PiMagnifyingGlassBold

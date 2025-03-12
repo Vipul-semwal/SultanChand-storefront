@@ -7,6 +7,7 @@ import { Advertisement, AdvertisementPagination } from "../../../../lib/types/ru
 import { Megaphone } from "lucide-react";
 
 const NewsAnnouncements: React.FC = () => {
+  
   const { data, isFetching, isError } = useQueryData<{
     data: Advertisement[];
     meta: AdvertisementPagination;

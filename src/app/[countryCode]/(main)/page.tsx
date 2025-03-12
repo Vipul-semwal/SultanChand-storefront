@@ -47,8 +47,16 @@ export default async function Home(props: {
       </div>
       <InfoBanner/>
       <Author/>
-       <Testimonial/>
-      <Blog />
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-1">
+  <div className="md:col-span-8">
+    <Blog />
+  </div>
+  <div className="md:col-span-4">
+    <Testimonial />
+  </div>
+</div>
+
+      
     </>
   )
 }

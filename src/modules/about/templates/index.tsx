@@ -101,14 +101,14 @@ Educational Books
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8 text-center">Our <span className='text-[#EA5900]'>Publications</span></h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {publications.map((item,id) => (
-                <div key={item.id} className="p-6 bg-white rounded-lg shadow-lg">
+                <div key={item.id} className="p-3 bg-white rounded-lg flex items-center flex-col justify-center shadow-lg">
                   <img
                     src={item.image}
                     alt={`Book ${item}`}
                     className="rounded-sm max-w-full max-h-full object-cover mb-4"
                   />
-                  <h3 className="text-sm sm:text-sm font-semibold text-gray-800">{item.title}</h3>
-                  <p className="text-sm sm:text-sm text-gray-600">{item.description}</p>
+                  <h3 className="text-sm sm:text-sm text-center font-semibold text-gray-800">{item.title}</h3>
+                  <p className="text-sm text-center sm:text-sm text-gray-600">{item.description}</p>
                 </div>
               ))}
             </div>

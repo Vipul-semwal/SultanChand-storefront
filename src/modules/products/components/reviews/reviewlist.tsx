@@ -166,7 +166,7 @@ const ProductReviews = ({ productId }: { productId: string }) => {
             </>
           ) : (
             <div className="flex items-center flex-col">
-              <img src="/review.png" className="max-w-xs sm:max-w-xl mt-6 sm:mt-0 " alt="" />
+              <img src="/review.png" className="max-w-xs sm:max-w-sm mt-2 sm:mt-0 " alt="" />
               <p className="text-gray-500 text-sm sm:text-xl">No reviews for this product yet.</p>
             </div>
 
