@@ -54,7 +54,7 @@ true,
   }
 
   if (isError || !reviewsData) {
-    return <div>Failed to load reviews.</div>;
+    return <div className="text-sm">Failed to load reviews.</div>;
   }
 
   const { averageRating, totalReviews } = reviewsData;

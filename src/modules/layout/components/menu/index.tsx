@@ -81,7 +81,7 @@ const Navbar: React.FC = () => {
         <div className="flex justify-between items-center h-16">
           <LocalizedClientLink href="/">
             <div className="text-sm md:text-lg font-bold flex items-center ml-4">
-              <img src="/logowhite.png" width={"50px"} />
+              <img src="/logo-with-line.png" width={"100px"} />
 
             </div>
           </LocalizedClientLink>
