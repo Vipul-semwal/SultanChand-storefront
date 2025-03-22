@@ -35,7 +35,7 @@ const ProductReviews = ({ productId }: { productId: string }) => {
 
   const limit = 10;
 
-  const fetchReviews = async (currentOffset: number) => {
+  const fetchReviews = async (currentOffset: number) => {     
     const queryParams = new URLSearchParams({
       productId: productId,
       offset: currentOffset.toString(),

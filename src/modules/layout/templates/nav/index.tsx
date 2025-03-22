@@ -22,13 +22,25 @@ export default async function Nav() {
               <SideMenu regions={regions} />
             </div>
 
-            <div className="flex items-center h-full">
-              <LocalizedClientLink href="/">
-                <span className="font-semibold  text-sm sm:text-lg text-blue-950 uppercase">
-                  Sultan Chand & Sons
-                </span>
-              </LocalizedClientLink>
-            </div>
+            <div className="flex items-center h-full space-x-3">
+  <LocalizedClientLink href="/" className="flex items-center h-full gap-2">
+    {/* Logo */}
+    <div className="ml-2 hidden sm:block">
+      <img src="/logo-with-line.png" width="110px" className="min-w-[80px]" />
+    </div>
+
+    {/* Text */}
+    <div className="flex flex-col">
+      <span className="font-bold text-sm sm:text-2xl text-blue-900 uppercase leading-tight text-3xl">
+        Sultan Chand & Sons
+      </span>
+      <p className="text-[10px] sm:text-xs text-gray-700 tracking-wide hidden sm:block  ">
+        Publishers of Standard Educational Textbooks
+      </p>
+    </div>
+  </LocalizedClientLink>
+</div>
+
 
             <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
               <LocalizedClientLink href="/account" data-testid="nav-account-link">

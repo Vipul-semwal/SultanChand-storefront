@@ -4,13 +4,13 @@ import { useQueryData } from '@lib/hooks/useQueryData';
 import { GetAllBanner } from 'actions/cms/banner';
 
 function SecondBanner() {
-  const { data, isFetching, isError } = useQueryData<{img:string}>( 
+  const { data, isFetching, isError } = useQueryData<{img:string}[] | []>( 
         ["2nd banner"], 
         async () => {
           const response = await GetAllBanner();
           if (response.status === 200 && response.data) {
             console.log('atafree hai',response)
-            return {img:response.data,};
+            return response.data;
           } else {
             throw new Error(response.message || "Error fetching 2nd banner data");
           }
@@ -24,23 +24,31 @@ function SecondBanner() {
         }
       );
       // console.log('katakatka:',data);
+      if(isFetching) return <p>Loading...</p>;  
   return (
-    data?.img?(<div className="content-container pt-6 ">
-      <div
+
+    (<div className="content-container pt-6 flex ">
+     {data?.map((i,index)=>{
+      return (
+        <div
         className="mx-auto"
         style={{
           width: '100%', // Adjust this to make the banner smaller (e.g., 60%, 70%)
            // Optional: Set a max limit to avoid it getting too large
-          aspectRatio: '2560 / 420',
+          aspectRatio: '2560 / 300',
         }}
+        key={index}
       >
         <img
-          src={data?.img}
+          src={i?.img}
           alt="Second Banner"
-          className="w-full h-full object-cover"
+          className="justify-between"
         />
       </div>
-    </div>):null
+      )
+     })}
+     
+    </div>)
   );
 }
 

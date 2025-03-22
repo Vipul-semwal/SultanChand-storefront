@@ -48,7 +48,7 @@ const Hero = () => {
       >
         {data.map((i, key) => (
           <SwiperSlide key={key} className="flex items-center justify-center">
-            <div className="w-full aspect-[16/6] relative">
+            <div className="w-full aspect-[16/6] md:aspect-[16/4] relative">
               <Image
                 src={i.url || ""}
                 alt={`Slide ${key + 1}`}

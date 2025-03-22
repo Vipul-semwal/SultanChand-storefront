@@ -10,7 +10,7 @@ import 'swiper/css/pagination';
 import { sdk } from "@lib/config";
 import { useQueryData } from "@lib/hooks/useQueryData";
 import LocalizedClientLink from '@modules/common/components/localized-client-link';
-import { ArrowUpRightMini } from "@medusajs/icons"
+import { ArrowUpRightMini } from "@medusajs/icons";
 type AuthorsResponse = {
   author: {
     id: string;
@@ -76,8 +76,8 @@ const Authors: React.FC<Props> = () => {
             className="mySwiper"
           >
             {data?.author.map((i, index) => (
-             <LocalizedClientLink href={`/authors/${i.id}`} key={index}>
                <SwiperSlide key={index}>
+               <LocalizedClientLink href={`/authors/${i.id}`} key={index}>
                 <div className="p-4 border border-gray-200 rounded-xl bg-orange-50 dark:bg-gray-800 dark:border-gray-700 shadow-lg hover:shadow-xl transition-shadow duration-300">
                   <div className='flex justify-center'>
                     <img src={i.image} alt={i.name} />
@@ -90,8 +90,8 @@ const Authors: React.FC<Props> = () => {
                     dangerouslySetInnerHTML={{ __html: truncateText(i.description, 150) }}
                   />
                 </div>
+                </LocalizedClientLink>
               </SwiperSlide>
-             </LocalizedClientLink>
             ))}
           </Swiper>
         </div>

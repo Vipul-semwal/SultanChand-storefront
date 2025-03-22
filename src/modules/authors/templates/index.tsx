@@ -9,6 +9,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import Loading from "app/[countryCode]/(main)/account/loading";
 import { Pagination } from "@modules/store/components/pagination";
 import { useSearchParams } from "next/navigation";
+import ProductPreview from "@modules/products/components/product-preview";
 
 // Define the type for the Authors response
 type AuthorsResponse = {
@@ -131,6 +132,7 @@ function AuthorTemplate() {
         totalPages={totalPages} 
         />
       </section>
+
     </>
   );
 }

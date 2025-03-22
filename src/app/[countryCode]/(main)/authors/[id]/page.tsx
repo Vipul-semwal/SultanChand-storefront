@@ -11,14 +11,10 @@ async function page(props: {
     // const serchparams = (await props.searchParams).countryCode
     // console.log('hanhan',props)
     const {id} = params
-    // const region = await getRegion(serchparams)
-    // if(!region){
-    //   return <>
-    //   <div>something went</div>
-    //   </>
-    // }
+    const region = (await getRegion('in')) ?? undefined;
+   
   return (
-    <AuthorInfo id={id} />
+    <AuthorInfo id={id} region={region}/>
   )
 }
 

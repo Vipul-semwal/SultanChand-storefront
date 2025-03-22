@@ -75,13 +75,17 @@ const Navbar: React.FC = () => {
 
   return (
     <nav
-      className={`bg-[#EA5900] text-white transition-all duration-300 ${sticky ? "fixed top-0 left-0 w-full shadow-lg z-50" : ""}`}
+      className={`bg-[#0070c0] text-white transition-all duration-300 ${sticky ? "fixed top-0 left-0 w-full shadow-lg z-50" : ""}`}
     >
       <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <LocalizedClientLink href="/">
-            <div className="text-sm md:text-lg font-bold flex items-center ml-4">
+            <div className="text-sm md:text-lg font-bold flex items-center ml-4 sm:hidden">
               <img src="/logo-with-line.png" width={"100px"} />
+
+            </div>
+            <div className="text-sm md:text-lg font-bold flex items-center ml-4 hidden sm:block">
+              <img src="/logoblue.png" width={"50px"} />
 
             </div>
           </LocalizedClientLink>

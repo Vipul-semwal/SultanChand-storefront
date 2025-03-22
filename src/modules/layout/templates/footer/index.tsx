@@ -14,10 +14,10 @@ export default async function Footer() {
 
       <section className="pt-10 sm:pt-16 lg:pt-16 border-t-4 bg-blue-950 bg-cover bg-center">
         <div className="px-4 mx-auto pb-10 sm:px-6 lg:px-8 max-w-7xl">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
 
             {/* Collections */}
-            <div>
+            {/* <div>
               <p className="text-sm sm:text-sm font-semibold tracking-widest text-white uppercase underline underline-offset-8 decoration-[#EA5900]">Collections</p>
               <ul className="mt-6 space-y-4">
                 {collections && collections.length > 0 && collections.slice(0, 6).map((collection) => (
@@ -31,7 +31,7 @@ export default async function Footer() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </div> */}
 
             {/* Useful Links */}
             <div>
