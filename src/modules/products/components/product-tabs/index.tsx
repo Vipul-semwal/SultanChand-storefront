@@ -14,18 +14,18 @@ type ProductTabsProps = {
 
 const ProductTabs = ({ product }: ProductTabsProps) => {
   const tabs = [
-    {
-      label: "Product Information",
-      component: <ProductInfoTab product={product} />,
-    },
     // {
-    //   label: "Meta Data",
-    //   component: <MetadataInfoTab product={product} />,
+    //   label: "Product Information",
+    //   component: <ProductInfoTab product={product} />,
     // },
     {
-      label: "Shipping & Returns",
-      component: <ShippingInfoTab />,
+      label: "Meta Data",
+      component: <MetadataInfoTab product={product} />,
     },
+    // {
+    //   label: "Shipping & Returns",
+    //   component: <ShippingInfoTab />,
+    // },
     {
       label: "Content",
       component: <Bookcontents product_id={product.id}/>,
@@ -134,22 +134,21 @@ const MetadataInfoTab = ({ product }: ProductTabsProps) => {
 
   return (
     <div className="text-small-regular py-8">
-      <div className="grid grid-cols-2 gap-x-8">
-        <div className="flex flex-col gap-y-4">
-          {metadata &&
-            Object.entries(metadata).map(([key, value], index) => (
-              <div key={index}>
-                <span className="font-semibold capitalize">
-                  {key.replace(/([A-Z])/g, " $1").trim()} {/* Format key */}
-                </span>
-                <p>{value ? String(value) : "-"}</p>
-              </div>
-            ))}
-        </div>
+      <div className="grid grid-cols-2 gap-x-8 gap-y-4">
+        {metadata &&
+          Object.entries(metadata).map(([key, value], index) => (
+            <div key={index} className="flex flex-col">
+              <span className="font-semibold capitalize">
+                {key.replace(/([A-Z])/g, " $1").trim()} {/* Format key */}
+              </span>
+              <p>{value ? String(value) : "-"}</p>
+            </div>
+          ))}
       </div>
     </div>
   );
 };
+
 
 
 export default ProductTabs
