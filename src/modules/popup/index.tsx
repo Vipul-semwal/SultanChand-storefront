@@ -40,9 +40,15 @@ function popUpBanner() {
       isOpen={state} 
       close={closeModal}
       size="large"
-      nrml={true}
+      nrml={true}  
     >
-      <Modal.Body >
+     <div className='mb-7'>
+     <Modal.Title  >
+        {null} 
+      </Modal.Title>
+     </div>
+    
+      <Modal.Body  >
         <div className="p-0 flex justify-center items-start">
         <a href={popup?.link} target="_blank" rel="noopener noreferrer">
             {popup && (

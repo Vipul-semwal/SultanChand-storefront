@@ -8,7 +8,7 @@ import ProductPreview from "@modules/products/components/product-preview";
 import { HttpTypes } from "@medusajs/types";
 import { getRegion } from "@lib/data/regions";
 import {makeSerch} from "@lib/data/products";
-import InteractiveLink from "@modules/common/components/interactive-link";
+
 import { ArrowUpRightMini } from "@medusajs/icons";
 
 // Define the Author type
@@ -54,7 +54,7 @@ function AuthorInfo({ id, region }: { id: string; region?: HttpTypes.StoreRegion
  async ()=>{
   const { products: data, status } = await makeSerch({
        page:1,
-       limit: 5,
+       limit: 20,
        name: "author",
        query: name,
      })
@@ -119,11 +119,12 @@ function AuthorInfo({ id, region }: { id: string; region?: HttpTypes.StoreRegion
                No Books of Author yet.
              </div>
            ) : (
+           <div className="flex flex-col mt-5">
+             <h1 className="text-center">Books of Authors</h1> 
              <ul
-               className="grid grid-cols-2 w-full xsmall:grid-cols-4 small:grid-cols-4 medium:grid-cols-5 gap-x-6 gap-y-8"
+               className="grid grid-cols-2 w-full xsmall:grid-cols-4 small:grid-cols-4 medium:grid-cols-5 gap-x-6 gap-y-8 p-5"
                data-testid="products-list"
              >
-
                {region? books?books.map((p) => (
                  <li key={p.id}>
                    <ProductPreview product={p} region={region} haveTofetchAgain={true} />
@@ -133,14 +134,14 @@ function AuthorInfo({ id, region }: { id: string; region?: HttpTypes.StoreRegion
                className="grid grid-cols-2 w-full xsmall:grid-cols-4 small:grid-cols-4 medium:grid-cols-5 gap-x-6 gap-y-8"
                data-testid="products-list"
              >
-              <h1>Books of Authors</h1>
+              {/* <h1>Books of Authors</h1>
                {region? books?books.map((p) => (
                  <li key={p.id}>
                    <ProductPreview product={p} region={region} haveTofetchAgain={true} />
                  </li>
-               )):(<div>no books of author yet.</div>):null}
+               )):(<div>no books of author yet.</div>):null} */}
              </ul>
-              <InteractiveLink href={`/store/q=${name}&searchby=author`}>  
+              {/* <InteractiveLink href={`/store/q=${name}&searchby=author`}>  
               <button
                 style={{ fontFamily: "Poppins, sans-serif" }}
                 className="bg-[#EA5900] text-white px-2 py-2 rounded-sm font-medium flex items-center text-xs sm:text-base md:text-lg lg:text-sm justify-center gap-1 hover:bg-[#EA5900] transition-all duration-300 border-none outline-none"
@@ -148,8 +149,9 @@ function AuthorInfo({ id, region }: { id: string; region?: HttpTypes.StoreRegion
                 View More
                 <ArrowUpRightMini className="group-hover:rotate-45 ease-in-out duration-150" color="white" />
               </button>
-            </InteractiveLink>
+            </InteractiveLink> */}
              </ul>
+           </div>
            )}
     </>
   );

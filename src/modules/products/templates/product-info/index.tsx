@@ -1,14 +1,17 @@
 "use client"
 import { HttpTypes } from "@medusajs/types"
-import { Heading, Text } from "@medusajs/ui"
+import { Heading } from "@medusajs/ui"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import useToggleState from "@lib/hooks/use-toggle-state"
+import Modal from "@modules/common/components/modal"
+import React from "react"
+
 
 type ProductInfoProps = {
   product: HttpTypes.StoreProduct
 }
 
-const MAX_WORDS = 100
+const MAX_WORDS = 40
 
 const ProductInfo = ({ product }: ProductInfoProps) => {
   const { state: expanded, toggle } = useToggleState(false)
@@ -18,7 +21,7 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
   const shortDescription = words.slice(0, MAX_WORDS).join(" ") + "..."
 
   return (
-    <div id="product-info">
+    <div id="product-info" className="relative">
       <div className="flex flex-col gap-y-4 lg:max-w-[500px] mx-auto">
         {product.collection && (
           <LocalizedClientLink
@@ -28,6 +31,7 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
             {product.collection.title}
           </LocalizedClientLink>
         )}
+
         <Heading
           level="h2"
           className="text-2xl leading-10 sm:text-2xl text-ui-fg-base"
@@ -36,21 +40,37 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
           {product.title}
         </Heading>
 
-        <Text
-          className="text-medium text-ui-fg-subtle whitespace-pre-line"
-          data-testid="product-description"
-        >
-          {expanded || !isLong ? product.description : shortDescription}
-        </Text>
+        {/* DESCRIPTION CONTAINER */}
+        <div className="relative p-4 rounded-md shadow-md">
+          {/* Short Description */}
+          <p className="text-medium text-gray-700 leading-6">{shortDescription}</p>
 
-        {isLong && (
-          <button
-            onClick={toggle}
-            className="text-ui-fg-muted hover:text-ui-fg-subtle mt-2 text-sm text-red-700"
-          >
-            {expanded ? "Read Less" : "Read More"}
-          </button>
-        )}
+          {/* Read More Button */}
+          {isLong && !expanded && (
+            <button
+              onClick={toggle}
+              className="text-red-700 hover:text-red-800 mt-2 text-sm font-semibold"
+            >
+              Read More ⌄
+            </button>
+          )}
+        </div>
+
+        {/* MODAL POPUP USING IMPORTED COMPONENT */}
+        <Modal isOpen={expanded} close={toggle} size="medium">
+          <Modal.Title>Product Description</Modal.Title>
+          <Modal.Body>
+            <p className="text-gray-800 mt-3">{product.description}</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <button
+              onClick={toggle}
+              className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 text-sm"
+            >
+              Close
+            </button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </div>
   )

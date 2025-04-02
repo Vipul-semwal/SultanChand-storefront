@@ -89,16 +89,19 @@ const Title: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { close } = useModal();
 
   return (
-    <Dialog.Title className="flex items-center justify-between">
+    <Dialog.Title className="flex items-center justify-between p-4 relative">
       <div className="text-large-semi">{children}</div>
-      <div>
-        <button onClick={close} data-testid="close-modal-button">
-          <X size={20} />
-        </button>
-      </div>
+      <button
+        onClick={close}
+        data-testid="close-modal-button"
+        className="absolute top-2 right-2 p-2 bg-white rounded-full shadow-md mb-10"
+      >
+        <X size={20} />
+      </button>
     </Dialog.Title>
   );
 };
+
 
 const Description: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (

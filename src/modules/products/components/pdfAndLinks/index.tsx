@@ -3,8 +3,10 @@ import React from 'react';
 import { FaYoutube, FaAmazon, FaFilePdf } from 'react-icons/fa';
 import { useQueryData } from '@lib/hooks/useQueryData';
 import { sdk } from '@lib/config';
-import {ProductResponse,ExtraLinksTypes,Author} from "./type"
+import {ProductResponse,ExtraLinksTypes,Author,Product} from "./type"
 import LocalizedClientLink from '@modules/common/components/localized-client-link';
+import { HttpTypes } from '@medusajs/types';
+import { string } from 'zod';
 
 type Props = {
   product_id: string;
@@ -16,6 +18,26 @@ type ExtraLinks = {
   previewPdf?: string;
   questionBankPdf?: string;
   anypdf?: { label: string; url: string }[];
+};
+// type StoreProductAuthor = ProductResponse & {
+//   author?: { id: string; name: string,image:string } | { id: string; name: string,image:string }[];
+// };
+
+// helper function to handle author data
+function handleProductAuthor(product: Product) {
+  if (!product.author) {
+    console.log("No author assigned.");
+    return;
+  }
+
+  if (Array.isArray(product.author)) {
+    console.log("Multiple authors:");
+   return  product.author.map((author) => {
+          return {name: author.name,id:author.id,image:author.image}
+   });
+  } else {
+    return [{name: product.author.name,id:product.author.id,image:product.author.image}];
+  }
 };
 
 function PdfAndLinks({ product_id }: Props) {
@@ -68,7 +90,8 @@ function PdfAndLinks({ product_id }: Props) {
   })
    // console.table(data?.data[0].extra_link);
    const extraLinks = data?.data[0].extra_link as unknown as ExtraLinksTypes;
-   const author = data?.data[0].author as Author;
+   const author = data?.data[0] ? handleProductAuthor( data?.data[0]) : [];
+   console.log(' kichacki', author)
 
    const hasContent =
     extraLinks?.youtubeLink ||
@@ -131,18 +154,21 @@ function PdfAndLinks({ product_id }: Props) {
        ))}
      </>
       )}
-    {author && (
-        <div style={itemStyle}>
-          <img src={author.image} alt={author.name} style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
-          <div>
-            <p style={{ margin: 0, fontWeight: 'bold' }}>{author.name}</p>
-            {/* Use LocalizedClientLink instead of a regular <a> tag */}
-            <LocalizedClientLink href={`/authors/${author.id}`} style={linkStyle}>
-              More about the author
-            </LocalizedClientLink>
-          </div>
+    {(author ?? []).length > 0 && (
+       author?.map((author, index) => (
+        <div key={index} style={itemStyle}>
+        <img src={author.image} alt={author.name} style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
+        <div>
+          <p style={{ margin: 0, fontWeight: 'bold' }}>{author.name}</p>
+          {/* Use LocalizedClientLink instead of a regular <a> tag */}
+          <LocalizedClientLink href={`/authors/${author.id}`} style={linkStyle}>
+            More about the author
+          </LocalizedClientLink>
         </div>
-      )}
+      </div>
+      ))
+    )}
+      
     </div>
   );
 }

@@ -18,7 +18,7 @@ export type ExtraLinksTypes = {
     subText: string;
   };
   
-  type Product = {
+  export type Product = {
     id: string;
     extra_link: ExtraLinksTypes;
     author: Author;
