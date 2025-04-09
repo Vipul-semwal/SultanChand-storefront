@@ -61,7 +61,7 @@ const SearchBar = () => {
       retry: 1,
     }
   );
-  console.log('supersayiian mode:',data)
+  console.log('supersayiian mode:',data);
 
   interface SearchParams {
     q: string;
@@ -95,9 +95,10 @@ const SearchBar = () => {
               onChange={(e) => setSearchType(e.target.value)}
               className=" pr-6 text-xs max-w-full   inline-block bg-transparent  border-none "
             >
-              <option value="">All</option>
+              <option value="">Title</option>
               <option value="author">Author</option>
               <option value="isbn">ISBN</option>
+              <option value="title_code">TC</option>
             </select>
             {/* {searchType === "author" && <User className="w-4 h-4 ml-2 text-gray-500" />} */}
             {/* {searchType === "isbn" && <Barcode className="w-4 h-4 ml-2 text-gray-500" />} */}
