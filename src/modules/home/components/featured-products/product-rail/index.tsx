@@ -11,7 +11,7 @@ import { HttpTypes } from "@medusajs/types";
 import InteractiveLink from "@modules/common/components/interactive-link";
 import ProductPreview from "@modules/products/components/product-preview";
 import { ArrowUpRightMini } from "@medusajs/icons";
-import { useQueryData } from "@lib/hooks/useQueryData";
+import { useQueryData } from "@lib/hooks/useQueryData";``
 
 export default function ProductRail({
   collection,
@@ -42,7 +42,7 @@ export default function ProductRail({
   const nextRef = useRef<HTMLButtonElement | null>(null);
 
   if (isPending) return <p>Loading products...</p>;
-  if (isError || !pricedProducts?.length) return <p>No products found.</p>;
+  // if (isError || !pricedProducts?.length) return <p>No products found.</p>;
 
   return (
     <div className="content-container pb-9 small:pb-9 relative">
@@ -109,7 +109,7 @@ export default function ProductRail({
         }}
         className="mySwiper"
       >
-        {pricedProducts.map((product) => (
+        {pricedProducts?.map((product) => (
           <SwiperSlide key={product.id}>
             <div className="max-w-[200px] mx-auto">
               <ProductPreview product={product} region={region} isFeatured />

@@ -15,36 +15,49 @@ export function sortProducts(
   products: HttpTypes.StoreProduct[],
   sortBy: SortOptions
 ): HttpTypes.StoreProduct[] {
-  let sortedProducts = products as MinPricedProduct[]
+  let sortedProducts = products as MinPricedProduct[];
 
   if (["price_asc", "price_desc"].includes(sortBy)) {
-    // Precompute the minimum price for each product
     sortedProducts.forEach((product) => {
       if (product.variants && product.variants.length > 0) {
         product._minPrice = Math.min(
           ...product.variants.map(
-            (variant) => variant?.calculated_price?.calculated_amount || 0
+            (variant) => variant?.calculated_price?.calculated_amount ?? Infinity
           )
-        )
+        );
       } else {
-        product._minPrice = Infinity
+        product._minPrice = Infinity;
       }
-    })
+    });
 
-    // Sort products based on the precomputed minimum prices
     sortedProducts.sort((a, b) => {
-      const diff = a._minPrice! - b._minPrice!
-      return sortBy === "price_asc" ? diff : -diff
-    })
+      const diff = (a._minPrice ?? Infinity) - (b._minPrice ?? Infinity);
+      return sortBy === "price_asc" ? diff : -diff;
+    });
   }
 
   if (sortBy === "created_at") {
     sortedProducts.sort((a, b) => {
       return (
-        new Date(b.created_at!).getTime() - new Date(a.created_at!).getTime()
-      )
-    })
+        new Date(b.created_at ?? "").getTime() -
+        new Date(a.created_at ?? "").getTime()
+      );
+    });
   }
 
-  return sortedProducts
+  if (sortBy === "name_asc") {
+    sortedProducts.sort((a, b) =>
+      (a.title ?? "").localeCompare(b.title ?? "")
+    );
+  }
+
+  if (sortBy === "name_desc") {
+    sortedProducts.sort((a, b) =>
+      (b.title ?? "").localeCompare(a.title ?? "")
+    );
+  }
+
+  return sortedProducts;
 }
+
+

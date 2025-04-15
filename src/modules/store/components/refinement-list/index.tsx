@@ -51,9 +51,9 @@ const RefinementList = ({ sortBy, "data-testid": dataTestId, handle }: Refinemen
   };
 
   return (
-    <div className="relative w-full">
+    <div className="relative ">
       <button
-        className=" flex items-center gap-2 text-white bg-orange-600 px-4 py-2 rounded-md mb-4"
+        className=" flex items-center gap-2 text-white bg-orange-600 px-4 py-2 rounded-md "
         onClick={() => setIsFilterOpen(true)}
       >
         <FiFilter size={14} />

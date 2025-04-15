@@ -35,21 +35,23 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
         className="content-container flex flex-col small:flex-row small:items-start py-6 relative"
         data-testid="product-container"
       >
-        <div className="block w-full relative small:hidden">
-          <ImageGallery images={product?.images || []} />
-        </div>
 
-        <div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-6">
-          <ProductInfo product={product} />
+       {/* For mobile */}
+<div className="block w-full relative small:hidden">
+  <ImageGallery images={product?.images || []} />
+</div>
 
-          <ProductTabs product={product} />
+{/* For desktop */}
+<div className="hidden small:block small:w-[30%] relative small:sticky ">
+  <ImageGallery images={product?.images || []} />
+</div>
 
-        </div>
-        <div className="hidden w-full small:block  relative">
-          <ImageGallery images={product?.images || []} />
-        </div>
-        <div className="flex flex-col small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-12">
-          <ProductOnboardingCta />
+<div className="flex flex-col  small:top-48 small:py-0 small:w-[70%] w-full py-8 gap-y-6 small:p-5">
+<ProductInfo product={product} />
+<ProductTabs product={product} />
+<div className="flex flex-col  small:flex-col small:top-48 small:py-0 small: w-full py-8 gap-y-12 justify-between">
+         <div className="ctarating">
+         <ProductOnboardingCta />
           <Suspense
             fallback={
               <ProductActions
@@ -61,11 +63,17 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
           >
             <ProductActionsWrapper id={product.id} region={region} />
           </Suspense>
+          <div className="review flex justify-center items-center mt-2">
           <ProductRating productId={product.id} fontSize="large" />
+          </div>
 
+         </div >
         
-          <PdfAndLinks product_id={product.id} />
+         <div className="pdfandlink ">
+         <PdfAndLinks product_id={product.id} />
+         </div>
         </div>
+</div>
       </div>
       <div className="review">
         <Review prouduct_id={product.id} />

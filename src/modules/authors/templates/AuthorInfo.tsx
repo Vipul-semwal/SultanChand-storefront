@@ -6,12 +6,9 @@ import { sdk } from "@lib/config";
 import Loading from "app/[countryCode]/(main)/account/loading";
 import ProductPreview from "@modules/products/components/product-preview";
 import { HttpTypes } from "@medusajs/types";
-import { getRegion } from "@lib/data/regions";
-import {makeSerch} from "@lib/data/products";
-
+import { makeSerch } from "@lib/data/products";
 import { ArrowUpRightMini } from "@medusajs/icons";
 
-// Define the Author type
 export type Author = {
   data: {
     id: string;
@@ -26,7 +23,6 @@ export type Author = {
   }[];
 };
 
-// Error Fallback Component
 function ErrorFallback({ message }: { message: string }) {
   return (
     <div className="flex flex-col items-center justify-center h-full text-center">
@@ -43,31 +39,13 @@ function ErrorFallback({ message }: { message: string }) {
 }
 
 function AuthorInfo({ id, region }: { id: string; region?: HttpTypes.StoreRegion }) {
-  // Fetch author data
   const { data, isFetching, isError } = useQueryData<Author>(
     [`authors-${id}`],
     () => sdk.client.fetch(`/store/authors/${id}`)
+    
   );
 
-  const { data:books, isFetching:loading, isError:error } = useQueryData<HttpTypes.StoreProduct[] | []>(
-    [`authors-book-${id}`],
- async ()=>{
-  const { products: data, status } = await makeSerch({
-       page:1,
-       limit: 20,
-       name: "author",
-       query: name,
-     })
-     return data
-  }
-  );
-  
-
-  if (isFetching) return <Loading />;
-
-  if (isError) return <ErrorFallback message="Failed to load author details. Please try again later." />;
-
-  const { name, description, image, subText, products } = data?.data[0] || {
+  const { name, description, image, subText } = data?.data[0] || {
     name: "",
     description: "",
     image: null,
@@ -76,36 +54,53 @@ function AuthorInfo({ id, region }: { id: string; region?: HttpTypes.StoreRegion
   };
 
 
+  const { data: books, isFetching: loading, isError: error } = useQueryData<HttpTypes.StoreProduct[] | []>(
+    [`authors-books-${name}`],
+    async () => {
+      const { products: data } = await makeSerch({
+        page: 1,
+        limit: 20,
+        name: "author",
+        query: name,
+      });
+      return data;
+    }
+  );
+  console.log("books", books, region, data);
+
+  if (isFetching) return <Loading />;
+  if (isError) return <ErrorFallback message="Failed to load author details. Please try again later." />;
+
+  
   return (
     <>
       {/* Author Info Section */}
-      <section className="bg-gray-100 py-12 px-6">
-  <div className="max-w-3xl mx-auto flex flex-col items-center text-center">
-    {/* Author Image */}
-    <div className="w-48 sm:w-56 md:w-64 lg:w-72 xl:w-80">
-      {image ? (
-        <img
-          src={image}
-          alt={name}
-          className="w-full rounded-2xl shadow-lg object-cover aspect-square"
-        />
-      ) : (
-        <div className="w-full h-auto bg-gray-300 rounded-2xl shadow-lg flex items-center justify-center">
-          <span className="text-gray-600">Image Not Available</span>
-        </div>
-      )}
+      <section className="bg-gray-100 py-12 px-4">
+  <div className="max-w-6xl mx-auto grid grid-cols-12 gap-4 items-start">
+    {/* Sticky Image */}
+    <div className="col-span-12 sm:col-span-3 md:col-span-4 lg:col-span-3">
+      <div className="sticky top-24">
+        {image ? (
+          <img
+            src={image}
+            alt={name}
+            className="rounded-2xl shadow-lg object-cover aspect-square w-full"
+          />
+        ) : (
+          <div className="w-full bg-gray-300 rounded-2xl shadow-lg flex items-center justify-center aspect-square">
+            <span className="text-gray-600">No Image</span>
+          </div>
+        )}
+      </div>
     </div>
 
-    {/* Author Details */}
-    <div className="mt-6">
-      <h1 className="text-2xl sm:text-4xl font-extrabold text-blue-950">
-        {name}
-      </h1>
-      <h4 className="text-lg sm:text-2xl font-semibold text-orange-500 mt-2">
-        {subText}
-      </h4>
+    {/* Text Content */}
+    <div className="col-span-12 sm:col-span-9 md:col-span-8 lg:col-span-9">
+      <h1 className="text-2xl sm:text-4xl font-extrabold text-blue-950">{name}</h1>
+      <h4 className="text-lg sm:text-lg font-semibold text-orange-500 mt-2">{subText}</h4>
+
       <div
-        className="mt-4 text-gray-700 text-sm sm:text-lg leading-relaxed"
+        className="mt-4 text-gray-700 text-xs sm:text-sm leading-relaxed max-h-[400px] overflow-y-auto pr-2 custom-scroll"
         dangerouslySetInnerHTML={{ __html: description }}
       />
     </div>
@@ -113,46 +108,24 @@ function AuthorInfo({ id, region }: { id: string; region?: HttpTypes.StoreRegion
 </section>
 
 
-
-        {(books ?? []).length === 0 ? (
-             <div className="flex justify-center items-center h-32 text-gray-500 text-lg">
-               No Books of Author yet.
-             </div>
-           ) : (
-           <div className="flex flex-col mt-5">
-             <h1 className="text-center">Books of Authors</h1> 
-             <ul
-               className="grid grid-cols-2 w-full xsmall:grid-cols-4 small:grid-cols-4 medium:grid-cols-5 gap-x-6 gap-y-8 p-5"
-               data-testid="products-list"
-             >
-               {region? books?books.map((p) => (
-                 <li key={p.id}>
-                   <ProductPreview product={p} region={region} haveTofetchAgain={true} />
-                 </li>
-               )):(<div>no books of author yet.</div>):null}
-                <ul
-               className="grid grid-cols-2 w-full xsmall:grid-cols-4 small:grid-cols-4 medium:grid-cols-5 gap-x-6 gap-y-8"
-               data-testid="products-list"
-             >
-              {/* <h1>Books of Authors</h1>
-               {region? books?books.map((p) => (
-                 <li key={p.id}>
-                   <ProductPreview product={p} region={region} haveTofetchAgain={true} />
-                 </li>
-               )):(<div>no books of author yet.</div>):null} */}
-             </ul>
-              {/* <InteractiveLink href={`/store/q=${name}&searchby=author`}>  
-              <button
-                style={{ fontFamily: "Poppins, sans-serif" }}
-                className="bg-[#EA5900] text-white px-2 py-2 rounded-sm font-medium flex items-center text-xs sm:text-base md:text-lg lg:text-sm justify-center gap-1 hover:bg-[#EA5900] transition-all duration-300 border-none outline-none"
-              >
-                View More
-                <ArrowUpRightMini className="group-hover:rotate-45 ease-in-out duration-150" color="white" />
-              </button>
-            </InteractiveLink> */}
-             </ul>
-           </div>
-           )}
+      {/* Books Section */}
+      {(books ?? []).length === 0 ? (
+        <div className="flex justify-center items-center h-32 text-gray-500 text-lg">
+          No books by this author yet.
+        </div>
+      ) : (
+        <div className="flex flex-col mt-5 px-6">
+          <h1 className="text-xl font-bold text-center mb-6">Books by {name}</h1>
+          <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-6 gap-y-8">
+            {region &&
+              books?.map((p) => (
+                <li key={p.id}>
+                  <ProductPreview product={p} region={region} haveTofetchAgain={true} />
+                </li>
+              ))}
+          </ul>
+        </div>
+      )}
     </>
   );
 }

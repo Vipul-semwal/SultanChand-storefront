@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { BsChevronDown } from 'react-icons/bs';
 
-export type SortOptions = 'price_asc' | 'price_desc' | 'created_at';
+export type SortOptions = 'price_asc' | 'price_desc' | 'created_at' | "name_asc" | "name_desc";
 
 type SortProductsProps = {
   sortBy: SortOptions;
@@ -18,13 +18,22 @@ const sortOptions = [
   },
   {
     value: 'price_asc',
-    label: 'Price: Low -> High',
+    label: 'Price: Low → High',
   },
   {
     value: 'price_desc',
-    label: 'Price: High -> Low',
+    label: 'Price: High → Low',
+  },
+  {
+    value: 'name_asc',
+    label: 'Name: A → Z',
+  },
+  {
+    value: 'name_desc',
+    label: 'Name: Z → A',
   },
 ];
+
 
 const SortProducts = ({ 'data-testid': dataTestId, sortBy, setQueryParams }: SortProductsProps) => {
   const [isOpen, setIsOpen] = useState(false);

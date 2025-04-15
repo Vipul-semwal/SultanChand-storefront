@@ -4,7 +4,8 @@ import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-g
 import RefinementList from "@modules/store/components/refinement-list"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import PaginatedProducts from "@modules/store/templates/paginated-products"
-import { HttpTypes } from "@medusajs/types"
+import { HttpTypes } from "@medusajs/types";
+import { MdNavigateNext } from "react-icons/md";
 
 export default function CollectionTemplate({
   sortBy,
@@ -22,13 +23,14 @@ export default function CollectionTemplate({
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-10 gap-6 py-6 content-container">
-      <div className="md:col-span-2 border-r-2">
-        <RefinementList sortBy={sort} />
-      </div>
+      
+        
+      
 
-      <div className="md:col-span-8">
-        <div className="mb-8 text-orange-500 font-semibold text-lg sm:text-xl">
-          <h1 className="truncate">{collection.title}</h1>
+      <div className="md:col-span-12">
+        <div className="mb-8 flex justify-between items-center text-sm w-full font-semibold text-blue-950 sm:text-2xl">
+          <h1 className="truncate text-blue-950 flex items-center">{collection.title}<span><MdNavigateNext className="text-orange-600" /></span></h1>
+          <RefinementList sortBy={sort} />
         </div>
 
         <Suspense

@@ -56,7 +56,7 @@ function AuthorTemplate() {
   const page = Number(searchParams.get("page")) || 1;
 
   // Calculate offset based on the current page
-  const offset = ((page-1)*limit)
+  const offset = ((page - 1) * limit)
 
 
   // Fetch authors data using React Query
@@ -64,22 +64,22 @@ function AuthorTemplate() {
     ["authors", limit, offset],
     () =>
       sdk.client.fetch(`/store/authors`, {
-        query: { limit, offset},
+        query: { limit, offset },
       }),
-      true,  
-    { 
+    true,
+    {
       queryKey: [`author`, limit, offset],
-      staleTime: 5 * 60 * 1000, 
+      staleTime: 5 * 60 * 1000,
       refetchOnWindowFocus: false,
       retry: 1,
     }
 
   );
 
-  const { author: authors,count=0, } = data || { author: [] };
+  const { author: authors, count = 0, } = data || { author: [] };
 
 
-  const pageNumber = page ? page: 1
+  const pageNumber = page ? page : 1
   const totalPages = Math.ceil(count / limit);
   return (
     <>
@@ -103,21 +103,23 @@ function AuthorTemplate() {
           {isFetching ? (
             <p>Loading authors...</p>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-10">
-              {authors.map((author,index) => (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-10">
+              {authors.map((author, index) => (
                 <div key={author.id} className="bg-white shadow-md rounded-lg overflow-hidden" data-testid="author-card">
                   <img
                     src={author.image}
                     alt={author.name}
                     className="w-full h-48 object-cover"
                   />
-                  <div className="p-2 sm:p-6 flex flex-col justify-between ">
-                    <h3 className="text-sm font-semibold text-blue-950 sm:text-lg">{author.name}</h3>
-                    <p className=" text-xs sm:text-sm  text-gray-500 mb-4">{author.subText}</p>
-                    {/* <div className="text-gray-600 mb-6" dangerouslySetInnerHTML={{ __html: truncateText(author.description, 150) }} /> */}
+                  <div className="p-2 sm:p-6 flex flex-col justify-between h-[50%] ">
+                    <h3 className="text-sm font-semibold text-blue-950 sm:text-lg line-clamp-1 sm:line-clamp-1">{author.name}</h3>
+                    <p className="text-xs sm:text-sm text-gray-500 line-clamp-2 sm:line-clamp-2 mt-1 mb-3">
+                      {author.subText}
+                    </p>
+                    {/* <div className="text-gray-600 mb-6" dangerouslySetInnerHTML={{ __html: truncateText(author.description, 120) }} /> */}
                     <LocalizedClientLink
                       href={`/authors/${author.id}`}
-                      className="bg-[#EA5900] text-white px-4 py-2 text-center text-sm rounded-sm hover:bg-[#EA5900]"
+                      className="bg-[#EA5900] text-white text-xs sm:text-sm px-2 py-2 text-center  rounded-sm hover:bg-[#EA5900]"
                     >
                       View Profile
                     </LocalizedClientLink>
@@ -128,8 +130,8 @@ function AuthorTemplate() {
           )}
         </div>
         <Pagination
-        page={pageNumber}
-        totalPages={totalPages} 
+          page={pageNumber}
+          totalPages={totalPages}
         />
       </section>
 

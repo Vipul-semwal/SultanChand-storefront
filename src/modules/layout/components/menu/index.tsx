@@ -41,9 +41,7 @@ const Navbar: React.FC = () => {
 
   const allCategories: ProductCategory[] = [
 
-    { id: "home", name: "Home", path: "/", handle: "home" },
-    ...collection
-    ,
+    // { id: "home", name: "Home", path: "/", handle: "home" },
     {
       id: "categories",
       name: "Categories",
@@ -53,12 +51,23 @@ const Navbar: React.FC = () => {
         ?.filter((data) => !data.parent_category_id) // Sirf root categories lo
         .map(transformProductCategory) || [],
     },
-    { id: "blog", name: "Blog", path: "/blog", handle: "blog" },
-
-    { id: "Contact", name: "Contact Us", path: "/contact-us", handle: "About Us" },
-    { id: "speciman-request", name: "Specimen Request", path: "/specimen-request", handle: "speciman-request" },
+    { id: "Upcoming Books", name: "Upcoming Books", path: "/collections/upcoming-books", handle: "Upcoming Books" },
+    { id: "New Releases", name: "New Releases", path: "/collections/new-releases", handle: "New Releases" },
+    { id: "Best Sellers", name: "Best Sellers", path: "/collections/best-sellers", handle: "Upcoming Books" },
     { id: "online-library", name: "Online Library", path: "/categories/online-library ", handle: "online-library" },
+    { id: "speciman-request", name: "Specimen Request", path: "/specimen-request", handle: "speciman-request" },
     { id: "Catelog-List", name: "Catelog List", path: "/catalogs", handle: "catelog-list" },
+    // {
+    //   id: "categories",
+    //   name: "Categories",
+    //   path: "#",
+    //   handle: "categories",
+    //   category_children: productCategories
+    //     ?.filter((data) => !data.parent_category_id) // Sirf root categories lo
+    //     .map(transformProductCategory) || [],
+    // },
+    { id: "blog", name: "Blog", path: "/blog", handle: "blog" },
+    { id: "Contact", name: "Contact Us", path: "/contact-us", handle: "About Us" },
   ];
   // console.log('danda apki gand me',allCategories);
 
@@ -85,7 +94,7 @@ const Navbar: React.FC = () => {
 
             </div>
             <div className="text-sm md:text-lg font-bold flex items-center ml-4 hidden sm:block">
-              <img src="/logoblue.png" width={"50px"} />
+              <img src="/logo-with-line.png" width={"100px"} />
 
             </div>
           </LocalizedClientLink>

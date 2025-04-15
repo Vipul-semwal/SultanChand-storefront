@@ -37,16 +37,17 @@ const StoreTemplate = ({
       data-testid="category-container"
     >
       {/* Left Section (4 columns on medium and larger screens) */}
-      <div className="md:col-span-2">
-        <RefinementList sortBy={sort} handle={handle} />
-      </div>
+     
+        
+     
 
       {/* Right Section (8 columns on medium and larger screens) */}
-      <div className="md:col-span-10 w-full">
-        <div className="mb-8 flex justify-between items-center text-sm font-semibold text-blue-950 sm:text-2xl">
+      <div className="md:col-span-12 w-full">
+        <div className="mb-8 flex justify-between items-center text-sm w-full font-semibold text-blue-950 sm:text-2xl">
           <h1 data-testid="store-page-title" className="flex items-center">
             All Books <span><MdNavigateNext className="text-orange-600" /></span>
           </h1>
+          <RefinementList sortBy={sort} handle={handle} />
           {/* <SortProducts sortBy={sort} setQueryParams={setQueryParams}  /> */}
         </div>
 

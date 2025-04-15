@@ -14,6 +14,18 @@ import { useQueryData } from "@lib/hooks/useQueryData";
 import { useProductData } from "@lib/hooks/useProductData";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
+import { sdk } from "@lib/config";
+
+export type Author = {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  subText: string;
+}[];
+
+
+
 
 export default function ProductPreview({
   product,
@@ -38,6 +50,8 @@ export default function ProductPreview({
     haveTofetchAgain // Hook ke andar handle hoga ki API call karni hai ya nahi
   );
 
+
+
   useEffect(() => {
     if (haveTofetchAgain && data && !isFetching) {
       setProductData(data);
@@ -48,7 +62,26 @@ export default function ProductPreview({
     product: productData,
   });
 
-  const [isQuickViewOpen, openQuickView, closeQuickView] = useToggleState();
+  const [isQuickViewOpen, openQuickView, closeQuickView] = useToggleState();;
+
+  // getting author
+  const getAuthor = ()=>{
+      return sdk.client.fetch<{author:Author}>(`/store/authors/product/${product.id}`,{
+       method:"Get",
+      })
+     }
+   
+     const {data:author,isFetching:loading,} = useQueryData<{author:Author}>(["prodcutPreviewAuthor",product.id],getAuthor,true,{ 
+      queryKey: ["prodcutPreviewAuthor",product.id],
+      staleTime: 5 * 60 * 1000, 
+      refetchOnWindowFocus: false,
+      retry: 1,
+    });
+    if (author && author.author.length > 0) {
+      console.log('authorhaibhaiiska:', author.author[0]);
+    } else {
+      console.log('No author data available.');
+    }
 
   return (
     <div className="test">
@@ -86,13 +119,18 @@ export default function ProductPreview({
           </div>
 
           {/* Only Stars Rating Section */}
-          <div className="flex items-center justify-center ">
-            <ProductRating
+          <div className="flex items-center justify-center">
+  {/* {author?.author?.[0]?.name && (
+    <p className="text-sm text-gray-500 italic">by {author.author[0].name}</p>
+  )} */}
+   <ProductRating
               productId={productData.id} // Pass the product ID to fetch reviews
               fontSize="medium"
               showDetails={false} // Hide average rating and total reviews
             />
-          </div>
+</div>
+
+
 
           <div className="flex items-center  gap-x-2">
             {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
@@ -111,7 +149,7 @@ export default function ProductPreview({
           <Modal.Title><p className="border-l-orange-500 border-l-4 p-1">Quick View</p></Modal.Title>
           <Modal.Body>
             <div className="p-4">
-              {<QuickView productInfo={productData} cheapestPrice={cheapestPrice ? cheapestPrice : null} />}
+              {<QuickView productInfo={productData} cheapestPrice={cheapestPrice ? cheapestPrice : null} author={author?.author} />}
             </div>
           </Modal.Body>
         </Modal>

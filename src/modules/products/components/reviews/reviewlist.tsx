@@ -3,10 +3,10 @@
 import React, { useState, useEffect } from "react";
 import { useQueryData } from "../../../../lib/hooks/useQueryData";
 import { sdk } from "@lib/config";
-import SideStars from "./sideStars"; // Import the SideStars component
+import SideStars from "./sideStars";
 import Modal from "@modules/common/components/modal";
 import { FaStar } from "react-icons/fa";
-import { formatDate } from "@lib/util/strapi"; // Assuming this is your date formatter function
+import { formatDate } from "@lib/util/strapi";
 
 export interface Review {
   comment: string;
@@ -35,7 +35,31 @@ const ProductReviews = ({ productId }: { productId: string }) => {
 
   const limit = 10;
 
-  const fetchReviews = async (currentOffset: number) => {     
+  const profileColors = [
+    "#EA5900",
+    "#4A90E2",
+    "#7ED321",
+    "#D0021B",
+    "#F5A623",
+    "#8B572A",
+  ];
+
+  const getColorByName = (name: string) => {
+    const hash = name
+      .split("")
+      .reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    return profileColors[hash % profileColors.length];
+  };
+
+  const getInitials = (name: string) => {
+    const nameParts = name.split(" ");
+    return nameParts
+      .map((part) => part.charAt(0).toUpperCase())
+      .join(" ")
+      .slice(0, 2);
+  };
+
+  const fetchReviews = async (currentOffset: number) => {
     const queryParams = new URLSearchParams({
       productId: productId,
       offset: currentOffset.toString(),
@@ -49,8 +73,7 @@ const ProductReviews = ({ productId }: { productId: string }) => {
 
   const { data, isPending, isError, refetch } = useQueryData(
     ["productReviews", productId],
-    () => fetchReviews(0) // Fetch the initial set of reviews with offset = 0,
-    ,
+    () => fetchReviews(0),
     true,
     {
       queryKey: ["productReviews", productId],
@@ -62,7 +85,7 @@ const ProductReviews = ({ productId }: { productId: string }) => {
 
   useEffect(() => {
     if (data) {
-      setReviews(data.data); // Set initial reviews
+      setReviews(data.data);
     }
   }, [data]);
 
@@ -71,8 +94,8 @@ const ProductReviews = ({ productId }: { productId: string }) => {
     const nextOffset = offset + limit;
     try {
       const response = await fetchReviews(nextOffset);
-      setReviews((prev) => [...prev, ...response.data]); // Append new reviews
-      setOffset(nextOffset); // Update offset
+      setReviews((prev) => [...prev, ...response.data]);
+      setOffset(nextOffset);
     } catch (error) {
       console.error("Failed to load more reviews:", error);
     } finally {
@@ -80,16 +103,6 @@ const ProductReviews = ({ productId }: { productId: string }) => {
     }
   };
 
-  // Function to extract initials from the reviewer's name
-  const getInitials = (name: string) => {
-    const nameParts = name.split(" ");
-    return nameParts
-      .map((part) => part.charAt(0).toUpperCase())
-      .join(" ")
-      .slice(0, 2); // Return first 2 initials
-  };
-
-  // Calculate the average rating
   const averageRating = reviews.length
     ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
     : 0;
@@ -110,46 +123,57 @@ const ProductReviews = ({ productId }: { productId: string }) => {
   }
 
   return (
-    <div className="max-w-full mx-auto p-6 bg-white ">
+    <div className="max-w-full mx-auto p-6 bg-white">
       <h2 className="text-xl font-bold mb-4">Product Reviews</h2>
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-        {/* Right Section: Average Rating and Breakdown */}
         <div className="col-span-1 md:col-span-4">
-          <SideStars averageRating={averageRating} reviews={reviews} prouduct_id={productId} />
+          <SideStars
+            averageRating={averageRating}
+            reviews={reviews}
+            prouduct_id={productId}
+          />
         </div>
 
-        {/* Left Section: Reviews with Profiles and Stars */}
-        <div className="col-span-1 md:col-span-8 ">
+        <div className="col-span-1 md:col-span-8">
           {reviews.length > 0 ? (
             <>
               <ul className="space-y-3">
                 {reviews.slice(0, 5).map((review) => (
-                  <li key={review.id} className="p-3  shadow-md bg-white-50 flex justify-between">
+                  <li
+                    key={review.id}
+                    className="p-3 shadow-md bg-white-50 flex justify-between"
+                  >
                     <div className="flex flex-col w-3/4">
                       <div className="flex items-center mb-1">
                         <div className="flex">
                           {[...Array(5)].map((_, index) => (
                             <FaStar
                               key={index}
-                              className={`w-4 h-4 ${index < review.rating ? "text-yellow-300" : "text-gray-300"}`}
+                              className={`w-4 h-4 ${
+                                index < review.rating
+                                  ? "text-yellow-300"
+                                  : "text-gray-300"
+                              }`}
                             />
                           ))}
                         </div>
                       </div>
                       <p className="text-sm text-gray-700">{review.comment}</p>
                       <div className="flex items-center space-x-2 mt-2">
-                        {/* Display Reviewer's Profile Initials */}
-                        <div className="w-8 h-8 bg--[#EA5900]500 text-white flex items-center justify-center rounded-full">
+                        <div
+                          className="w-8 h-8 text-white flex items-center justify-center rounded-full font-semibold text-sm"
+                          style={{
+                            backgroundColor: getColorByName(review.name),
+                          }}
+                        >
                           {getInitials(review.name)}
                         </div>
                         <p className="text-xs text-gray-500">- {review.name}</p>
                       </div>
                     </div>
-
-                    {/* Date Placeholder */}
                     <div className="flex flex-col justify-between items-end">
                       <p className="text-xs text-gray-400">
-                        {formatDate(review.created_at)} {/* Format the created_at date */}
+                        {formatDate(review.created_at)}
                       </p>
                     </div>
                   </li>
@@ -166,47 +190,57 @@ const ProductReviews = ({ productId }: { productId: string }) => {
             </>
           ) : (
             <div className="flex items-center flex-col">
-              <img src="/review.png" className="max-w-xs sm:max-w-sm mt-2 sm:mt-0 " alt="" />
-              <p className="text-gray-500 text-sm sm:text-xl">No reviews for this product yet.</p>
+              <img
+                src="/review.png"
+                className="max-w-xs sm:max-w-sm mt-2 sm:mt-0"
+                alt=""
+              />
+              <p className="text-gray-500 text-sm sm:text-xl">
+                No reviews for this product yet.
+              </p>
             </div>
-
-
-
           )}
         </div>
       </div>
 
-      {/* Modal for All Reviews */}
       <Modal isOpen={isModalOpen} close={() => setModalOpen(false)} size="large">
         <Modal.Title>All Reviews</Modal.Title>
         <Modal.Body>
           <div className="space-y-3 max-h-[60vh] overflow-y-auto pr-2">
             {reviews.map((review) => (
-              <div key={review.id} className="p-3  rounded-lg shadow-sm bg-gray-50">
+              <div
+                key={review.id}
+                className="p-3 rounded-lg shadow-sm bg-gray-50"
+              >
                 <div className="flex items-center mb-1">
                   <div className="flex">
                     {[...Array(5)].map((_, index) => (
                       <FaStar
                         key={index}
-                        className={`w-4 h-4 ${index < review.rating ? "text-yellow-300" : "text-gray-300"}`}
+                        className={`w-4 h-4 ${
+                          index < review.rating
+                            ? "text-yellow-300"
+                            : "text-gray-300"
+                        }`}
                       />
                     ))}
                   </div>
-                  {/* <span className="ml-2 text-xs text-gray-500">{review.email}</span> */}
                 </div>
                 <p className="text-sm text-gray-700">{review.comment}</p>
                 <div className="flex items-center space-x-2 mt-2">
-                  {/* Display Reviewer's Profile Initials */}
-                  <div className="w-8 h-8 bg--[#EA5900]500 text-white flex items-center justify-center rounded-full">
+                  <div
+                    className="w-8 h-8 text-white text-sm font-semibold flex items-center justify-center rounded-full"
+                    style={{
+                      backgroundColor: getColorByName(review.name),
+                    }}
+                  >
                     {getInitials(review.name)}
                   </div>
                   <p className="text-xs text-gray-500">- {review.name}</p>
                 </div>
-
-                {/* Date in Modal */}
                 <div className="flex flex-col justify-between items-end mt-2">
                   <p className="text-xs text-gray-400">
-                    {formatDate(review.created_at)} {/* Format the created_at date */}
+                    {formatDate(review.created_at)}
                   </p>
                 </div>
               </div>
@@ -216,7 +250,6 @@ const ProductReviews = ({ productId }: { productId: string }) => {
                 <button
                   onClick={loadMoreReviews}
                   className="px-4 py-2 flex items-center justify-center gap-3 bg-blue-950 text-white rounded-lg transition-all duration-300 ease-in-out hover:bg-[#338be5] hover:shadow-md hover:scale-100 focus:ring-2 focus:ring-blue-500"
-
                   disabled={isLoadingMore}
                 >
                   {isLoadingMore ? "Loading..." : "Load More"}
