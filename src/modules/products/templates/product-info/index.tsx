@@ -10,7 +10,7 @@ type ProductInfoProps = {
   product: HttpTypes.StoreProduct
 }
 
-const MAX_WORDS = 150
+const MAX_WORDS = 50
 
 const ProductInfo = ({ product }: ProductInfoProps) => {
   const { state: expanded, toggle } = useToggleState(false)

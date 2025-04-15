@@ -32,49 +32,49 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
   return (
     <>
       <div
-        className="content-container flex flex-col small:flex-row small:items-start py-6 relative"
-        data-testid="product-container"
-      >
+  className="content-container grid grid-cols-1 small:grid-cols-[25%_50%_25%] gap-4 py-6 relative"
+  data-testid="product-container"
+>
+  {/* Image (Mobile) */}
+  <div className="block w-full relative small:hidden">
+    <ImageGallery images={product?.images || []} />
+  </div>
 
-       {/* For mobile */}
-<div className="block w-full relative small:hidden">
-  <ImageGallery images={product?.images || []} />
+  {/* Image (Desktop) */}
+  <div className="hidden small:block relative sticky top-24">
+    <ImageGallery images={product?.images || []} />
+  </div>
+
+  {/* Middle Content: Product Info + Tabs */}
+  <div className="flex flex-col w-full py-8 gap-y-6 px-2">
+    <ProductInfo product={product} />
+    <ProductTabs product={product} />
+  </div>
+
+  {/* Right Panel: CTA + Rating + PDF */}
+  <div className="flex flex-col items-start gap-4  px-2"> 
+  <div className="">
+  <ProductOnboardingCta />
+  </div>
+    <Suspense
+      fallback={
+        <ProductActions disabled={true} product={product} region={region} />
+      }
+    >
+     <div className="w-full">
+     <ProductActionsWrapper id={product.id} region={region} />
+     </div>
+    </Suspense>
+    <div className="rating mt-3">
+      <ProductRating productId={product.id} fontSize="large" />
+    </div>
+    <div className="pdfandlink mt-5">
+      <PdfAndLinks product_id={product.id} />
+    </div>
+  </div>
 </div>
 
-{/* For desktop */}
-<div className="hidden small:block small:w-[30%] relative small:sticky ">
-  <ImageGallery images={product?.images || []} />
-</div>
-
-<div className="flex flex-col  small:top-48 small:py-0 small:w-[70%] w-full py-8 gap-y-6 small:p-5">
-<ProductInfo product={product} />
-<ProductTabs product={product} />
-<div className="flex flex-col  small:flex-col small:top-48 small:py-0 small: w-full py-8 gap-y-12 justify-between">
-         <div className="ctarating">
-         <ProductOnboardingCta />
-          <Suspense
-            fallback={
-              <ProductActions
-                disabled={true}
-                product={product}
-                region={region}
-              />
-            }
-          >
-            <ProductActionsWrapper id={product.id} region={region} />
-          </Suspense>
-          <div className="review flex justify-center items-center mt-2">
-          <ProductRating productId={product.id} fontSize="large" />
-          </div>
-
-         </div >
-        
-         <div className="pdfandlink ">
-         <PdfAndLinks product_id={product.id} />
-         </div>
-        </div>
-</div>
-      </div>
+  
       <div className="review">
         <Review prouduct_id={product.id} />
       </div>
