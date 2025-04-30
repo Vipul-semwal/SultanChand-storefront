@@ -1,5 +1,6 @@
 import { HttpTypes } from "@medusajs/types"
 import { NextRequest, NextResponse } from "next/server"
+import {urls} from "../redirect"
 
 const BACKEND_URL = process.env.MEDUSA_BACKEND_URL
 const PUBLISHABLE_API_KEY = process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY
@@ -104,6 +105,20 @@ async function getCountryCode(
  * Middleware to handle region selection and onboarding status.
  */
 export async function middleware(request: NextRequest) {
+
+  const pathname = request.nextUrl.pathname ;
+  // console.log("Request URL:", request.nextUrl)
+
+  // ✅ CUSTOM REDIRECT: Check for specific URL and redirect
+  if (pathname in urls) {
+    console.log("Custom redirect:", pathname, "→", urls[pathname])
+    const redirectUrl = new URL(urls[pathname], request.url)
+    return NextResponse.redirect(redirectUrl, 307) // ← ✅ add return here
+  }
+  
+  
+
+  // 
   let redirectUrl = request.nextUrl.href
 
   let response = NextResponse.redirect(redirectUrl, 307)

@@ -69,17 +69,17 @@ export default function SpecimenRequestForm() {
         });
         return;
       }
-      // console.log('saryahahai:', data)
+      console.log('saryahahai:', data)
       const [letterHeadUrl, photoIDUrl] = await Promise.all([
         data.letter_head?.[0] ? uploadFileWithSdk(data.letter_head[0]) : null,
         data.photo_id?.[0] ? uploadFileWithSdk(data.photo_id[0]) : null,
       ]);
 
-      // console.log('filessbaey',letterHeadUrl,photoIDUrl);
+      console.log('filessbaey',letterHeadUrl,photoIDUrl);
       if (!(letterHeadUrl?.success && photoIDUrl?.success)) {
         throw new Error('File upload failed: Ensure both letterHead and photoID are uploaded successfully.');
       }
-      // console.log('letter head:',letterHeadUrl,photoIDUrl);
+      console.log('letter head:',letterHeadUrl,photoIDUrl);
       const updatedData = {
         ...data,
         letter_head: letterHeadUrl.url,
@@ -124,14 +124,14 @@ export default function SpecimenRequestForm() {
 
         {/* School Name */}
         <div>
-          <label className="text-gray-700 text-sm font-medium">School/College/Coaching Name</label>
+          <label className="text-gray-700 text-sm font-medium">School/College/Coaching Name*</label>
           <Input {...register("school_name")} className="mt-1 w-full" />
           {errors.school_name && <p className="text-red-500 text-xs mt-1">{errors.school_name.message}</p>}
         </div>
 
         {/* name */}
         <div>
-          <label className="text-gray-700 text-sm font-medium"> Name</label>
+          <label className="text-gray-700 text-sm font-medium">Name*</label>
           <Input {...register("name")} className="mt-1 w-full" />
           {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name?.message}</p>}
         </div>
@@ -187,7 +187,7 @@ export default function SpecimenRequestForm() {
 
         {/* Residence Address */}
         <div>
-          <label className="text-gray-700 text-sm font-medium">Residence Address</label>
+          <label className="text-gray-700 text-sm font-medium">Residence Address*</label>
           <Input {...register("residence_address")} className="mt-1 w-full" />
           {errors.residence_address && <p className="text-red-500 text-xs mt-1">{errors.residence_address.message}</p>}
         </div>
@@ -202,14 +202,14 @@ export default function SpecimenRequestForm() {
 
         {/* Email */}
         <div>
-          <label className="text-gray-700 text-sm font-medium">Email</label>
+          <label className="text-gray-700 text-sm font-medium">Email*</label>
           <Input type="email" {...register("email")} className="mt-1 w-full" />
           {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
         </div>
 
         {/* Title Name */}
         <div>
-          <label className="text-gray-700 text-sm font-medium">Title Name</label>
+          <label className="text-gray-700 text-sm font-medium">Title Name*</label>
           <Input {...register("title_name")} className="mt-1 w-full" />
           {errors.title_name && <p className="text-red-500 text-xs mt-1">{errors.title_name.message}</p>}
         </div>
@@ -238,20 +238,20 @@ export default function SpecimenRequestForm() {
 
         {/* School Address */}
         <div>
-          <label className="text-gray-700 text-sm font-medium">School/College Address</label>
+          <label className="text-gray-700 text-sm font-medium">Adress of School/College/Coaching*</label>
           <Input {...register("school_address")} className="mt-1 w-full" />
           {errors.school_address && <p className="text-red-500 text-xs mt-1">{errors.school_address.message}</p>}
         </div>
         {/* Pin Code */}
         <div>
-          <label className="text-gray-700 text-sm font-medium">Pin Code</label>
+          <label className="text-gray-700 text-sm font-medium">Pin Code*</label>
           <Input {...register("pin_code")} className="mt-1 w-full" />
           {errors.pin_code && <p className="text-red-500 text-xs mt-1">{errors.pin_code.message}</p>}
         </div>
 
         {/* Mobile Number */}
         <div>
-          <label className="text-gray-700 text-sm font-medium">Mobile Number</label>
+          <label className="text-gray-700 text-sm font-medium">Mobile Number*</label>
           <Input {...register("mobile_number")} className="mt-1 w-full" type="number" />
           {errors.mobile_number && <p className="text-red-500 text-xs mt-1">{errors.mobile_number.message}</p>}
         </div>
@@ -259,7 +259,7 @@ export default function SpecimenRequestForm() {
 
         {/* Title Category */}
         <div>
-          <label className="text-gray-700 text-sm font-medium">Title Category</label>
+          <label className="text-gray-700 text-sm font-medium">Title Category*</label>
           <Select {...register("title_category")} onValueChange={(data) => {
             setValue('title_category', data);
           }}>
