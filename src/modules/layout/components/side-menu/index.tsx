@@ -8,6 +8,7 @@ import { Fragment } from "react";
 import LocalizedClientLink from "@modules/common/components/localized-client-link";
 import CountrySelect from "../country-select";
 import { HttpTypes } from "@medusajs/types";
+import Gallery from "@modules/gallery/components/gallery";
 
 const SideMenuItems = {
   Home: "/",
@@ -17,6 +18,7 @@ const SideMenuItems = {
   Contact: "/contact-us",
   About: "/about",
   FAQ: "/faq",
+  Gallery: "/gallery",
 };
 
 const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {

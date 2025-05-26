@@ -45,66 +45,58 @@ export default function CategoryTemplate({
   return (
     <div>
        <GlobalHero backgroundImage="/book.jpg" title="Searching" subtitle="We have lots of books so find a good for you!" />
-<div
-      className="grid grid-cols-1 md:grid-cols-12 gap-6 py-6 content-container"
-      data-testid="category-container"
-    >
-      <div className="md:col-span-2">
-         <RefinementList sortBy={sort} data-testid="sort-by-container" handle={handle}/>
-      </div>
-     
-      <div className="md:col-span-10 w-full">
-        <div className="flex flex-row mb-8 text-xs sm:text-xl font-semibold gap-1">
-          {parents &&
-            parents.map((parent) => (
-              <span key={parent.id} className="text-ui-fg-subtle flex items-center">
-                <LocalizedClientLink
-                  className=" hover:text-black"
-                  href={`/categories/${parent.handle}?handle=${parent.handle}`}
-                  data-testid="sort-by-link"
-                >
-                  {parent.name}
-                </LocalizedClientLink>
-                <MdNavigateNext className="text-orange-500" width={"12px"} />
-
-              </span>
-            ))}
-          <h1 className="flex items-center text-xs   sm:text-xl" data-testid="category-page-title">{category.name}<span><MdNavigateNext className="text-orange-600" /></span></h1>
-        </div>
-        {category.description && (
-          <div className="mb-8 text-base-regular">
-            <p>{category.description}</p>
-          </div>
-        )}
-        {/* {category.category_children && (
-          <div className="mb-8 text-base-large">
-            <ul className="grid grid-cols-1 gap-2">
-              {category.category_children?.map((c) => (
-                <li key={c.id}>
-                  <InteractiveLink href={`/categories/${c.handle}`}>
-                    {c.name}
-                  </InteractiveLink>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )} */}
-        <Suspense
-          fallback={
-            <SkeletonProductGrid
-              numberOfProducts={category.products?.length ?? 8}
-            />
-          }
-        >
-          <PaginatedProducts
-            sortBy={sort}
-            page={pageNumber}
-            categoryId={category.id}
-            countryCode={countryCode}
-          />
-        </Suspense>
-      </div>
+       <div className="py-6 content-container space-y-6" data-testid="category-container">
+  {/* Top row: Breadcrumbs + Filters */}
+  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    {/* Breadcrumbs */}
+    <div className="flex flex-wrap items-center gap-1 text-sm sm:text-xl font-semibold">
+      {parents &&
+        parents.map((parent) => (
+          <span key={parent.id} className="text-ui-fg-subtle flex items-center">
+            <LocalizedClientLink
+              className="hover:text-black"
+              href={`/categories/${parent.handle}?handle=${parent.handle}`}
+              data-testid="sort-by-link"
+            >
+              {parent.name}
+            </LocalizedClientLink>
+            <MdNavigateNext className="text-orange-500" />
+          </span>
+        ))}
+      <h1 className="flex items-center" data-testid="category-page-title">
+        {category.name}
+        <MdNavigateNext className="text-orange-600" />
+      </h1>
     </div>
+
+    {/* Filter / Sort dropdown */}
+    <div className="w-full sm:w-auto">
+      <RefinementList sortBy={sort} data-testid="sort-by-container" handle={handle} />
+    </div>
+  </div>
+
+  {/* Optional: Category description */}
+  {category.description && (
+    <div className="text-base-regular">
+      <p>{category.description}</p>
+    </div>
+  )}
+
+  {/* Products grid */}
+  <Suspense
+    fallback={
+      <SkeletonProductGrid numberOfProducts={category.products?.length ?? 8} />
+    }
+  >
+    <PaginatedProducts
+      sortBy={sort}
+      page={pageNumber}
+      categoryId={category.id}
+      countryCode={countryCode}
+    />
+  </Suspense>
+</div>
+
     </div>
     
   )

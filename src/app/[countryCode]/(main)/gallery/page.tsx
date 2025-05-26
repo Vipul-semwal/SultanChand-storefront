@@ -42,8 +42,24 @@ function Page() {
     const totalPages = Math.ceil(count / PRODUCT_LIMIT)
   
     if (isError) {
-      return <div>Error loading blog posts. Please try again later.</div>;
+      return (
+        <div className="flex flex-col items-center justify-center h-[60vh] text-center px-4">
+          <h2 className="text-xl font-semibold text-red-600 mb-2">
+            Oops! Something went wrong.
+          </h2>
+          <p className="text-gray-700 mb-4">
+            We couldn't load the gallery posts. Please try again.
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded-md transition"
+          >
+            Retry
+          </button>
+        </div>
+      );
     }
+    
 
 
   const { state, open, close: closeModal } = useToggleState(false)

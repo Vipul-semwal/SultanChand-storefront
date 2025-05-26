@@ -114,9 +114,9 @@ function AuthorInfo({ id, region }: { id: string; region?: HttpTypes.StoreRegion
           No books by this author yet.
         </div>
       ) : (
-        <div className="flex flex-col mt-5 px-6">
+        <div className="flex flex-col mt-5 px-6 mb-5">
           <h1 className="text-xl font-bold text-center mb-6">Books by {name}</h1>
-          <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-6 gap-y-8">
+          <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 lg:grid-cols-8 gap-x-6 gap-y-8">
             {region &&
               books?.map((p) => (
                 <li key={p.id}>

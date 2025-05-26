@@ -269,7 +269,7 @@ const Payment = ({
         </div>
       </div>
       <Divider className="mt-8" />
-    </div>
+    </div>  
   )
 }
 

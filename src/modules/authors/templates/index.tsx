@@ -103,7 +103,7 @@ function AuthorTemplate() {
           {isFetching ? (
             <p>Loading authors...</p>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-10">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-10">
               {authors.map((author, index) => (
                 <div key={author.id} className="bg-white shadow-md rounded-lg overflow-hidden" data-testid="author-card">
                   <img

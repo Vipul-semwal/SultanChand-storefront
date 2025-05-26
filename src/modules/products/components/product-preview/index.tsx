@@ -27,7 +27,7 @@ export type Author = {
 
 
 
-export default function ProductPreview({
+export default function   ProductPreview({
   product,
   isFeatured,
   region,
@@ -123,11 +123,11 @@ export default function ProductPreview({
   {/* {author?.author?.[0]?.name && (
     <p className="text-sm text-gray-500 italic">by {author.author[0].name}</p>
   )} */}
-   <ProductRating
+   {/* <ProductRating
               productId={productData.id} // Pass the product ID to fetch reviews
               fontSize="medium"
               showDetails={false} // Hide average rating and total reviews
-            />
+            /> */}
 </div>
 
 

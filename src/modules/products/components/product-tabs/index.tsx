@@ -132,22 +132,29 @@ const ShippingInfoTab = () => {
 const MetadataInfoTab = ({ product }: ProductTabsProps) => {
   const { metadata } = product;
 
+  // Format key: turns camelCase or PascalCase to regular spaced words
+  const formatKey = (key: string) =>
+    key
+      .replace(/([A-Z])/g, " $1")
+      .replace(/^./, str => str.toUpperCase())
+      .trim();
+
   return (
-    <div className="text-small-regular py-8">
-      <div className="grid grid-cols-2 gap-x-8 gap-y-4">
+    <div className="py-6">
+      <h3 className="text-lg font-semibold mb-4 text-gray-800">Meta Data</h3>
+      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 list-disc pl-5 text-sm text-gray-700">
         {metadata &&
           Object.entries(metadata).map(([key, value], index) => (
-            <div key={index} className="flex flex-col">
-              <span className="font-semibold capitalize">
-                {key.replace(/([A-Z])/g, " $1").trim()} {/* Format key */}
-              </span>
-              <p>{value ? String(value) : "-"}</p>
-            </div>
+            <li key={index}>
+              <span className="font-semibold">{formatKey(key)}:</span>{" "}
+              {value ? String(value) : "-"}
+            </li>
           ))}
-      </div>
+      </ul>
     </div>
   );
 };
+
 
 
 

@@ -13,6 +13,7 @@ import SearchBar from "@modules/common/components/search";
 import { transformProductCategory, ProductCategoryTypes as ProductCategory,trasnformCollection } from "@lib/util/transformProductCategory";
 import { useCategories } from "@lib/hooks/useCategory";
 import MobileViewNav from "./mobile";
+import { usePathname } from 'next/navigation';
 
 const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -24,6 +25,11 @@ const Navbar: React.FC = () => {
   const [hovered, setHovered] = useState(false);
   const [openSubmenuId, setOpenSubmenuId] = useState<string | null>(null);
   const [collection,Setcollection] = useState<ProductCategory[]>([])
+  const pathname = usePathname();
+
+  const segments = pathname.split('/').filter(Boolean); 
+  const lastSegment = '/' + segments.slice(1).join('/'); // Join the segments back into a path
+  console.log('pathmarth:',lastSegment);
 
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const categoriesRef = useRef<HTMLButtonElement | null>(null);
@@ -84,17 +90,17 @@ const Navbar: React.FC = () => {
 
   return (
     <nav
-      className={`bg-[#0070c0] text-white transition-all duration-300 ${sticky ? "fixed top-0 left-0 w-full shadow-lg z-50" : ""}`}
+      className={`bg-[#0070c0] text-white transition-all duration-300 mt-0 ${sticky ? "fixed top-0 left-0 w-full shadow-lg z-50" : ""}`}
     >
       <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <LocalizedClientLink href="/">
             <div className="text-sm md:text-lg font-bold flex items-center ml-4 sm:hidden">
-              <img src="/logo-with-line.png" width={"100px"} />
+              <img src="/goldenlogo.jpg" width={"100px"} />
 
             </div>
             <div className="text-sm md:text-lg font-bold flex items-center ml-4 hidden sm:block">
-              <img src="/logo-with-line.png" width={"100px"} />
+              <img src="/goldenlogo.jpg" width={"100px"} />
 
             </div>
           </LocalizedClientLink>
@@ -104,7 +110,8 @@ const Navbar: React.FC = () => {
                 <button
                   ref={category.handle === "categories" ? categoriesRef : null}
                   className={`px-2 text-[14px] font-semibold relative group ${category.path === window.location.pathname ? "underline" : ""
-                    } max-[1163px]:text-[12px]`}
+                    } max-[1163px]:text-[12px]   ${lastSegment === category.path ? "text-[#ff9900]  border-[#ff9900]" : "text-white"} 
+  hover:text-[#ffcc66] transition-all duration-200 ease-in-out`}
                   onMouseEnter={category.handle === "categories" ? handleMouseEnter : undefined}
                   onMouseLeave={category.handle === "categories" ? handleMouseLeave : undefined}
                 >

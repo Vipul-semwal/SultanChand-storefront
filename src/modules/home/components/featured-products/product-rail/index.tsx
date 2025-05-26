@@ -12,6 +12,7 @@ import InteractiveLink from "@modules/common/components/interactive-link";
 import ProductPreview from "@modules/products/components/product-preview";
 import { ArrowUpRightMini } from "@medusajs/icons";
 import { useQueryData } from "@lib/hooks/useQueryData";``
+import Spinner from "@modules/common/icons/spinner";
 
 export default function ProductRail({
   collection,
@@ -41,7 +42,14 @@ export default function ProductRail({
   const prevRef = useRef<HTMLButtonElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);
 
-  if (isPending) return <p>Loading products...</p>;
+  if (isPending) {
+    return (
+      <div className="flex flex-col items-center justify-center h-48 text-gray-600">
+        <Spinner className="w-6 h-6 animate-spin mb-2" />
+        <p className="text-sm">Loading product preview...</p>
+      </div>
+    );
+  }
   // if (isError || !pricedProducts?.length) return <p>No products found.</p>;
 
   return (

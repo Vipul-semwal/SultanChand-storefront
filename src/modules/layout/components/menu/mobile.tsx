@@ -8,6 +8,7 @@ import { RxCross2 } from 'react-icons/rx';
 import { transformProductCategory, ProductCategoryTypes as ProductCategory } from '@lib/util/transformProductCategory';
 import { useCategories } from '@lib/hooks/useCategory';
 import { trasnformCollection } from '@lib/util/transformProductCategory';
+import { usePathname } from 'next/navigation';
 
 interface MobileViewNavProps {
   isVisible: boolean;
@@ -17,6 +18,11 @@ interface MobileViewNavProps {
 const MobileViewNav: React.FC<MobileViewNavProps> = ({ isVisible, onClose }) => {
   const [openSubmenus, setOpenSubmenus] = useState<Record<string, boolean>>({});
   const { countryCode } = useParams() as { countryCode: string };
+  const pathname = usePathname();
+  
+    const segments = pathname.split('/').filter(Boolean); 
+    const lastSegment = '/' + segments.slice(1).join('/'); // Join the segments back into a path
+  
   const { data: productCategories } = useCategories();
    const [collection,Setcollection] = useState<ProductCategory[]>([])
      useEffect(()=>{
@@ -64,7 +70,7 @@ const MobileViewNav: React.FC<MobileViewNavProps> = ({ isVisible, onClose }) => 
         <div className="flex items-center gap-3">
           <BsChevronRight className="text-orange-600 text-sm" />
          <LocalizedClientLink href={category.path} onClick={onClose}>
-         <span className="font-medium text-gray-700">{category.name}</span>
+         <span className={`font-medium text-gray-700  ${lastSegment === category.path ? "text-[#ff9900]  border-[#ff9900]" : "text-black"}`}>{category.name}</span>
          </LocalizedClientLink>
         </div>
         {category.category_children && (
@@ -84,7 +90,7 @@ const MobileViewNav: React.FC<MobileViewNavProps> = ({ isVisible, onClose }) => 
                 <RecursiveCategory category={child} />
               ) : (
                 <LocalizedClientLink href={child.path} onClick={onClose}>
-                  <button className="flex items-center w-full text-gray-600 py-3 px-8 hover:text-orange-600 hover:pl-10 transition-all duration-300 border-l-4 border-transparent hover:border-orange-600">
+                  <button className={`flex items-center w-full text-gray-600 py-3 px-8 hover:text-orange-600 hover:pl-10 transition-all duration-300 border-l-4 border-transparent hover:border-orange-600  ${lastSegment === category.path ? "text-[#ff9900]  border-[#ff9900]" : "text-white"} `}>
                     <BsChevronRight className="text-orange-600 text-sm mr-3" />
                     {child.name}
                   </button>
