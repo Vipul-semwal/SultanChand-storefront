@@ -106,6 +106,20 @@ function PdfAndLinks({ product_id }: Props) {
     }
   return (
     <div style={containerStyle}>
+       {(author ?? []).length > 0 && (
+       author?.map((author, index) => (
+        <div key={index} style={itemStyle}>
+        <img src={author.image} alt={author.name} style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
+        <div>
+          <p style={{ margin: 0, fontWeight: 'bold' }}>{author.name}</p>
+          {/* Use LocalizedClientLink instead of a regular <a> tag */}
+          <LocalizedClientLink href={`/authors/${author.id}`} style={linkStyle}>
+            More about the author
+          </LocalizedClientLink>
+        </div>
+      </div>
+      ))
+    )}
       {extraLinks?.youtubeLink && (
         <div style={itemStyle}>
           <FaYoutube style={{ ...iconStyle, color: '#FF0000' }} />
@@ -154,20 +168,6 @@ function PdfAndLinks({ product_id }: Props) {
        ))}
      </>
       )}
-    {(author ?? []).length > 0 && (
-       author?.map((author, index) => (
-        <div key={index} style={itemStyle}>
-        <img src={author.image} alt={author.name} style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
-        <div>
-          <p style={{ margin: 0, fontWeight: 'bold' }}>{author.name}</p>
-          {/* Use LocalizedClientLink instead of a regular <a> tag */}
-          <LocalizedClientLink href={`/authors/${author.id}`} style={linkStyle}>
-            More about the author
-          </LocalizedClientLink>
-        </div>
-      </div>
-      ))
-    )}
       
     </div>
   );

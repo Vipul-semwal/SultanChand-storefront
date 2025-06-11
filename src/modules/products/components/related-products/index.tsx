@@ -33,7 +33,7 @@ export default async function RelatedProducts({
   }
   queryParams.is_giftcard = false
 
-  const products = await listProducts({
+  const products = await listProducts({ 
     queryParams,
     countryCode,
   }).then(({ response }) => {

@@ -26,7 +26,7 @@ export default async function Nav() {
   <LocalizedClientLink href="/" className="flex items-center h-full gap-2">
     {/* Logo */}
     <div className="ml-2 hidden sm:block">
-      <img src="/logoblue.png" width="50px" className="min-w-[50px]" />
+      <img src="/logo.png" width="50px" className="min-w-[50px]" />
     </div>
 
     {/* Text */}

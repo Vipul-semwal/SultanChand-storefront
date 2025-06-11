@@ -25,12 +25,14 @@ const QuickView: React.FC<QuickViewProps> = ({
 }) => {
   const { countryCode } = useParams() as { countryCode: string }
   if (!countryCode) notFound()
-    
-    const authorNames = author
+   
+   const authorNames = author
+  ?.flat()
   ?.map((a) => a?.name?.trim())
   .filter((name) => typeof name === "string" && name.length > 0)
   .join(", ") || "No Author";
 
+   console.log('hllo aurhot:', author);
 
   return (
     <div className="w-full flex flex-col sm:flex-row items-center justify-center overflow-hidden max-h-[90vh]">

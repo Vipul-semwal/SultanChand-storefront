@@ -19,7 +19,7 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
     //   component: <ProductInfoTab product={product} />,
     // },
     {
-      label: "Meta Data",
+      label: "additional information",
       component: <MetadataInfoTab product={product} />,
     },
     // {
@@ -130,29 +130,66 @@ const ShippingInfoTab = () => {
 };
 
 const MetadataInfoTab = ({ product }: ProductTabsProps) => {
-  const { metadata } = product;
+ const { metadata } = product
 
-  // Format key: turns camelCase or PascalCase to regular spaced words
-  const formatKey = (key: string) =>
-    key
-      .replace(/([A-Z])/g, " $1")
-      .replace(/^./, str => str.toUpperCase())
-      .trim();
+// Format camelCase or PascalCase keys into normal strings
+const formatKey = (key: string) =>
+  key
+    .replace(/([A-Z])/g, " $1")
+    .replace(/^./, (str) => str.toUpperCase())
+    .trim()
 
-  return (
-    <div className="py-6">
-      <h3 className="text-lg font-semibold mb-4 text-gray-800">Meta Data</h3>
-      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 list-disc pl-5 text-sm text-gray-700">
-        {metadata &&
-          Object.entries(metadata).map(([key, value], index) => (
-            <li key={index}>
-              <span className="font-semibold">{formatKey(key)}:</span>{" "}
-              {value ? String(value) : "-"}
-            </li>
-          ))}
-      </ul>
-    </div>
-  );
+// Strip quotes from string values
+const cleanValue = (value: any) => {
+  if (typeof value === "string") {
+    return value.replace(/^"+|"+$/g, "") // remove starting and ending quotes
+  }
+  return value
+}
+
+// Preferred display order
+const keyOrder = [
+  "ISBN",
+  "ISBN13",
+  "Size",
+  "Pages",
+  "Weight",
+  "Language",
+  "Publishing Year",
+  "Edition",
+  "Authored By",
+  "TC", // Example technical code
+]
+
+// Sort metadata based on defined order
+const orderedMetadata = metadata
+  ? Object.entries(metadata).sort(([a], [b]) => {
+      const indexA = keyOrder.indexOf(a)
+      const indexB = keyOrder.indexOf(b)
+
+      // Keys in keyOrder come first in order
+      if (indexA === -1 && indexB === -1) return a.localeCompare(b) // both unknown
+      if (indexA === -1) return 1 // a is unknown, b is known → b before a
+      if (indexB === -1) return -1 // b is unknown, a is known → a before b
+      return indexA - indexB // both known → sort by index
+    })
+  : []
+
+
+ return (
+  <div className="py-6">
+    <h3 className="text-lg font-semibold mb-4 text-gray-800">Book Details</h3>
+    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 list-disc pl-5 text-sm text-gray-700">
+      {orderedMetadata.map(([key, value], index) => (
+        <li key={index}>
+          <span className="font-semibold">{formatKey(key)}:</span>{" "}
+          {value ? cleanValue(value) : "-"}
+        </li>
+      ))}
+    </ul>
+  </div>
+)
+
 };
 
 
