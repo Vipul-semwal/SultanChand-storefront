@@ -95,14 +95,22 @@ const Navbar: React.FC = () => {
       <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <LocalizedClientLink href="/">
-            <div className="text-sm md:text-lg font-bold flex items-center ml-4 sm:hidden">
-              <img src="/goldenlogo.jpg" width={"100px"} />
+           <div className="text-sm md:text-lg font-bold flex items-center ml-4 sm:hidden">
+  <img
+    src="/golden75yearoption2.png"
+    alt="Logo"
+    className="w-[100px] h-auto object-contain"
+  />
+</div>
 
-            </div>
-            <div className="text-sm md:text-lg font-bold flex items-center ml-4 hidden sm:block">
-              <img src="/goldenlogo.jpg" width={"100px"} />
+<div className="text-sm md:text-lg font-bold flex items-center ml-4 hidden sm:block">
+  <img
+    src="/golden75yearoption2.png"
+    alt="Logo"
+    className="w-[100px] h-auto object-contain"
+  />
+</div>
 
-            </div>
           </LocalizedClientLink>
           <div className="hidden lg:flex items-center space-x-4 relative">
             {allCategories.map((category) => (

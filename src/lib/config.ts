@@ -4,6 +4,7 @@ import Medusa from "@medusajs/js-sdk"
 let MEDUSA_BACKEND_URL = "https://admin.sultanchandandsons.com"
 // let MEDUSA_BACKEND_URL = "http://localhost:9000"
 
+
 // if (process.env.MEDUSA_BACKEND_URL) {
 //   MEDUSA_BACKEND_URL = process.env.MEDUSA_BACKEND_URL
 //   console.log("hellosir",process.env.MEDUSA_BACKEND_URL)

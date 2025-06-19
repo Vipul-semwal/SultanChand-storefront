@@ -12,7 +12,7 @@ import ProductActionsWrapper from "./product-actions-wrapper"
 import { HttpTypes } from "@medusajs/types"
 import PdfAndLinks from '../components/pdfAndLinks'
 import Review from "./review"
-import ProductRating from "../components/reviews/ProductRating"
+import ProductRating from "../components/reviews/ProductRating" 
 
 type ProductTemplateProps = {
   product: HttpTypes.StoreProduct

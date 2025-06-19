@@ -15,7 +15,7 @@ const MAX_WORDS = 10
 const ProductInfo = ({ product }: ProductInfoProps) => {
   const { state: expanded, toggle } = useToggleState(false)
   const [isMobile, setIsMobile] = useState(false)
-
+console.log('llliehj:',product);
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768)
     handleResize()

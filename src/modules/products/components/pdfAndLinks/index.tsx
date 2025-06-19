@@ -106,6 +106,10 @@ function PdfAndLinks({ product_id }: Props) {
     }
   return (
     <div style={containerStyle}>
+    <h3 className="text-center text-sm font-semibold tracking-wide text-gray-800 uppercase">
+    Authored by
+  </h3>
+
        {(author ?? []).length > 0 && (
        author?.map((author, index) => (
         <div key={index} style={itemStyle}>
@@ -120,7 +124,11 @@ function PdfAndLinks({ product_id }: Props) {
       </div>
       ))
     )}
+     <h3 className="text-center text-sm font-semibold tracking-wide text-gray-800 uppercase">
+   Important links
+  </h3>
       {extraLinks?.youtubeLink && (
+        
         <div style={itemStyle}>
           <FaYoutube style={{ ...iconStyle, color: '#FF0000' }} />
           <a href={extraLinks.youtubeLink} style={linkStyle} target="_blank" rel="noopener noreferrer">

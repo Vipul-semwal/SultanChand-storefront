@@ -49,20 +49,23 @@ const ImageOrPlaceholder = ({
   size,
 }: Pick<ThumbnailProps, "size"> & { image?: string }) => {
   return image ? (
-    <Image
-      src={image}
-      alt="Thumbnail"
-      className="absolute p-2 sm:p-4 inset-0 object-cover object-center mx-auto my-auto transition-transform duration-300 ease-in-out group-hover:scale-105 bg-orange-50 group-hover:opacity-90"
-      draggable={false}
-      quality={50}
-      sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
-      fill
-    />
+    <div className="absolute inset-0 p-2 sm:p-4 overflow-hidden">
+      <div className="relative w-full h-full">
+        <Image
+          src={image}
+          alt="Thumbnail"
+          className="object-contain object-center transition-transform duration-300 ease-in-out group-hover:scale-105 bg-orange-50 group-hover:opacity-90"
+          draggable={false}
+          quality={50}
+          sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
+          fill
+        />
+      </div>
+    </div>
   ) : (
     <div className="w-full h-full absolute inset-0 outline-none flex items-center justify-center">
       <PlaceholderImage size={size === "small" ? 16 : 24} />
     </div>
   );
 };
-
 export default Thumbnail;

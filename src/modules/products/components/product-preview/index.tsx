@@ -78,7 +78,7 @@ export default function   ProductPreview({
       retry: 1,
     });
     if (author && author.author.length > 0) {
-      console.log('authorhaibhaiiska:', author.author[0]);
+      // console.log('authorhaibhaiiska:', author.author[0]);
     } else {
       console.log('No author data available.');
     }

@@ -17,6 +17,8 @@ export default async function RelatedProducts({
   if (!region) {
     return null
   }
+  // console.log('region haiye',product);
+  console.log('category haiye');
 
   // edit this function to define your related products logic
   const queryParams: HttpTypes.StoreProductParams = {}
@@ -45,7 +47,6 @@ export default async function RelatedProducts({
   if (!products.length) {
     return null
   }
-// wip change the hedaing  Realted books to something more attractive 
 
   return (
     <div className="product-page-constraint">

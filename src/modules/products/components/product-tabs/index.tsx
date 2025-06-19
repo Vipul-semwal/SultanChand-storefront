@@ -19,7 +19,7 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
     //   component: <ProductInfoTab product={product} />,
     // },
     {
-      label: "additional information",
+      label: "Additional Information",
       component: <MetadataInfoTab product={product} />,
     },
     // {
@@ -162,31 +162,24 @@ const keyOrder = [
 ]
 
 // Sort metadata based on defined order
-const orderedMetadata = metadata
-  ? Object.entries(metadata).sort(([a], [b]) => {
-      const indexA = keyOrder.indexOf(a)
-      const indexB = keyOrder.indexOf(b)
+const orderedMetadata = keyOrder.map((key) => [
+  key,
+  metadata?.[key] ?? null
+])
 
-      // Keys in keyOrder come first in order
-      if (indexA === -1 && indexB === -1) return a.localeCompare(b) // both unknown
-      if (indexA === -1) return 1 // a is unknown, b is known → b before a
-      if (indexB === -1) return -1 // b is unknown, a is known → a before b
-      return indexA - indexB // both known → sort by index
-    })
-  : []
 
 
  return (
   <div className="py-6">
-    <h3 className="text-lg font-semibold mb-4 text-gray-800">Book Details</h3>
-    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 list-disc pl-5 text-sm text-gray-700">
-      {orderedMetadata.map(([key, value], index) => (
-        <li key={index}>
-          <span className="font-semibold">{formatKey(key)}:</span>{" "}
-          {value ? cleanValue(value) : "-"}
-        </li>
-      ))}
-    </ul>
+   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 list-disc pl-5 text-sm text-gray-700">
+  {orderedMetadata.map(([key, value], index) => (
+    <li key={index}>
+      <span className="font-semibold">{formatKey(typeof key === "string" ? key : String(key))}:</span>{" "}
+      {value ? cleanValue(value) : "-"}
+    </li>
+  ))}
+</ul>
+
   </div>
 )
 
