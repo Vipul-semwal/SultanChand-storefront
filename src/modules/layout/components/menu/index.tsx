@@ -97,7 +97,7 @@ const Navbar: React.FC = () => {
           <LocalizedClientLink href="/">
            <div className="text-sm md:text-lg font-bold flex items-center ml-4 sm:hidden">
   <img
-    src="/golden75yearoption2.png"
+    src="/transparentGoldenb.jpg"
     alt="Logo"
     className="w-[100px] h-auto object-contain"
   />
@@ -105,7 +105,7 @@ const Navbar: React.FC = () => {
 
 <div className="text-sm md:text-lg font-bold flex items-center ml-4 hidden sm:block">
   <img
-    src="/golden75yearoption2.png"
+    src="/transparentGoldenb.jpg"
     alt="Logo"
     className="w-[100px] h-auto object-contain"
   />

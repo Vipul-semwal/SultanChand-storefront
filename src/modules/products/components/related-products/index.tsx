@@ -2,6 +2,7 @@ import { listProducts } from "@lib/data/products"
 import { getRegion } from "@lib/data/regions"
 import { HttpTypes } from "@medusajs/types"
 import Product from "../product-preview"
+import { getCategoryByHandle } from "@lib/data/categories"
 
 type RelatedProductsProps = {
   product: HttpTypes.StoreProduct
@@ -18,8 +19,12 @@ export default async function RelatedProducts({
     return null
   }
   // console.log('region haiye',product);
-  console.log('category haiye');
+  console.log('category haiye', product.categories);
+  const productCategory = product.categories && product.categories.length > 0 && product.categories[0].handle
+    ? await getCategoryByHandle([product.categories[0].handle as string])
+    : null
 
+    console.log('productCategory haiye --------------------------------------------------------------------------------', productCategory);
   // edit this function to define your related products logic
   const queryParams: HttpTypes.StoreProductParams = {}
   if (region?.id) {
@@ -48,6 +53,8 @@ export default async function RelatedProducts({
     return null
   }
 
+  const PRODUCTS = [...productCategory?.products ?? [], ...products]
+
   return (
     <div className="product-page-constraint">
       <div className="flex flex-col items-center text-center mb-16">
@@ -60,7 +67,7 @@ export default async function RelatedProducts({
       </div>
 
       <ul className="grid grid-cols-2 small:grid-cols-3 medium:grid-cols-7 gap-x-6 gap-y-8">
-        {products.map((product) => (
+        {PRODUCTS.map((product) => (
           <li key={product.id}>
             <Product region={region} product={product} />
           </li>
