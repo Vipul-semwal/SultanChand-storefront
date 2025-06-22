@@ -27,7 +27,8 @@ const StoreTemplate = ({
 }) => {
   const pageNumber = page ? parseInt(page) : 1
   const sort = sortBy || "created_at"
-  // console.log('hellooo',handle)
+  // console.log('hellooo',serchQuery);
+
 
   return (
     <div>
@@ -47,7 +48,7 @@ const StoreTemplate = ({
           <h1 data-testid="store-page-title" className="flex items-center">
             All Books <span><MdNavigateNext className="text-orange-600" /></span>
           </h1>
-          <RefinementList sortBy={sort} handle={handle} />
+          {/* <RefinementList sortBy={sort} handle={handle} /> */}
           {/* <SortProducts sortBy={sort} setQueryParams={setQueryParams}  /> */}
         </div>
 

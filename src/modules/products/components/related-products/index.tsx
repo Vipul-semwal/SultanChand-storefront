@@ -53,7 +53,7 @@ export default async function RelatedProducts({
     return null
   }
 
-  const PRODUCTS = [...productCategory?.products ?? [], ...products]
+  const PRODUCTS = [...productCategory?.products ?? []]
 
   return (
     <div className="product-page-constraint">

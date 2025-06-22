@@ -6,6 +6,7 @@ import { HttpTypes } from "@medusajs/types"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import { getAuthHeaders, getCacheOptions } from "./cookies"
 import { getRegion, retrieveRegion } from "./regions"
+import Fuse from "fuse.js"
 
 export const listProducts = async ({
   pageParam = 1,
@@ -24,6 +25,7 @@ export const listProducts = async ({
 }> => {
   if (!countryCode && !regionId) {
     throw new Error("Country code or region ID is required")
+
   }
 
   const limit = queryParams?.limit || 12
@@ -52,6 +54,9 @@ export const listProducts = async ({
   const next = {
     ...(await getCacheOptions("products")),
   }
+   
+
+
 
   return sdk.client
     .fetch<{ products: HttpTypes.StoreProduct[]; count: number }>(
@@ -90,8 +95,10 @@ export const listProducts = async ({
  * This will fetch 100 products to the Next.js cache and sort them based on the sortBy parameter.
  * It will then return the paginated products based on the page and limit parameters.
  */
+
+
 export const listProductsWithSort = async ({
-  page = 0,
+  page = 1,
   queryParams,
   sortBy = "created_at",
   countryCode,
@@ -106,35 +113,49 @@ export const listProductsWithSort = async ({
   queryParams?: HttpTypes.FindParams & HttpTypes.StoreProductParams
 }> => {
   const limit = queryParams?.limit || 12
+  const q = queryParams?.q
 
-  const {
-    response: { products, count },
-  } = await listProducts({
-    pageParam: 0,
-    queryParams: {
-      ...queryParams,
-      limit: 100,
-    },
+  // 💡 NO Q – original behavior
+  if (!q) {
+    const { response: { products, count }, nextPage } = await listProducts({
+      pageParam: page,
+      queryParams: { ...queryParams, limit },
+      countryCode,
+    })
+    const sorted = sortProducts(products, sortBy)
+    return {
+      response: { products: sorted, count },
+      nextPage,
+      queryParams,
+    }
+  }
+
+  // 🔍 WITH Q – fuzzy path
+  const fetchLimit = page * limit + limit
+  const { response: { products: rawProducts } } = await listProducts({
+    pageParam: 1,
+    queryParams: { ...queryParams, limit: fetchLimit },
     countryCode,
   })
-
-  const sortedProducts = sortProducts(products, sortBy)
-
-  const pageParam = (page - 1) * limit
-
-  const nextPage = count > pageParam + limit ? pageParam + limit : null
-
-  const paginatedProducts = sortedProducts.slice(pageParam, pageParam + limit)
+  const filtered = new Fuse(rawProducts, {
+    keys: ["title"],
+    threshold: 0.2,
+    ignoreLocation: true,
+  })
+    .search(q)
+    .map(r => r.item)
+  const sorted = sortProducts(filtered, sortBy)
+  const start = (page - 1) * limit
+  const paginated = sorted.slice(start, start + limit)
+  const nextPage = sorted.length > start + limit ? page + 1 : null
 
   return {
-    response: {
-      products: paginatedProducts,
-      count,
-    },
+    response: { products: paginated, count: sorted.length },
     nextPage,
     queryParams,
   }
-};
+}
+
 
 
 
@@ -155,6 +176,8 @@ export const makeSerch = async ({
   status: number;
 }> => {
   const offset = (page - 1) * limit;
+  console.log('makeSerch',name,query,page,limit)
+  console.log("-----------------------------------------------------------------------------------------------------------------",name,query,page,limit)
 
   // Fetch data from API
  try{
@@ -205,4 +228,70 @@ export const makeSerch = async ({
   };
  }
 };
+
+export const searchProducts = async ({
+  pageParam = 1,
+  queryParams,
+  countryCode,
+  regionId,
+}: {
+  pageParam?: number
+  queryParams?: HttpTypes.FindParams & HttpTypes.StoreProductParams
+  countryCode?: string
+  regionId?: string
+}): Promise<{
+  response: { products: HttpTypes.StoreProduct[]; count: number }
+  nextPage: number | null
+  queryParams?: HttpTypes.FindParams & HttpTypes.StoreProductParams
+}> => {
+  if (!countryCode && !regionId) {
+    throw new Error("Country code or region ID is required")
+  }
+  const limit = queryParams?.limit || 12
+  const _pageParam = Math.max(pageParam, 1)
+  const offset = (_pageParam - 1) * limit
+  let region: HttpTypes.StoreRegion | undefined | null
+  if (countryCode) {
+    region = await getRegion(countryCode)
+  } else {
+    region = await retrieveRegion(regionId!)
+  }
+  if (!region) {
+    return {
+      response: { products: [], count: 0 },
+      nextPage: null,
+    }
+  }
+  const headers = {
+    ...(await getAuthHeaders()),
+  }
+  const next = {
+    ...(await getCacheOptions("products")),
+  }
+  return sdk.client
+    .fetch<{ products: HttpTypes.StoreProduct[]; count: number }>(
+      `/store/products/search`,
+      {
+        method: "GET",
+        query: {
+          q: queryParams?.q,
+          limit,
+          offset,
+          region_id: region.id,
+          ...queryParams,
+        },
+        headers,
+        next,
+        cache: "force-cache",
+      }
+    )
+    .then(({ products, count }) => {
+      const nextPage = count > offset + limit ? pageParam + 1 : null
+      return {
+        response: { products, count },
+        nextPage,
+        queryParams,
+      }
+    })
+}
 

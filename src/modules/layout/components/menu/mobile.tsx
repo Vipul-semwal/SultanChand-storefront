@@ -44,7 +44,7 @@ const MobileViewNav: React.FC<MobileViewNavProps> = ({ isVisible, onClose }) => 
     },
     ...collection,
     { id: 'home', name: 'Home', path: '/', handle: 'home' },
-    { id: 'store', name: 'Store', path: '/store', handle: '/store' },
+    // { id: 'store', name: 'Store', path: '/store', handle: '/store' },
     { id: 'account', name: 'Account', path: '/account', handle: '/account' },
     { id: 'cart', name: 'Cart', path: '/cart', handle: '/cart' },
     { id: 'contact', name: 'Contact Us', path: '/contact-us', handle: '/contact-us' },

@@ -46,7 +46,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
   const { handle } = params
   const region = await getRegion(params.countryCode)
-
   if (!region) {
     notFound()
   }
@@ -79,6 +78,7 @@ export default async function ProductPage(props: Props) {
     notFound()
   }
 
+  
   const pricedProduct = await listProducts({
     countryCode: params.countryCode,
     queryParams: { handle: params.handle },

@@ -5,6 +5,7 @@ import { Pagination } from "@modules/store/components/pagination"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import { makeSerch } from "@lib/data/products"
 import { HttpTypes } from "@medusajs/types"
+import { searchProducts } from "@lib/data/products"
 
 const PRODUCT_LIMIT = 12
 
@@ -15,6 +16,7 @@ type PaginatedProductsParams = {
   id?: string[]
   order?: string
   q?: string
+   handle?: string
 }
 
 export default async function PaginatedProducts({
@@ -26,6 +28,7 @@ export default async function PaginatedProducts({
   countryCode,
   searchQuery,
   searchby,
+  handle,
 }: {
   sortBy?: SortOptions
   page: number
@@ -35,6 +38,7 @@ export default async function PaginatedProducts({
   countryCode: string
   searchQuery?: string
   searchby?: string
+  handle?: string
 }) {
   const queryParams: PaginatedProductsParams = {
     limit: PRODUCT_LIMIT,
@@ -60,11 +64,17 @@ export default async function PaginatedProducts({
     queryParams["q"] = searchQuery
   }
 
+  // if( handle) {
+  //   queryParams["handle"] = handle    
+  // }
+
   const region = await getRegion(countryCode)
 
   if (!region) {
     return null
   }
+
+    console.log("dehkit-----------------------------------------------------------------------------------------------------------------",searchQuery)
 
   let products: HttpTypes.StoreProduct[] = []
   let totalPages = 0

@@ -27,7 +27,8 @@ export default async function StorePage(props: Params) {
   const params = await props.params;
   const searchParams = await props.searchParams;
   const { sortBy, page,q,category,handle,searchby } = searchParams
-  // console.log('serchby',searchby )
+  console.log('serchby',q )
+  console.log("-----------------------------------------------------------------------------------------------------------------",searchby)
  
   return (
     <StoreTemplate
@@ -36,7 +37,7 @@ export default async function StorePage(props: Params) {
       countryCode={params.countryCode}
       serchQuery={q}
       category={category}
-      handle={handle}
+      handle={q}
       searchby={searchby}
       
     />

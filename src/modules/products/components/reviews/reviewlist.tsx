@@ -123,7 +123,7 @@ const ProductReviews = ({ productId }: { productId: string }) => {
   }
 
   return (
-    <div className="max-w-full mx-auto p-6 bg-white">
+    <div className="content-container mx-auto p-6 bg-white">
       <h2 className="text-xl font-bold mb-4">Product Reviews</h2>
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
         <div className="col-span-1 md:col-span-4">

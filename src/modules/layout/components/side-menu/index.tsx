@@ -12,7 +12,7 @@ import Gallery from "@modules/gallery/components/gallery";
 
 const SideMenuItems = {
   Home: "/",
-  Store: "/store",
+  // Store: "/store",
   Account: "/account",
   Cart: "/cart",
   Contact: "/contact-us",
