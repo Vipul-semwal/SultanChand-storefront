@@ -30,6 +30,7 @@ export default async function Home(props: {
     fields: "id, handle, title",
   });
 
+  console.log("collections", collections) 
 
   if (!collections || !region) {
     return null

@@ -55,6 +55,7 @@ export const getCollectionByHandle = async (
       query: { handle, fields: "*products" },
       next,
       cache: "force-cache",
+      
     })
     .then(({ collections }) => collections[0])
 }

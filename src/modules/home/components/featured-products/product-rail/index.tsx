@@ -51,6 +51,7 @@ export default function ProductRail({
     );
   }
   // if (isError || !pricedProducts?.length) return <p>No products found.</p>;
+  console.log('collection prodcu',collection.handle,pricedProducts)
 
   return (
     <div className="content-container pb-9 small:pb-9 relative">

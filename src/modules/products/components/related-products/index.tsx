@@ -53,7 +53,7 @@ export default async function RelatedProducts({
     return null
   }
 
-  const PRODUCTS = [...productCategory?.products ?? []].slice(0,7)
+  const PRODUCTS = [...productCategory?.products ?? []].slice(0,7);
 
   return (
     <div className="product-page-constraint">

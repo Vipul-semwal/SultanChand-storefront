@@ -89,4 +89,4 @@ export default async function CollectionPage(props: Props) {
   )
 }
 
-export const revalidate = 3600
+export const revalidate = 600
