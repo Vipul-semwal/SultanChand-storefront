@@ -5,6 +5,7 @@ import RefinementList from "@modules/store/components/refinement-list"
 import SortProducts, { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 
 import PaginatedProducts from "./paginated-products"
+import GoBackToLastCategory from "@modules/common/components/GoBackToLastCategory/GoBackToLastCategory"
 import GlobalHero from "@modules/common/components/globalhero"
 import { MdNavigateNext } from "react-icons/md";
 
@@ -50,6 +51,7 @@ const StoreTemplate = ({
           </h1>
           {/* <RefinementList sortBy={sort} handle={handle} /> */}
           {/* <SortProducts sortBy={sort} setQueryParams={setQueryParams}  /> */}
+          <GoBackToLastCategory />
         </div>
 
         <Suspense fallback={<SkeletonProductGrid />}>

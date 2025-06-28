@@ -10,6 +10,8 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import { HttpTypes } from "@medusajs/types"
 import GlobalHero from "@modules/common/components/globalhero"
 import { MdNavigateNext } from "react-icons/md"
+import GoBackToLastCategory from "@modules/common/components/GoBackToLastCategory/GoBackToLastCategory"
+
 
 
 
@@ -19,12 +21,14 @@ export default function CategoryTemplate({
   page,
   countryCode,
   handle,
+  query
 }: {
   category: HttpTypes.StoreProductCategory
   sortBy?: SortOptions
   page?: string
   countryCode: string
   handle?:string
+  query: { [key: string]: string } 
 }) {
   const pageNumber = page ? parseInt(page) : 1
   const sort = sortBy || "created_at"
@@ -41,6 +45,11 @@ export default function CategoryTemplate({
   }
 
   getParents(category)
+
+  //retrive last visited category from local storage
+  console.log('query', query)
+
+  
 
   return (
     <div>
@@ -67,6 +76,7 @@ export default function CategoryTemplate({
         {category.name}
         <MdNavigateNext className="text-orange-600" />
       </h1>
+     {/* <GoBackToLastCategory /> */}
     </div>
 
     {/* Filter / Sort dropdown */}

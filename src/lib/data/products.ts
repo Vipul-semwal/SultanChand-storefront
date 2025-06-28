@@ -207,7 +207,12 @@ export const makeSerch = async ({
 
   // Merge all products into a single array
   const mergedProducts = data.flatMap((item) => item.products || []).slice(0, limit);
-  console.log('mergedProducts',mergedProducts[0].variants)
+  if (mergedProducts.length > 0) {
+  console.log('mergedProducts', mergedProducts[0].variants)
+} else {
+  console.log('No merged products found')
+}
+
 
   const nextPage = count > offset + limit ? page + 1 : null;
 

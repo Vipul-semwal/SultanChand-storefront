@@ -6,6 +6,8 @@ import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
 import CategoryTemplate from "@modules/categories/templates"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
+import SetLastVisitedCategory from "@modules/common/components/lastVisitedCategory/page"
+
 
 type Props = {
   params: Promise<{ category: string[]; countryCode: string }>
@@ -13,6 +15,7 @@ type Props = {
     sortBy?: SortOptions
     page?: string
     handle?:string
+    searchby?: string
   }>
 }
 
@@ -68,23 +71,31 @@ export default async function CategoryPage(props: Props) {
   const searchParams = await props.searchParams
   const params = await props.params
   const { sortBy, page,handle } = searchParams
-  const productCategory = await getCategoryByHandle(params.category)
-  console.log('serchparam',handle)
+  const productCategory = await getCategoryByHandle(params.category);
+      console.log('antshant================================================================ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo ')
+
+  console.log('serchparam', searchParams.searchby,searchParams)
 
   if (!productCategory) {
     notFound()
   }
+
+  // Set the last visited category in local storage
+ 
  
 
   return (
+   <>
+   <SetLastVisitedCategory/>
     <CategoryTemplate
       category={productCategory}
       sortBy={sortBy}
       page={page}
       countryCode={params.countryCode}
       handle={handle}
-      
+      query={searchParams}
     />
+   </>
   )
 };
 
