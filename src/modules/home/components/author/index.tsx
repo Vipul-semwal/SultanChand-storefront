@@ -12,16 +12,13 @@ import { useQueryData } from "@lib/hooks/useQueryData";
 import LocalizedClientLink from '@modules/common/components/localized-client-link';
 import { ArrowUpRightMini } from "@medusajs/icons";
 type AuthorsResponse = {
-  author: {
+  data: {
     id: string;
     name: string;
     description: string;
     image: string;
     subText: string;
   }[];
-  count: number;
-  limit: number;
-  offset: number;
 };
 
 interface Props {}
@@ -37,10 +34,9 @@ function truncateText(htmlString: string, maxLength: number) {
 
 const Authors: React.FC<Props> = () => {
   const { data, isFetching } = useQueryData<AuthorsResponse>(
-    ["authors", 6, 0],
+    ["authors-home",],
     () =>
-      sdk.client.fetch(`/store/authors`, {
-        query: { limit: 6, offset: 0 },
+      sdk.client.fetch(`/store/priority-author`, {
       }),
     true,
     {
@@ -51,7 +47,7 @@ const Authors: React.FC<Props> = () => {
     }
   );
 
-  console.log('dhindora ', data?.author);
+  console.log('dhindora ', data?.data);
 
   return (
     <div className="text-gray-600 dark:text-gray-300 py-16 my-7" id="reviews">
@@ -75,7 +71,7 @@ const Authors: React.FC<Props> = () => {
             }}
             className="mySwiper"
           >
-            {data?.author.map((i, index) => (
+            {data?.data.map((i, index) => (
                <SwiperSlide key={index}>
                <LocalizedClientLink href={`/authors/${i.id}`} key={index}>
                 <div className="p-4 border border-gray-200 rounded-xl bg-orange-50 dark:bg-gray-800 dark:border-gray-700 shadow-lg hover:shadow-xl transition-shadow duration-300">
