@@ -135,9 +135,9 @@ const MetadataInfoTab = ({ product }: ProductTabsProps) => {
 // Format camelCase or PascalCase keys into normal strings
 const formatKey = (key: string) =>
   key
-    .replace(/([A-Z])/g, " $1")
+    .replace(/([a-z])([A-Z])/g, "$1 $2") // Insert space only between camelCase transitions
     .replace(/^./, (str) => str.toUpperCase())
-    .trim()
+    .trim();
 
 // Strip quotes from string values
 const cleanValue = (value: any) => {
@@ -151,15 +151,16 @@ const cleanValue = (value: any) => {
 const keyOrder = [
   "ISBN",
   "ISBN13",
-  "Size",
+  "Edition",
+  "Publishing Year",
+  "Language",
   "Pages",
   "Weight",
-  "Language",
-  "Publishing Year",
-  "Edition",
-  "Authored By",
-  "TC", // Example technical code
-]
+  "Size (mm)",
+  "Title Code",
+  "Subject",
+];
+
 
 // Sort metadata based on defined order
 const orderedMetadata = keyOrder.map((key) => [

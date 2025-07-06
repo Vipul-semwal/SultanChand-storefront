@@ -90,7 +90,7 @@ const MobileViewNav: React.FC<MobileViewNavProps> = ({ isVisible, onClose }) => 
                 <RecursiveCategory category={child} />
               ) : (
                 <LocalizedClientLink href={child.path} onClick={onClose}>
-                  <button className={`flex items-center w-full text-gray-600 py-3 px-8 hover:text-orange-600 hover:pl-10 transition-all duration-300 border-l-4 border-transparent hover:border-orange-600  ${lastSegment === category.path ? "text-[#ff9900]  border-[#ff9900]" : "text-white"} `}>
+                  <button className={`flex items-center w-full text-gray-600 py-3 px-8 hover:text-orange-600 hover:pl-10 transition-all duration-300 border-l-4 border-transparent hover:border-orange-600  ${lastSegment === category.path ? "text-[#ff9900]  border-[#ff9900]" : "text-black"} `}>
                     <BsChevronRight className="text-orange-600 text-sm mr-3" />
                     {child.name}
                   </button>
