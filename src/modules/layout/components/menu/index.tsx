@@ -62,7 +62,7 @@ const Navbar: React.FC = () => {
     { id: "Best Sellers", name: "Best Sellers", path: "/collections/best-sellers", handle: "Upcoming Books" },
     { id: "online-library", name: "Online Library", path: "/categories/online-library ", handle: "online-library" },
     { id: "speciman-request", name: "Specimen Request", path: "/specimen-request", handle: "speciman-request" },
-    { id: "Catelog-List", name: "Catelog List", path: "/catalogs", handle: "catelog-list" },
+    { id: "Catalog-List", name: "Catalog List", path: "/catalogs", handle: "catalog-list" },
     // {
     //   id: "categories",
     //   name: "Categories",

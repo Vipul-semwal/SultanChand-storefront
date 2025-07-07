@@ -90,7 +90,7 @@ function AuthorTemplate() {
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", "1");
     router.replace(`${pathname}?${params.toString()}`);
-  }, [debouncedSearchTerm, pathname, router, searchParams]);
+  }, [debouncedSearchTerm, pathname, router,]);
 
   // Fetch authors data using React Query
   const { data, isFetching } = useQueryData<AuthorsResponse>(

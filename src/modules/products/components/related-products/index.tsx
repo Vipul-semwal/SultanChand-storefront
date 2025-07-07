@@ -52,8 +52,15 @@ export default async function RelatedProducts({
   if (!products.length) {
     return null
   }
+const categoryProducts = productCategory?.products ?? []
+const collectionProducts = products ?? []
+ const uniqueProducts = Array.from(
+  new Map(
+    [...categoryProducts, ...collectionProducts].map((p) => [p.id, p])
+  ).values()
+)
 
-  const PRODUCTS = [...productCategory?.products ?? []].slice(0,7);
+const PRODUCTS = uniqueProducts.slice(0, 7)
 
   return (
     <div className="product-page-constraint">

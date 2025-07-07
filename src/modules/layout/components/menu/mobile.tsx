@@ -51,7 +51,9 @@ const MobileViewNav: React.FC<MobileViewNavProps> = ({ isVisible, onClose }) => 
     { id: 'about', name: 'About', path: '/about-us', handle: '/about-us' },
     { id: 'faq', name: 'FAQ', path: '/faq', handle: '/faq' },
     { id: 'blog', name: 'Blog', path: '/blog', handle: '/blog' },
-    { id: 'gallery', name: 'Gallery', path: '/gallery', handle: '/gallery' }
+    { id: 'gallery', name: 'Gallery', path: '/gallery', handle: '/gallery' },
+        { id: "Catalog-List", name: "Catalog List", path: "/catalogs", handle: "catalog-list" },
+
   ];
 
   const handleToggleSubmenu = useCallback((id: string) => {

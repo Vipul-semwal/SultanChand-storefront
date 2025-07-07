@@ -72,22 +72,30 @@ const Authors: React.FC<Props> = () => {
             className="mySwiper"
           >
             {data?.data.map((i, index) => (
-               <SwiperSlide key={index}>
-               <LocalizedClientLink href={`/authors/${i.id}`} key={index}>
-                <div className="p-4 border border-gray-200 rounded-xl bg-orange-50 dark:bg-gray-800 dark:border-gray-700 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                  <div className='flex justify-center'>
-                    <img src={i.image} alt={i.name} />
-                  </div>
-                  <div className="space-y-1">
-                    <p className="font-semibold text-blue-900 text-center dark:text-white">{i.name}</p>
-                  </div>
-                  <p
-                    className="text-gray-600 text-xs sm:text-sm text-center dark:text-gray-300 italic mb-6"
-                    dangerouslySetInnerHTML={{ __html: truncateText(i.description, 150) }}
-                  />
-                </div>
-                </LocalizedClientLink>
-              </SwiperSlide>
+             <SwiperSlide key={index}>
+  <LocalizedClientLink href={`/authors/${i.id}`} key={index}>
+    <div className="p-4 border border-gray-200 rounded-xl bg-orange-50 dark:bg-gray-800 dark:border-gray-700 shadow-lg hover:shadow-xl transition-shadow duration-300">
+      
+      <div className="flex justify-center items-center h-[160px] w-full overflow-hidden mb-4">
+        <img
+          src={i.image}
+          alt={i.name}
+          className="object-contain h-full max-w-full"
+        />
+      </div>
+
+      <div className="space-y-1">
+        <p className="font-semibold text-blue-900 text-center dark:text-white">{i.name}</p>
+      </div>
+
+      <p
+        className="text-gray-600 text-xs sm:text-sm text-center dark:text-gray-300 italic mb-6"
+        dangerouslySetInnerHTML={{ __html: truncateText(i.description, 150) }}
+      />
+    </div>
+  </LocalizedClientLink>
+</SwiperSlide>
+
             ))}
           </Swiper>
         </div>
