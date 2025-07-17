@@ -41,26 +41,39 @@ export default async function RelatedProducts({
   queryParams.is_giftcard = false
 
   const products = await listProducts({ 
-    queryParams,
-    countryCode,
-  }).then(({ response }) => {
-    return response.products.filter(
-      (responseProduct) => responseProduct.id !== product.id
-    )
-  })
+  queryParams,
+  countryCode,
+}).then(({ response }) => {
+  return response.products.filter(
+    (responseProduct) => responseProduct.id !== product.id
+  )
+})
 
-  if (!products.length) {
-    return null
-  }
+if (!products.length) {
+  return null
+}
+
 const categoryProducts = productCategory?.products ?? []
 const collectionProducts = products ?? []
- const uniqueProducts = Array.from(
-  new Map(
-    [...categoryProducts, ...collectionProducts].map((p) => [p.id, p])
-  ).values()
-)
 
-const PRODUCTS = uniqueProducts.slice(0, 7)
+let combinedProducts = []
+
+if (categoryProducts.length >= 5) {
+  // Enough products in category, use them only
+  combinedProducts = categoryProducts
+} else {
+  // Use all from category, then fill the rest from collection
+  const needed = 7 - categoryProducts.length
+  const extraFromCollection = collectionProducts
+    .filter((p) => !categoryProducts.some((cp) => cp.id === p.id))
+    .slice(0, needed)
+  
+  combinedProducts = [...categoryProducts, ...extraFromCollection]
+}
+
+// Make sure to cap the final result to 7
+const PRODUCTS = combinedProducts.slice(0, 7)
+
 
   return (
     <div className="product-page-constraint">
@@ -76,7 +89,7 @@ const PRODUCTS = uniqueProducts.slice(0, 7)
       <ul className="grid grid-cols-2 small:grid-cols-3 medium:grid-cols-7 gap-x-6 gap-y-8">
         {PRODUCTS.map((product) => (
           <li key={product.id}>
-            <Product region={region} product={product} />
+            <Product region={region} product={product} haveTofetchAgain={true}/>
           </li>
         ))}
       </ul>
