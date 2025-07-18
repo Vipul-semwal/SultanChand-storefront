@@ -39,13 +39,21 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
           </LocalizedClientLink>
         )}
 
-        <Heading
-          level="h2"
-          className="text-2xl leading-10 sm:text-2xl text-ui-fg-base"
-          data-testid="product-title"
-        >
-          {product.title}
-        </Heading>
+       <div className="mb-4">
+  <Heading
+    level="h2"
+    className="text-2xl leading-10 sm:text-2xl text-ui-fg-base"
+    data-testid="product-title"
+  >
+    {product.title}
+  </Heading>
+  {product.subtitle && (
+    <p className="mt-1 text-sm sm:text-base text-ui-fg-subtle">
+      {product.subtitle}
+    </p>
+  )}
+</div>
+
 
         {/* DESCRIPTION */}
         <div className="relative p-4 rounded-md shadow-md">
