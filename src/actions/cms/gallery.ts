@@ -37,7 +37,7 @@ export async function GetAllGalleries({ page, pageSize, sort }: Request): Promis
       documentId: gallery.documentId,
       title: gallery.Title || 'Untitled Gallery',
       description: gallery.description,
-      thumbnailUrl: gallery.galleryImages[0]?.formats?.thumbnail?.url || '', 
+thumbnailUrl: gallery.galleryImages?.[0]?.formats?.thumbnail?.url || '',
       date: gallery.date
     }));
 
