@@ -1,6 +1,7 @@
 "use client";
 
 import GlobalHero from "@modules/common/components/globalhero";
+import LocalizedClientLink from "@modules/common/components/localized-client-link";
 import React, { useState } from "react";
 
 const FAQs = () => {
@@ -60,16 +61,16 @@ const FAQs = () => {
 
   return (
     <>
-      <GlobalHero backgroundImage="/banner.jpg" title="Faqs" subtitle="Amet minim mollit non deserunt ullamco est sit aliqua dolor do" />
+      <GlobalHero backgroundImage="/banner.jpg" title="Frequently Asked Questions" subtitle="" />
       <section className="py-10 bg-gray-50 sm:py-16 lg:py-24">
         <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-2xl font-bold leading-tight text-black sm:text-3xl lg:text-4xl">
               Frequently Asked <span className="text-[#EA5900]">Questions</span>
             </h2>
-            <p className="max-w-xl mx-auto mt-4 text-sm leading-relaxed text-gray-600 sm:text-base lg:text-lg">
+            {/* <p className="max-w-xl mx-auto mt-4 text-sm leading-relaxed text-gray-600 sm:text-base lg:text-lg">
               Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-            </p>
+            </p> */}
           </div>
 
           <div className="max-w-3xl mx-auto mt-8 space-y-4 md:mt-16">
@@ -112,10 +113,12 @@ const FAQs = () => {
             ))}
           </div>
 
-          <p className="text-center text-sm text-gray-600 sm:text-base lg:text-lg mt-9">
+          <LocalizedClientLink href="/contact-us">
+            <p className="text-center text-sm text-gray-600 sm:text-base lg:text-lg mt-9">
             Didn’t find the answer you are looking for?{" "}
             <span className="text-[#EA5900]">Contact our support</span>
           </p>
+          </LocalizedClientLink>
         </div>
       </section>
     </>

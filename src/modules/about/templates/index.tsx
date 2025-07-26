@@ -98,7 +98,7 @@ Educational Books
         {/* Publications Section */}
         <section className="py-12 px-4 sm:py-16 sm:px-6 bg-orange-50">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8 text-center">Our <span className='text-[#EA5900]'>Publications</span></h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8 text-center">Our <span className='text-[#EA5900]'>Legacy</span></h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {publications.map((item,id) => (
                 <div key={item.id} className="p-3 bg-white rounded-lg flex items-center flex-col justify-center shadow-lg">
@@ -114,6 +114,106 @@ Educational Books
             </div>
           </div>
         </section>
+          <section className="px-6 md:px-12 lg:px-24 py-16 bg-white text-gray-800">
+      <div className="max-w-6xl mx-auto space-y-12">
+
+        {/* Vision */}
+        <div>
+          <h2 className="text-3xl font-bold text-indigo-700 mb-4">Our Vision</h2>
+          <p className="text-lg leading-relaxed">
+            Upholding more than seven decades of academic excellence and achieving goals set by our founders and visionaries.
+          </p>
+        </div>
+
+        {/* Mission */}
+        <div>
+          <h2 className="text-3xl font-bold text-indigo-700 mb-4">Our Mission</h2>
+          <p className="text-lg leading-relaxed">
+            Sultan Chand & Sons is committed to imparting high-quality education by making reasonably priced but more valuable, reader-friendly textbooks authored by Indian teachers.
+          </p>
+        </div>
+
+        {/* About Us */}
+        <div>
+          <h2 className="text-3xl font-bold text-indigo-700 mb-4">About Us</h2>
+          <p className="text-lg leading-relaxed mb-4">
+            In the ancient Indian knowledge system, the end of education was the building of character. Inspired by such ideals, Sultan Chand & Sons has been serving the nation since its establishment in 1950. We strive to uphold a legacy of academic excellence, guided by the goals set by our founders and visionaries.
+          </p>
+          <p className="text-lg leading-relaxed mb-4">
+            In today’s educational scenario, where the teacher-student ratio has widened, textbooks play a pivotal role. They act as a bridge: while teachers spark curiosity, textbooks build confidence and clarity in the subject. Our books offer extensive reading material, solved illustrations, case studies, MCQs, and exercises with answers, presented in a clear and engaging style.
+          </p>
+          <p className="text-lg leading-relaxed mb-4">
+            Our authors, from reputed Indian universities, understand the needs of both students and teachers. Some of our publications have a legacy of over seventy years, consistently updated to align with the evolving educational landscape.
+          </p>
+          <p className="text-lg leading-relaxed mb-4">
+            With over 1,300 publications and 300 visionary authors, our catalog spans subjects like Accountancy, Taxation, Economics, Management, Law, English, Political Science, Mathematics, Physics, Chemistry, Environmental Science, IT, and Self-Development. We cater to programs like M.Com., MBA, B.Com., BBA, CA, CS, CMA, and various UG/PG diplomas.
+          </p>
+          <ul className="list-disc list-inside text-lg space-y-2">
+            <li>Revised Editions according to Latest syllabus of various Universities (CBCS) and Exam Pattern and as per New Education Policy 2020 (NEP 2020) and Tamil Nadu Council for Higher Education (TANSCHE) Syllabus</li>
+            <li>Solved illustrations and case studies</li>
+            <li>MCQs and exercises with answers</li>
+            <li>Excellent text presentation</li>
+            <li>Reasonably priced books</li>
+          </ul>
+        </div>
+
+        {/* Gratitude */}
+        <div>
+          <p className="text-lg leading-relaxed italic text-gray-600">
+            We express our heartfelt gratitude to all our associates and well-wishers for their continued support.
+          </p>
+        </div>
+
+      </div>
+    </section>
+    {/* bussines partners */}
+<div className="bg-gray-900 text-white py-10 px-4">
+  <h2 className="text-xl font-semibold underline mb-6 text-center">Our Business Partners</h2>
+
+  {/* Cards */}
+  <div className="space-y-6 max-w-3xl mx-auto">
+    {/* Northern Book Centre Card */}
+    <div className="flex flex-col md:flex-row items-center md:items-start bg-green-50 text-black rounded-lg shadow-md overflow-hidden md:p-4">
+      <img
+        src="/northern.jpg"
+        alt="Northern Book Centre"
+        className="w-28 md:w-36 object-contain p-4"
+      />
+      <div className="p-4">
+        <h3 className="text-xl font-bold text-orange-700">NORTHERN BOOK CENTRE</h3>
+        <p>Publishers of Scholarly Reference Books & Booksellers</p>
+        <p className="italic mt-2">
+          <strong>E-mail:</strong> books.nbc1@gmail.com<br />
+          <strong>Website:</strong> www.northernbook.in
+        </p>
+      </div>
+    </div>
+
+    {/* Paragon Books Card */}
+    <div className="flex flex-col md:flex-row items-center md:items-start bg-yellow-100 text-black rounded-lg shadow-md overflow-hidden md:p-4">
+      <div className="p-4">
+        <h3 className="text-xl font-bold text-orange-700">PARAGON BOOKS</h3>
+        <p className="italic">Publishers & Distributors</p>
+        <p className="italic mt-2">
+          <strong>E-mail:</strong> info@paragonbooks.in;<br />
+          books.paragon@gmail.com<br />
+          <strong>Website:</strong> www.paragonbooks.in
+        </p>
+      </div>
+      <img
+        src="/paragon.jpg"
+        alt="Paragon Books"
+        className="w-28 md:w-36 object-contain p-4"
+      />
+    </div>
+  </div>
+
+  {/* Address */}
+  <div className="mt-8 text-center text-sm">
+    <p>4221/1 Daryaganj, Ansari Road, New Delhi 110002</p>
+    <p>Phones: 23264519, 23271626, 23280295; 9810622267, 9312089080</p>
+  </div>
+</div>
 
         {/* Gratitude Section */}
         <section className="py-12 px-4 sm:py-16 sm:px-6">

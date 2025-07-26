@@ -1,39 +1,73 @@
 import { listCategories } from "@lib/data/categories";
 import { listCollections } from "@lib/data/collections";
-import { FaTwitter, FaFacebookF, FaInstagram, FaYoutube, FaLinkedinIn } from "react-icons/fa";
+import { FaTwitter, FaFacebookF, FaInstagram, FaYoutube, FaLinkedinIn,FaAmazon } from "react-icons/fa";
 import LocalizedClientLink from "@modules/common/components/localized-client-link";
 
 export default async function Footer() {
   const { collections } = await listCollections({ fields: "*products" });
   const productCategories = await listCategories();
+  const socialLinks = [
+  {
+    icon: FaAmazon,
+    url: "https://www.amazon.in/storefront?me=A1CC9U1SLWH7G5&ref=ssf_share",
+    label: "Amazon",
+  },
+  {
+    icon: FaFacebookF,
+    url: "https://www.facebook.com/SultanChandAndSons/",
+    label: "Facebook",
+  },
+  {
+    icon: FaInstagram,
+    url: "https://www.instagram.com/sultanchand_1950/",
+    label: "Instagram",
+  },
+  {
+    icon: FaYoutube,
+    url: "https://www.youtube.com/@SultanChandSons1950",
+    label: "YouTube",
+  },
+  {
+    icon: FaLinkedinIn,
+    url: "https://www.linkedin.com/company/sultan-chand-&-sons/?viewAsMember=true",
+    label: "LinkedIn",
+  },
+];
+
+const footerLinks = [
+  { label: "Policy", href: "/policy" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Contact Us", href: "/contact-us" },
+  { label: "About", href: "/about" },
+];
 
   return (
     <>
       <section className="pt-10 sm:pt-16 lg:pt-16 border-t-4 bg-blue-950 bg-cover bg-center">
         <div className="px-4 mx-auto pb-10 sm:px-6 lg:px-8 max-w-7xl">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-y-10 gap-x-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6">
 
             {/* Useful Links */}
             <div>
               <p className="text-sm font-bold tracking-widest text-white uppercase underline underline-offset-8 decoration-[#EA5900]">
                 Useful LINKS
               </p>
-              <ul className="mt-6 space-y-4">
-                {["Policy", "FAQ", "contact-us", "about"].map((item, index) => (
-                  <li key={index}>
-                    <LocalizedClientLink
-                      className="text-sm text-gray-100 hover:text-[#EA5900] transition-all duration-200"
-                      href={`/${item}`}
-                    >
-                      {item}
-                    </LocalizedClientLink>
-                  </li>
-                ))}
-              </ul>
+             <ul className="mt-6 space-y-4">
+  {footerLinks.map(({ label, href }, index) => (
+    <li key={index}>
+      <LocalizedClientLink
+        className="text-sm text-gray-100 hover:text-[#EA5900] transition-all duration-200"
+        href={href}
+      >
+        {label}
+      </LocalizedClientLink>
+    </li>
+  ))}
+</ul>
             </div>
 
             {/* Policies */}
-            <div>
+            {/* <div>
               <p className="text-sm font-semibold tracking-widest text-white uppercase underline underline-offset-8 decoration-[#EA5900]">
                 Policies
               </p>
@@ -55,7 +89,7 @@ export default async function Footer() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </div> */}
 
             {/* Reach Us */}
             <div className="md:col-span-2">
@@ -79,19 +113,22 @@ export default async function Footer() {
   {/* Social Media Icons */}
   <div className="md:w-1/2">
     <p className="text-sm text-white font-semibold mb-2">Follow Us</p>
-    <ul className="flex items-center space-x-4">
-      {[FaTwitter, FaFacebookF, FaInstagram, FaYoutube, FaLinkedinIn].map((Icon, idx) => (
-        <li key={idx}>
-          <a
-            href="#"
-            title={Icon.name.replace("Fa", "")}
-            className="flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-8 h-8 hover:bg-[#EA5900] focus:bg-[#EA5900]"
-          >
-            <Icon className="w-4 h-4" />
-          </a>
-        </li>
-      ))}
-    </ul>
+     <ul className="flex flex-wrap items-center gap-3">
+  {socialLinks.map(({ icon: Icon, url, label }, idx) => (
+    <li key={idx}>
+      <a
+        href={url}
+        title={label}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-10 h-10 hover:bg-[#EA5900] focus:bg-[#EA5900]"
+      >
+        <Icon className="w-5 h-5" />
+      </a>
+    </li>
+  ))}
+</ul>
+
   </div>
 </div>
 

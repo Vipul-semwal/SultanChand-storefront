@@ -16,7 +16,7 @@ const policies = [
   },
   {
     title: 'Return Policy',
-    content: `The Customer will receive a free refund if the return is a result of our error. Such cases must be brought to our notice immediately after receipt of book(s) by emailing sultanchand74@yahoo.com. Returned books must be properly packed and received within 20 days of online ordering. Damaged returns will not be refunded.`
+    content: `The Customer will receive a free refund if the return is a result of our error. Such cases must be brought to our notice immediately after receipt of book(s) by emailing sultanchand74@yahoo.com. Returned books must be properly packed and received within 10 days of online ordering. Damaged returns will not be refunded.`
   },
   {
     title: 'Refund',
@@ -24,7 +24,7 @@ const policies = [
   },
   {
     title: 'Grievance Policy',
-    content: `For grievances, email us at sultanchand74@yahoo.com or write to our New Delhi office within 90 days of the order/invoice/payment date.`
+    content: `For grievances, email us at sultanchand74@yahoo.com or write to our New Delhi office within 15 days of the order/invoice/payment date.`
   },
   {
     title: 'Disclaimer',
@@ -35,7 +35,7 @@ const policies = [
 function PolicyPage() {
   return (
     <>
-      <GlobalHero backgroundImage='/banner.jpg' title='Policy' subtitle='Our Policy!' />
+      <GlobalHero backgroundImage='/banner.jpg' title='Policy' subtitle='The goal of a company is to have customer experience that is not just the best, but legendary  ' />
       <div className='max-w-4xl mx-auto p-4 space-y-8'>
         {policies.map((policy, index) => (
           <section key={index} className='border-b pb-4'>

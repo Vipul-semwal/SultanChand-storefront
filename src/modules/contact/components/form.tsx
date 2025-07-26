@@ -86,9 +86,9 @@ export default function ContactForm() {
           Submit
         </button>
 
-        <p className="text-xs text-gray-500 mt-3">
+        {/* <p className="text-xs text-gray-500 mt-3">
           Chicharrones blog helvetica normcore Iceland tousled brook viral artisan.
-        </p>
+        </p> */}
       </form>
     </div>
   );
