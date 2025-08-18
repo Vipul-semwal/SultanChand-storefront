@@ -45,7 +45,7 @@ Educational Books
         />
 
         {/* Legacy Section */}
-        <section className="py-12 px-4 sm:py-16 sm:px-6 bg-orange-100">
+        {/* <section className="py-12 px-4 sm:py-16 sm:px-6 bg-orange-100">
           <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-8">
             <div className="md:w-1/2">
               <img
@@ -64,10 +64,10 @@ Educational Books
               </p>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Vision and Mission Section */}
-        <section className="py-12 px-4 sm:py-16 sm:px-6">
+        {/* <section className="py-12 px-4 sm:py-16 sm:px-6">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8">Our <span className='text-[#EA5900]'>Vision</span> & <span className='text-[#EA5900]'>Mission</span></h2>
             <div className="grid grid-cols-1 items-center md:grid-cols-2 gap-8">
@@ -93,45 +93,10 @@ Educational Books
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
-        {/* Publications Section */}
-        <section className="py-12 px-4 sm:py-16 sm:px-6 bg-orange-50">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8 text-center">Our <span className='text-[#EA5900]'>Legacy</span></h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {publications.map((item,id) => (
-                <div key={item.id} className="p-3 bg-white rounded-lg flex items-center flex-col justify-center shadow-lg">
-                  <img
-                    src={item.image}
-                    alt={`Book ${item}`}
-                    className="rounded-sm max-w-full max-h-full object-cover mb-4"
-                  />
-                  <h3 className="text-sm sm:text-sm text-center font-semibold text-gray-800">{item.title}</h3>
-                  <p className="text-sm text-center sm:text-sm text-gray-600">{item.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
           <section className="px-6 md:px-12 lg:px-24 py-16 bg-white text-gray-800">
       <div className="max-w-6xl mx-auto space-y-12">
-
-        {/* Vision */}
-        <div>
-          <h2 className="text-3xl font-bold text-indigo-700 mb-4">Our Vision</h2>
-          <p className="text-lg leading-relaxed">
-            Upholding more than seven decades of academic excellence and achieving goals set by our founders and visionaries.
-          </p>
-        </div>
-
-        {/* Mission */}
-        <div>
-          <h2 className="text-3xl font-bold text-indigo-700 mb-4">Our Mission</h2>
-          <p className="text-lg leading-relaxed">
-            Sultan Chand & Sons is committed to imparting high-quality education by making reasonably priced but more valuable, reader-friendly textbooks authored by Indian teachers.
-          </p>
-        </div>
 
         {/* About Us */}
         <div>
@@ -157,6 +122,41 @@ Educational Books
           </ul>
         </div>
 
+           {/* Publications Section */}
+        <section className="py-12 px-4 sm:py-16 sm:px-6 bg-orange-50">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8 text-center">Our <span className='text-[#EA5900]'>Legacy</span></h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {publications.map((item,id) => (
+                <div key={item.id} className="p-3 bg-white rounded-lg flex items-center flex-col justify-center shadow-lg">
+                  <img
+                    src={item.image}
+                    alt={`Book ${item}`}
+                    className="rounded-sm max-w-full max-h-full object-cover mb-4"
+                  />
+                  <h3 className="text-sm sm:text-sm text-center font-semibold text-gray-800">{item.title}</h3>
+                  <p className="text-sm text-center sm:text-sm text-gray-600">{item.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Vision */}
+        <div>
+          <h2 className="text-3xl font-bold text-indigo-700 mb-4">Our Vision</h2>
+          <p className="text-lg leading-relaxed">
+            Upholding more than seven decades of academic excellence and achieving goals set by our founders and visionaries.
+          </p>
+        </div>
+
+        {/* Mission */}
+        <div>
+          <h2 className="text-3xl font-bold text-indigo-700 mb-4">Our Mission</h2>
+          <p className="text-lg leading-relaxed">
+            Sultan Chand & Sons is committed to imparting high-quality education by making reasonably priced but more valuable, reader-friendly textbooks authored by Indian teachers.
+          </p>
+        </div>
         {/* Gratitude */}
         <div>
           <p className="text-lg leading-relaxed italic text-gray-600">
