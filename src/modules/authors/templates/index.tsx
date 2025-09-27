@@ -124,7 +124,7 @@ function AuthorTemplate() {
       <Globalhero
         backgroundImage="/banner.jpg"
         title="Authors"
-        subtitle="In a creative workplace, employees responsibly try different solutions"
+        subtitle="Authors are the silent magicians of the mind—crafting worlds from words, stirring souls with sentences, and leaving entire universes between the covers of a book"
       />
       <section className="bg-white py-12">
         <div className="max-w-6xl mx-auto px-4">
@@ -133,7 +133,6 @@ function AuthorTemplate() {
               Our <span className="text-orange-400">Authors</span>
             </h2>
             <p className="text-gray-600 mt-2">
-              Authors are the silent magicians of the mind—crafting worlds from words, stirring souls with sentences, and leaving entire universes between the covers of a book
             </p>
           </div>
 
