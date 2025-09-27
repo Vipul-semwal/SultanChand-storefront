@@ -133,7 +133,7 @@ function AuthorTemplate() {
               Our <span className="text-orange-400">Authors</span>
             </h2>
             <p className="text-gray-600 mt-2">
-              In a creative workplace, employees responsibly try different solutions.
+              Authors are the silent magicians of the mind—crafting worlds from words, stirring souls with sentences, and leaving entire universes between the covers of a book
             </p>
           </div>
 

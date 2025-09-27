@@ -76,7 +76,7 @@ function Page() {
     <>
       <GlobalHero 
         backgroundImage='/banner.jpg' 
-        subtitle='There is all our gallery' 
+        subtitle='Capturing the stories behind every book' 
         title='Gallery' 
       />
 
