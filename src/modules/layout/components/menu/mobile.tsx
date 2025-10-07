@@ -43,20 +43,23 @@ const MobileViewNav: React.FC<MobileViewNavProps> = ({ isVisible, onClose }) => 
         productCategories?.filter((data) => !data.parent_category_id).map(transformProductCategory) || [],
     },
     ...collection,
-    { id: 'home', name: 'Home', path: '/', handle: 'home' },
-    // { id: 'store', name: 'Store', path: '/store', handle: '/store' },
+     { id: 'about', name: 'About', path: '/about-us', handle: '/about-us' },
+{ id: "New Releases", name: "New Releases", path: "/collections/new-releases", handle: "New Releases" },
+ { id: "Upcoming Books", name: "Upcoming Books", path: "/collections/upcoming-books", handle: "Upcoming Books" },
+ { id: "Best Sellers", name: "Best Sellers", path: "/collections/best-sellers", handle: "Upcoming Books" },
+  { id: "online-library", name: "Online Library", path: "/categories/online-library ", handle: "online-library" },
+{ id: "Publish with Us", name: "publish with us", path: "/publish-with-us ", handle: "publish-with-us" },
+{ id: "speciman-request", name: "Specimen Request", path: "/specimen-request", handle: "speciman-request" },
+ { id: 'blog', name: 'Blog', path: '/blog', handle: '/blog' },
+ { id: "Catalog-List", name: "Catalog List", path: "/catalogs", handle: "catalog-list" },
+ { id: 'gallery', name: 'Gallery', path: '/gallery', handle: '/gallery' },
+{ id: 'contact', name: 'Contact Us', path: '/contact-us', handle: '/contact-us' },
+       // { id: 'store', name: 'Store', path: '/store', handle: '/store' },
     { id: 'account', name: 'Account', path: '/account', handle: '/account' },
     { id: 'cart', name: 'Cart', path: '/cart', handle: '/cart' },
-    { id: 'contact', name: 'Contact Us', path: '/contact-us', handle: '/contact-us' },
-    { id: 'about', name: 'About', path: '/about-us', handle: '/about-us' },
-    { id: 'faq', name: 'FAQ', path: '/faq', handle: '/faq' },
-    { id: 'blog', name: 'Blog', path: '/blog', handle: '/blog' },
-    { id: 'gallery', name: 'Gallery', path: '/gallery', handle: '/gallery' },
-        { id: "Catalog-List", name: "Catalog List", path: "/catalogs", handle: "catalog-list" },
-{ id: "speciman-request", name: "Specimen Request", path: "/specimen-request", handle: "speciman-request" },
-{ id: "Publish with Us", name: "publish with us", path: "/publish-with-us ", handle: "publish-with-us" },
-   { id: "online-library", name: "Online Library", path: "/categories/online-library ", handle: "online-library" },
-  ];
+    
+       { id: 'faq', name: 'FAQ', path: '/faq', handle: '/faq' },
+                ];
 
   const handleToggleSubmenu = useCallback((id: string) => {
     setOpenSubmenus((prev) => ({
