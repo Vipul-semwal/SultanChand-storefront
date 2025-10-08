@@ -42,8 +42,8 @@ const MobileViewNav: React.FC<MobileViewNavProps> = ({ isVisible, onClose }) => 
       category_children:
         productCategories?.filter((data) => !data.parent_category_id).map(transformProductCategory) || [],
     },
-    ...collection,
-     { id: 'about', name: 'About', path: '/about-us', handle: '/about-us' },
+    // ...collection,
+     { id: 'about', name: 'About', path: '/about', handle: '/about-us' },
 { id: "New Releases", name: "New Releases", path: "/collections/new-releases", handle: "New Releases" },
  { id: "Upcoming Books", name: "Upcoming Books", path: "/collections/upcoming-books", handle: "Upcoming Books" },
  { id: "Best Sellers", name: "Best Sellers", path: "/collections/best-sellers", handle: "Upcoming Books" },
