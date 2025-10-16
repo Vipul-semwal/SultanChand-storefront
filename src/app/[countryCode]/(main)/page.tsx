@@ -12,7 +12,7 @@ import Testimonial from "@modules/home/components/reviews"
 import SecondBanner from "@modules/home/components/2ndBanner/secondBanner"
 
 export const metadata: Metadata = {
-  title: "SultanChand storeFront",
+  title: "sultan chand & Sons",
   description:
     "A performant frontend ecommerce ",
 }
